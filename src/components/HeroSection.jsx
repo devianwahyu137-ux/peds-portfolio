@@ -73,12 +73,12 @@ export default function HeroSection() {
             {/* Photo */}
             <motion.div 
               whileHover={{ scale: 1.02 }}
-              className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-white/10 overflow-hidden shadow-2xl group mx-auto lg:mx-0"
+              className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.1)] group mx-auto lg:mx-0"
             >
               <img 
-                src="./src/assets/profile-peds.jpg" 
+                src="/profile.jpg" 
                 alt="Devian Wahyu Nugroho" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                className="w-full h-full object-cover aspect-[3/4] grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
                 onError={(e) => {
                   e.target.style.display = 'none';
                   e.target.nextElementSibling.style.display = 'flex';
@@ -100,7 +100,7 @@ export default function HeroSection() {
                <div className="w-2 h-2 rounded-full bg-bullish animate-pulse"></div>
                <div>
                  <p className="text-xs font-mono text-bullish mb-0.5 tracking-wider uppercase">Market Analyst</p>
-                 <p className="text-sm font-bold text-white tracking-wide">Devian Wahyu Nugroho <span className="text-text-secondary font-normal">(Peds)</span></p>
+                 <p className="text-sm font-bold text-white tracking-wide">Devian Wahyu Nugroho <span className="text-text-secondary font-normal">(PEDS)</span></p>
                </div>
             </motion.div>
           </motion.div>
