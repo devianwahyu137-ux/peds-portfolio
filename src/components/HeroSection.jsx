@@ -87,7 +87,6 @@ export default function HeroSection() {
               {/* Fallback Placeholder */}
               <div className="hidden absolute inset-0 flex-col items-center justify-center">
                 <User className="w-20 h-20 text-white/10 mb-4" />
-                <span className="text-white/20 text-xs font-mono uppercase tracking-widest">[ HEADSHOT_SLOT ]</span>
               </div>
             </motion.div>
 
