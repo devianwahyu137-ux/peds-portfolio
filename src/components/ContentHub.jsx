@@ -73,13 +73,13 @@ export default function ContentHub() {
           {videos.map((video, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.92, filter: 'grayscale(100%) blur(4px)' }}
+              whileInView={{ opacity: 1, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
-              className="relative rounded-xl overflow-hidden cursor-pointer group shadow-2xl aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
+              className="relative rounded-xl overflow-hidden cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.2)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
               {/* Thumbnail */}
               <img 
@@ -124,12 +124,12 @@ export default function ContentHub() {
               href={report.link}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.92, filter: 'grayscale(100%) blur(4px)' }}
+              whileInView={{ opacity: 1, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
-              className="group relative flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-2xl transition-all duration-300 overflow-hidden h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
+              className="group relative flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-300 overflow-hidden h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
             >
               {/* Mathematical Grid Background */}
               <div 

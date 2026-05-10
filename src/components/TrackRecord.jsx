@@ -18,7 +18,7 @@ export default function TrackRecord() {
     },
     {
       icon: <GraduationCap className="w-6 h-6 text-white" />,
-      title: "Devian Wahyu Nugroho — Management FEB UGM",
+      title: "Devian Wahyu Nugroho - Management FEB UGM",
       subtitle: "Management FEB UGM (6th Semester)",
       description: "Bridging academic financial theory with real-market execution."
     }

@@ -70,12 +70,12 @@ export default function SocialHub() {
             href={social.link}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1, duration: 0.4 }}
+            initial={{ opacity: 0, scale: 0.92, filter: 'grayscale(100%) blur(4px)' }}
+            whileInView={{ opacity: 1, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
-            className={`group relative flex items-center justify-between p-4 rounded-xl border border-white/10 bg-[#1A1A1A]/80 backdrop-blur-sm transition-all duration-300 ${social.containerHover}`}
+            className={`group relative flex items-center justify-between p-4 rounded-xl border border-white/10 bg-[#1A1A1A]/80 backdrop-blur-sm shadow-[0_0_20px_rgba(34,197,94,0.2)] transition-all duration-300 ${social.containerHover}`}
           >
             <div className="flex items-center gap-3">
               <div className={`text-text-secondary transition-colors duration-300 ${social.textHover}`}>

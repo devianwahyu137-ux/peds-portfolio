@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function NemosProject() {
   return (
-    <section id="nemos-project" className="relative">
+    <section id="nemos-project" className="relative hidden lg:block">
       <div className="mb-12">
         <h2 className="text-3xl font-display font-bold tracking-tight mb-4">The Builder</h2>
         <div className="w-20 h-1 bg-market rounded-full"></div>
