@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base: #0D0D0D;
+  --color-bullish: #50FA7B;
+  --color-market: #3B82F6;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0AEC0;
+
+  --font-display: "Satoshi", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-base text-text-primary font-body antialiased;
+    background-color: var(--color-base);
+    color: var(--color-text-primary);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-surface border border-border backdrop-blur-xl rounded-2xl transition-all duration-300;
+  }
+  
+  .glass-card:hover {
+    @apply bg-surface-hover border-bullish/50 shadow-[0_0_20px_rgba(80,250,123,0.15)];
+  }
+
+  .text-glow-bullish {
+    text-shadow: 0 0 20px rgba(80, 250, 123, 0.4);
+  }
+
+  .text-glow-market {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+
+  .animate-ticker {
+    animation: ticker 20s linear infinite;
+  }
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
