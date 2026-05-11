@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import BackgroundOverlay from './components/BackgroundOverlay';
@@ -14,6 +14,17 @@ import CustomCursor from './components/CustomCursor';
 
 function App() {
   const { scrollYProgress } = useScroll();
+  const [isLargeScreen, setIsLargeScreen] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsLargeScreen(window.innerWidth >= 1024);
+    // Initial check
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden text-text-primary selection:bg-bullish/30 selection:text-bullish cursor-default">
@@ -31,10 +42,10 @@ function App() {
       
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24 space-y-32">
         <HeroSection />
-        <MarketTerminal />
+        {isLargeScreen && <MarketTerminal />}
         <TrackRecord />
         <RadicalTransparency />
-        <NemosProject />
+        {isLargeScreen && <NemosProject />}
         <ContentHub />
         <SocialHub />
       </main>

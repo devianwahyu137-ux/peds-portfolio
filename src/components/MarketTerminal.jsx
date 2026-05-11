@@ -10,7 +10,7 @@ export default function MarketTerminal() {
   ];
 
   return (
-    <section className="relative hidden lg:block">
+    <section className="relative">
       <div className="mb-8">
         <h2 className="text-3xl font-display font-bold tracking-tight mb-4">Market Intelligence</h2>
         <div className="w-20 h-1 bg-bullish rounded-full"></div>
