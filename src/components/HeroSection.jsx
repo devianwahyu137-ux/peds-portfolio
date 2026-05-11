@@ -10,7 +10,8 @@ export default function HeroSection() {
         {/* Left Side (60% Width) */}
         <div className="w-full lg:w-[60%]">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            layout
+            initial={{ opacity: 0.01, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -58,7 +59,8 @@ export default function HeroSection() {
         {/* Right Side (40% Width) */}
         <div className="w-full lg:w-[40%] flex justify-center lg:justify-end relative mt-12 lg:mt-0">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            layout
+            initial={{ opacity: 0.01, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
@@ -72,7 +74,8 @@ export default function HeroSection() {
 
             {/* Photo */}
             <motion.div 
-              initial={{ opacity: 0, y: 30, scale: 0.95, filter: 'grayscale(100%) blur(8px)' }}
+              layout
+              initial={{ opacity: 0.01, y: 30, scale: 0.95, filter: 'grayscale(100%) blur(8px)' }}
               whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
@@ -81,7 +84,7 @@ export default function HeroSection() {
             >
               <img 
                 src="/profile.jpg" 
-                alt="Devian Wahyu Nugroho" 
+                alt="Devian Wahyu Nugroho Portfolio Photo" 
                 loading="eager"
                 fetchpriority="high"
                 className="w-full h-full object-cover aspect-[3/4] group-hover:scale-105 transition-all duration-500 ease-in-out"
@@ -98,7 +101,8 @@ export default function HeroSection() {
 
             {/* Dynamic Text Label */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              layout
+              initial={{ opacity: 0.01, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="absolute -bottom-8 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:-bottom-6 lg:-right-12 glass-card border border-bullish/30 p-3 md:p-4 shadow-[0_0_30px_rgba(80,250,123,0.1)] z-20 flex items-center gap-2 md:gap-3 w-max max-w-[90vw]"
