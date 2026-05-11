@@ -41,6 +41,7 @@ export default function Navbar() {
           <NavItem href="#notion-journal">Journal</NavItem>
           <NavItem href="#nemos-project">Project</NavItem>
           <NavItem href="#market-briefs">Insights</NavItem>
+          <NavItem href="#social-hub">Social</NavItem>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -66,6 +67,7 @@ export default function Navbar() {
               <NavItem href="#notion-journal" onClick={() => setIsOpen(false)}>Journal</NavItem>
               <NavItem href="#nemos-project" onClick={() => setIsOpen(false)}>Project</NavItem>
               <NavItem href="#market-briefs" onClick={() => setIsOpen(false)}>Insights</NavItem>
+              <NavItem href="#social-hub" onClick={() => setIsOpen(false)}>Social</NavItem>
             </div>
           </motion.div>
         )}

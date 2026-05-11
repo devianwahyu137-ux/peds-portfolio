@@ -55,7 +55,7 @@ export default function SocialHub() {
   ];
 
   return (
-    <section className="relative" style={{ willChange: 'transform, opacity', contain: 'content' }}>
+    <section id="social-hub" className="relative scroll-mt-20" style={{ willChange: 'transform, opacity', contain: 'content' }}>
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-display font-bold tracking-tight mb-2">Digital Ecosystem</h2>
