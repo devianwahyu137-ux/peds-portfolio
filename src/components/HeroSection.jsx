@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-[70vh] flex flex-col justify-center mt-8">
+    <section className="relative min-h-[70vh] flex flex-col justify-center mt-8" style={{ willChange: 'transform, opacity' }}>
       <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
         
         {/* Left Side (60% Width) */}
         <div className="w-full lg:w-[60%]">
           <motion.div
             layout
-            initial={{ opacity: 0.01, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
@@ -60,8 +60,8 @@ export default function HeroSection() {
         <div className="w-full lg:w-[40%] flex justify-center lg:justify-end relative mt-12 lg:mt-0">
           <motion.div
             layout
-            initial={{ opacity: 0.01, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
@@ -75,9 +75,9 @@ export default function HeroSection() {
             {/* Photo */}
             <motion.div 
               layout
-              initial={{ opacity: 0.01, y: 30, scale: 0.95, filter: 'grayscale(100%) blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
-              viewport={{ once: true, amount: 0.1 }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: "some" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.02 }}
               className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.15)] group mx-auto lg:mx-0 will-change-transform"
@@ -102,7 +102,7 @@ export default function HeroSection() {
             {/* Dynamic Text Label */}
             <motion.div 
               layout
-              initial={{ opacity: 0.01, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
               className="absolute -bottom-8 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:-bottom-6 lg:-right-12 glass-card border border-bullish/30 p-3 md:p-4 shadow-[0_0_30px_rgba(80,250,123,0.1)] z-20 flex items-center gap-2 md:gap-3 w-max max-w-[90vw]"

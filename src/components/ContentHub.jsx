@@ -60,7 +60,7 @@ export default function ContentHub() {
   ];
 
   return (
-    <section className="relative space-y-24">
+    <section className="relative space-y-24" style={{ willChange: 'transform, opacity' }}>
       
       {/* Area 1: Market Briefs */}
       <div id="market-briefs" className="scroll-mt-24">
@@ -73,9 +73,9 @@ export default function ContentHub() {
           {videos.map((video, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30, scale: 0.95, filter: 'grayscale(100%) blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
-              viewport={{ once: true, amount: 0.1 }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: "some" }}
               transition={{ delay: idx * 0.1, duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
@@ -85,7 +85,10 @@ export default function ContentHub() {
               <img 
                 src={video.thumbnail} 
                 alt={video.title} 
-                className="w-full h-full object-cover transition-all duration-500 ease-in-out"
+                loading="lazy"
+                width="640"
+                height="360"
+                className="w-full h-full object-cover transition-all duration-500 ease-in-out aspect-video"
               />
               
               {/* Glass Overlay */}
@@ -124,9 +127,9 @@ export default function ContentHub() {
               href={report.link}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30, scale: 0.95, filter: 'grayscale(100%) blur(8px)' }}
-              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'grayscale(0%) blur(0px)' }}
-              viewport={{ once: true, amount: 0.1 }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: "some" }}
               transition={{ delay: idx * 0.1, duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               className="group relative flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 overflow-hidden h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
