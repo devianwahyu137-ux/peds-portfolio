@@ -60,7 +60,7 @@ export default function ContentHub() {
   ];
 
   return (
-    <section className="relative space-y-24" style={{ willChange: 'transform, opacity' }}>
+    <section className="relative space-y-24" style={{ willChange: 'transform, opacity', contain: 'content' }}>
       
       {/* Area 1: Market Briefs */}
       <div id="market-briefs" className="scroll-mt-24">
@@ -75,8 +75,8 @@ export default function ContentHub() {
               key={idx}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: "some" }}
-              transition={{ delay: idx * 0.1, duration: 0.4, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.01, margin: "100px" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
               className="relative rounded-xl overflow-hidden cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
@@ -129,8 +129,8 @@ export default function ContentHub() {
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: "some" }}
-              transition={{ delay: idx * 0.1, duration: 0.4, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.01, margin: "100px" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               className="group relative flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 overflow-hidden h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
             >

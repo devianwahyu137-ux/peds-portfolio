@@ -62,7 +62,7 @@ export default function HeroSection() {
             layout
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8 }}
             className="relative"
           >
             {/* Neo-modern Nametag / Visual Frame */}
@@ -77,16 +77,17 @@ export default function HeroSection() {
               layout
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: "some" }}
+              viewport={{ once: true, amount: 0.01, margin: "100px" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.02 }}
               className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.15)] group mx-auto lg:mx-0 will-change-transform"
             >
               <img 
-                src="/profile.jpg" 
+                src="/profile.webp" 
                 alt="Devian Wahyu Nugroho Portfolio Photo" 
                 loading="eager"
                 fetchpriority="high"
+                decoding="async"
                 className="w-full h-full object-cover aspect-[3/4] group-hover:scale-105 transition-all duration-500 ease-in-out"
                 onError={(e) => {
                   e.target.style.display = 'none';
@@ -104,7 +105,7 @@ export default function HeroSection() {
               layout
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              transition={{ duration: 0.5 }}
               className="absolute -bottom-8 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:-bottom-6 lg:-right-12 glass-card border border-bullish/30 p-3 md:p-4 shadow-[0_0_30px_rgba(80,250,123,0.1)] z-20 flex items-center gap-2 md:gap-3 w-max max-w-[90vw]"
             >
                <div className="w-2 h-2 rounded-full bg-bullish animate-pulse"></div>

@@ -55,7 +55,7 @@ export default function SocialHub() {
   ];
 
   return (
-    <section className="relative" style={{ willChange: 'transform, opacity' }}>
+    <section className="relative" style={{ willChange: 'transform, opacity', contain: 'content' }}>
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-display font-bold tracking-tight mb-2">Digital Ecosystem</h2>
@@ -72,8 +72,8 @@ export default function SocialHub() {
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: "some" }}
-            transition={{ delay: idx * 0.1, duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.01, margin: "100px" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
             className={`group relative flex items-center justify-between p-4 rounded-xl border border-white/10 bg-[#1A1A1A]/80 backdrop-blur-sm shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 ${social.containerHover}`}
           >
