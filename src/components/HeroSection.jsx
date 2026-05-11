@@ -77,11 +77,13 @@ export default function HeroSection() {
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.02 }}
-              className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.15)] group mx-auto lg:mx-0"
+              className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.15)] group mx-auto lg:mx-0 will-change-transform"
             >
               <img 
                 src="/profile.jpg" 
                 alt="Devian Wahyu Nugroho" 
+                loading="eager"
+                fetchpriority="high"
                 className="w-full h-full object-cover aspect-[3/4] group-hover:scale-105 transition-all duration-500 ease-in-out"
                 onError={(e) => {
                   e.target.style.display = 'none';

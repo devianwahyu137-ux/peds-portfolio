@@ -37,7 +37,7 @@ function App() {
       />
 
       <BackgroundOverlay />
-      <PriceTicker />
+      {isLargeScreen && <PriceTicker />}
       <Navbar />
       
       <main className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24 space-y-32">
