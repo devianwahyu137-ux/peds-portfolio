@@ -49,13 +49,13 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div className="w-full max-w-7xl flex flex-col gap-12">
+        <div className="w-full max-w-7xl flex flex-col gap-12 p-12 -m-12 relative overflow-visible isolate">
           {projectsData.map((project, index) => {
             const isEven = index % 2 === 0;
             return (
               <div 
                 key={project.id}
-                className={`group w-full relative z-10 transform-gpu will-change-transform hover:z-30 bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-6 lg:p-8 transition-all duration-500 ease-out hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                className={`group w-full relative z-10 transform-gpu will-change-transform bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-6 lg:p-8 transition-all duration-500 ease-out hover:z-[999] hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
               >
                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-center">
                   {/* Text Container */}

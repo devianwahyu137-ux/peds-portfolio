@@ -69,7 +69,7 @@ export default function ContentHub() {
           <div className="w-20 h-1 bg-white rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-2 -m-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-12 -m-12 relative overflow-visible isolate">
           {videos.map((video, idx) => (
             <motion.div
               key={idx}
@@ -79,7 +79,7 @@ export default function ContentHub() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
-              className="relative z-10 transform-gpu will-change-transform hover:z-30 rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-500 ease-out"
+              className="relative z-10 transform-gpu will-change-transform rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-500 ease-out hover:z-[999]"
             >
               {/* Thumbnail */}
               <img 
@@ -136,7 +136,7 @@ export default function ContentHub() {
           <div className="w-20 h-1 bg-white rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-12 -m-12 relative overflow-visible isolate">
           {reports.map((report, idx) => (
             <motion.a
               key={idx}
@@ -148,7 +148,7 @@ export default function ContentHub() {
               viewport={{ once: true, amount: 0.01, margin: "100px" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
-              className="group relative z-10 transform-gpu will-change-transform hover:z-30 flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-500 ease-out h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
+              className="group relative z-10 transform-gpu will-change-transform flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-500 ease-out h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 hover:z-[999]"
             >
               {/* Mathematical Grid Background */}
               <div 
@@ -193,7 +193,7 @@ export default function ContentHub() {
         {/* Substack & Medium Gateways */}
         <div className="w-full flex flex-col md:flex-row justify-center items-stretch gap-6 mt-8">
           {/* Substack Gateway Card */}
-          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform hover:z-30 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500 ease-out">
+          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500 ease-out hover:z-[999]">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>STRAT_WRITING // 01</span>
@@ -209,7 +209,7 @@ export default function ContentHub() {
           </a>
 
           {/* Medium Gateway Card */}
-          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform hover:z-30 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500 ease-out">
+          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500 ease-out hover:z-[999]">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>TECH_REPORTS // 02</span>

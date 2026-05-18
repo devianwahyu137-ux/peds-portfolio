@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden text-text-primary selection:bg-bullish/30 selection:text-bullish cursor-default">
+    <div className="relative w-full min-h-screen bg-black isolate overflow-visible text-text-primary selection:bg-bullish/30 selection:text-bullish cursor-default">
       <CustomCursor />
       
       {/* Scroll Progress Bar */}
@@ -52,14 +52,10 @@ function App() {
         <SocialHub />
       </main>
 
-      <footer className="border-t border-border mt-32 py-12 text-center text-text-secondary text-sm">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} Devian Wahyu Nugroho. Institutional Execution.</p>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-bullish animate-pulse"></span>
-            <span>Systems Online</span>
-          </div>
-        </div>
+      <footer className="w-full py-10 mt-16 border-t border-neutral-900 text-center relative z-20">
+        <p className="text-neutral-600 font-mono text-[10px] tracking-[0.3em] uppercase">
+          © 2026 Devian Wahyu Nugroho. All rights reserved.
+        </p>
       </footer>
     </div>
   );
