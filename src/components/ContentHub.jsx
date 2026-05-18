@@ -60,7 +60,7 @@ export default function ContentHub() {
   ];
 
   return (
-    <section className="relative space-y-24" style={{ willChange: 'transform, opacity', contain: 'content' }}>
+    <section className="relative w-full space-y-24 isolate overflow-visible" style={{ willChange: 'transform, opacity' }}>
       
       {/* Area 1: Market Briefs */}
       <div id="market-briefs" className="scroll-mt-24">
@@ -79,7 +79,7 @@ export default function ContentHub() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
-              className="relative z-10 hover:z-20 rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
+              className="relative z-10 transform-gpu will-change-transform hover:z-30 rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-500 ease-out"
             >
               {/* Thumbnail */}
               <img 
@@ -148,7 +148,7 @@ export default function ContentHub() {
               viewport={{ once: true, amount: 0.01, margin: "100px" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
-              className="group relative z-10 hover:z-20 flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
+              className="group relative z-10 transform-gpu will-change-transform hover:z-30 flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-500 ease-out h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
             >
               {/* Mathematical Grid Background */}
               <div 
@@ -191,9 +191,9 @@ export default function ContentHub() {
         </div>
 
         {/* Substack & Medium Gateways */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 p-2 -m-2">
+        <div className="w-full flex flex-col md:flex-row justify-center items-stretch gap-6 mt-8">
           {/* Substack Gateway Card */}
-          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="relative z-10 hover:z-20 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500">
+          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform hover:z-30 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500 ease-out">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>STRAT_WRITING // 01</span>
@@ -202,14 +202,14 @@ export default function ContentHub() {
               <h4 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">PedsAnalysis Macro Letters ↗</h4>
               <p className="text-xs text-neutral-400 leading-relaxed">Analisis berkala mengenai pergeseran geopolitik global, pelacakan likuiditas, dan dampaknya terhadap arsitektur makroekonomi.</p>
             </div>
-            <div className="mt-6 pt-4 border-t border-neutral-900 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
-              <span className="font-mono text-[9px] tracking-widest uppercase">Subscribe to Letters</span>
-              <span className="text-sm transform group-hover:translate-x-1 transition-transform duration-300 text-orange-500/70 group-hover:text-orange-400">→</span>
+            <div className="mt-auto pt-4 border-t border-neutral-900/60 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
+              <span className="font-mono text-[9px] tracking-widest uppercase">Access Publication Stream</span>
+              <span className="text-xs transform group-hover:translate-x-1 transition-transform duration-300">→</span>
             </div>
           </a>
 
           {/* Medium Gateway Card */}
-          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="relative z-10 hover:z-20 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500">
+          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform hover:z-30 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500 ease-out">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>TECH_REPORTS // 02</span>
@@ -218,9 +218,9 @@ export default function ContentHub() {
               <h4 className="text-base font-bold text-white group-hover:text-neutral-300 transition-colors">ChastFlash Publications ↗</h4>
               <p className="text-xs text-neutral-400 leading-relaxed">Dokumentasi riset kuantitatif, analisis komparatif protokol desentralisasi, serta catatan teknis mengenai mekanisme pasar keuangan.</p>
             </div>
-            <div className="mt-6 pt-4 border-t border-neutral-900 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
-              <span className="font-mono text-[9px] tracking-widest uppercase">Open Research Archive</span>
-              <span className="text-sm transform group-hover:translate-x-1 transition-transform duration-300 text-neutral-400">→</span>
+            <div className="mt-auto pt-4 border-t border-neutral-900/60 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
+              <span className="font-mono text-[9px] tracking-widest uppercase">Access Publication Stream</span>
+              <span className="text-xs transform group-hover:translate-x-1 transition-transform duration-300">→</span>
             </div>
           </a>
         </div>

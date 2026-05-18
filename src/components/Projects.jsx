@@ -39,7 +39,7 @@ const projectsData = [
 
 export default function Projects() {
   return (
-    <section id="builder" className="w-full min-h-screen bg-black py-12 px-4 md:px-8 flex flex-col gap-10 items-center">
+    <section id="builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-4 md:px-8 flex flex-col gap-10 items-center">
         
         {/* Uniform Section Header */}
         <div className="w-full max-w-7xl mb-10 flex flex-col items-start">
@@ -55,7 +55,7 @@ export default function Projects() {
             return (
               <div 
                 key={project.id}
-                className={`group w-full bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-6 lg:p-8 transition-all duration-500 hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                className={`group w-full relative z-10 transform-gpu will-change-transform hover:z-30 bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-6 lg:p-8 transition-all duration-500 ease-out hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
               >
                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-center">
                   {/* Text Container */}
