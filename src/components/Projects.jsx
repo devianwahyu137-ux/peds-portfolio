@@ -39,7 +39,7 @@ const projectsData = [
 
 export default function Projects() {
   return (
-    <section id="builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-4 md:px-8 flex flex-col gap-10 items-center">
+    <section id="builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-3 sm:px-6 md:px-8 flex flex-col gap-10 items-center">
         
         {/* Uniform Section Header */}
         <div className="w-full max-w-7xl mb-10 flex flex-col items-start">
@@ -55,7 +55,7 @@ export default function Projects() {
             return (
               <div 
                 key={project.id}
-                className={`group w-full relative z-10 transform-gpu will-change-transform bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-6 lg:p-8 transition-all duration-500 ease-out hover:z-[999] hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                className={`group w-full relative z-10 transform-gpu will-change-transform bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-4 sm:p-6 lg:p-8 transition-all duration-500 ease-out hover:z-[999] hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
               >
                 <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-center">
                   {/* Text Container */}
@@ -74,10 +74,10 @@ export default function Projects() {
                     <div className="space-y-1 mt-2">
                       {project.features.map((feature, i) => (
                         <div key={i} className="flex items-start gap-3 font-mono text-neutral-400 mt-2">
-                          <span className="flex-shrink-0 text-[9px] px-2 py-0.5 rounded font-bold bg-neutral-900 border border-neutral-800 text-neutral-400 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors uppercase tracking-wider mt-0.5">
+                          <span className="flex-shrink-0 text-[9px] px-2 py-0.5 rounded font-mono bg-neutral-900 border border-neutral-800 text-neutral-400 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors uppercase tracking-wider mt-0.5">
                             {feature.badge}
                           </span>
-                          <p className="text-xs leading-relaxed">
+                          <p className="text-xs sm:text-sm leading-relaxed text-neutral-400">
                             <strong className="text-neutral-200 font-semibold">{feature.title} :</strong> {feature.desc}
                           </p>
                         </div>
