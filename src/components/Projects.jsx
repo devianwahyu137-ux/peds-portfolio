@@ -41,20 +41,12 @@ export default function Projects() {
   return (
     <section id="builder" className="w-full min-h-screen bg-black py-12 px-4 md:px-8 flex flex-col gap-10 items-center">
         
-        {/* Premium Integrated Header */}
-        <div className="w-full max-w-7xl border-b border-neutral-900 pb-3 mb-6 flex items-center justify-between">
-          <div className="space-y-1">
-            <p className="text-[9px] font-mono tracking-[0.4em] text-emerald-400 bg-emerald-950/30 px-2 py-0.5 rounded border border-emerald-500/20 inline-block uppercase">
-              SEC_02 // DEPLOYED_SYSTEMS
-            </p>
-            <h2 className="text-lg font-bold font-mono tracking-tight text-white uppercase flex items-center gap-2">
-              THE BUILDER ARCHIVE <span className="text-[10px] text-neutral-600 font-normal lowercase">v1.0.4</span>
-            </h2>
-          </div>
-          <div className="hidden sm:flex items-center gap-1.5 font-mono text-[9px] text-neutral-500 bg-neutral-950 px-2 py-1 rounded border border-neutral-900">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            CORE_SYNC: ACTIVE
-          </div>
+        {/* Uniform Section Header */}
+        <div className="w-full max-w-7xl mb-10 flex flex-col items-start">
+          <h2 className="text-2xl font-bold text-white tracking-tight relative pb-2">
+            The Builder Archive
+            <span className="absolute bottom-0 left-0 w-12 h-[3px] bg-white rounded-full" />
+          </h2>
         </div>
 
         <div className="w-full max-w-7xl flex flex-col gap-12">
@@ -69,8 +61,14 @@ export default function Projects() {
                   {/* Text Container */}
                   <div className={`col-span-1 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                     <a href={project.link} className="block w-fit mb-2">
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
-                        {project.title} <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                      <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2 group-hover:text-emerald-400 transition-colors">
+                        {project.title}
+                        <svg 
+                          className="w-4 h-4 text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0" 
+                          fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
                       </h3>
                     </a>
                     <div className="space-y-1 mt-2">
