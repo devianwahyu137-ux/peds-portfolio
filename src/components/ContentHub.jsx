@@ -69,7 +69,7 @@ export default function ContentHub() {
           <div className="w-20 h-1 bg-white rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-2 -m-2">
           {videos.map((video, idx) => (
             <motion.div
               key={idx}
@@ -79,7 +79,7 @@ export default function ContentHub() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
               onClick={() => setActiveVideo(video.id)}
-              className="relative rounded-xl overflow-hidden cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
+              className="relative z-10 hover:z-20 rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-300"
             >
               {/* Thumbnail */}
               <img 
@@ -88,11 +88,11 @@ export default function ContentHub() {
                 loading="lazy"
                 width="640"
                 height="360"
-                className="w-full h-full object-cover transition-all duration-500 ease-in-out aspect-video"
+                className="w-full h-full object-cover rounded-xl transition-all duration-500 ease-in-out aspect-video"
               />
               
               {/* Glass Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4 rounded-xl">
                 <span className="self-start px-2 py-1 bg-black/50 backdrop-blur-md border border-white/10 rounded text-[10px] font-mono tracking-widest text-white/80">
                   {video.tag}
                 </span>
@@ -148,11 +148,11 @@ export default function ContentHub() {
               viewport={{ once: true, amount: 0.01, margin: "100px" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               whileHover={{ scale: 1.05 }}
-              className="group relative flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 overflow-hidden h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
+              className="group relative z-10 hover:z-20 flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30"
             >
               {/* Mathematical Grid Background */}
               <div 
-                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-xl"
                 style={{
                   backgroundImage: `linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)`,
                   backgroundSize: '20px 20px'
@@ -191,9 +191,9 @@ export default function ContentHub() {
         </div>
 
         {/* Substack & Medium Gateways */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 p-2 -m-2">
           {/* Substack Gateway Card */}
-          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500">
+          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="relative z-10 hover:z-20 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>STRAT_WRITING // 01</span>
@@ -209,7 +209,7 @@ export default function ContentHub() {
           </a>
 
           {/* Medium Gateway Card */}
-          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500">
+          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="relative z-10 hover:z-20 group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500">
             <div className="space-y-3">
               <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
                 <span>TECH_REPORTS // 02</span>
