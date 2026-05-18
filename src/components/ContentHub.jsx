@@ -118,9 +118,11 @@ export default function ContentHub() {
             href="https://youtube.com/@chastflash?si=XHy7taOhQFG25iiD" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase py-2.5 px-6 rounded-full bg-neutral-950 border border-neutral-900 hover:border-emerald-500/30 hover:text-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)] transition-all duration-300"
+            className="group flex items-center gap-2 font-mono text-[10px] tracking-wider text-neutral-500 hover:text-white transition-colors duration-300 uppercase"
           >
-            [ LAUNCH_FULL_YOUTUBE_INTERFACE ↗ ]
+            <span className="w-1.5 h-1.5 rounded-sm bg-neutral-700 group-hover:bg-red-500 group-hover:scale-110 transition-all duration-300 rotate-45" />
+            <span>Launch YouTube Interface</span>
+            <span className="text-neutral-700 group-hover:text-white group-hover:translate-x-1 transition-transform duration-300">→</span>
           </a>
         </div>
       </div>
@@ -198,7 +200,10 @@ export default function ContentHub() {
               <h4 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">PedsAnalysis Macro Letters ↗</h4>
               <p className="text-xs text-neutral-400 leading-relaxed">Analisis berkala mengenai pergeseran geopolitik global, pelacakan likuiditas, dan dampaknya terhadap arsitektur makroekonomi.</p>
             </div>
-            <span className="font-mono text-[9px] text-neutral-500 mt-6 tracking-wider group-hover:text-neutral-400 transition-colors">[ SUBSCRIBE_TO_LETTERS_STREAM ]</span>
+            <div className="mt-6 pt-4 border-t border-neutral-900 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
+              <span className="font-mono text-[9px] tracking-widest uppercase">Subscribe to Letters</span>
+              <span className="text-sm transform group-hover:translate-x-1 transition-transform duration-300 text-orange-500/70 group-hover:text-orange-400">→</span>
+            </div>
           </a>
 
           {/* Medium Gateway Card */}
@@ -211,7 +216,10 @@ export default function ContentHub() {
               <h4 className="text-base font-bold text-white group-hover:text-neutral-300 transition-colors">ChastFlash Publications ↗</h4>
               <p className="text-xs text-neutral-400 leading-relaxed">Dokumentasi riset kuantitatif, analisis komparatif protokol desentralisasi, serta catatan teknis mengenai mekanisme pasar keuangan.</p>
             </div>
-            <span className="font-mono text-[9px] text-neutral-500 mt-6 tracking-wider group-hover:text-neutral-400 transition-colors">[ OPEN_RESEARCH_ARCHIVE ]</span>
+            <div className="mt-6 pt-4 border-t border-neutral-900 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
+              <span className="font-mono text-[9px] tracking-widest uppercase">Open Research Archive</span>
+              <span className="text-sm transform group-hover:translate-x-1 transition-transform duration-300 text-neutral-400">→</span>
+            </div>
           </a>
         </div>
       </div>

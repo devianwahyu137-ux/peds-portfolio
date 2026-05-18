@@ -120,9 +120,18 @@ export default function Projects() {
         </div>
 
         {/* Directory Footer */}
-        <div className="w-full flex justify-center mt-6">
-          <a href="#YOUR_FUTURE_DIRECTORY" className="font-mono text-[9px] tracking-widest text-emerald-400 uppercase py-2.5 px-5 rounded-full bg-emerald-950/10 border border-emerald-500/20 hover:bg-emerald-950/30 hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] transition-all duration-300">
-            [ VIEW_GLOBAL_DIRECTORY_AND_PLATFORMS ↗ ]
+        <div className="w-full flex justify-center mt-12">
+          <a 
+            href="#YOUR_DIRECTORY_LINK" 
+            className="group flex items-center gap-3 font-mono text-[10px] font-medium tracking-[0.2em] text-neutral-400 bg-neutral-900/40 backdrop-blur-md border border-neutral-800/80 rounded-full py-3 px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] hover:border-emerald-500/40 hover:text-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.08),inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 uppercase"
+          >
+            <span>Explore Global Directory</span>
+            <svg 
+              className="w-3 h-3 text-neutral-600 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" 
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+            </svg>
           </a>
         </div>
       </section>
