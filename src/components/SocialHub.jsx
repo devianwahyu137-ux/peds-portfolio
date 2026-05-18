@@ -55,7 +55,7 @@ export default function SocialHub() {
   ];
 
   return (
-    <section id="social-hub" className="relative scroll-mt-20" style={{ willChange: 'transform, opacity', contain: 'content' }}>
+    <section id="social-hub" className="relative w-full overflow-visible isolate py-12 scroll-mt-20" style={{ willChange: 'transform, opacity' }}>
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-display font-bold tracking-tight mb-2">Digital Ecosystem</h2>
@@ -63,7 +63,7 @@ export default function SocialHub() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 -m-6 relative overflow-visible isolate">
         {socials.map((social, idx) => (
           <motion.a
             key={idx}
@@ -75,7 +75,7 @@ export default function SocialHub() {
             viewport={{ once: true, amount: 0.01, margin: "100px" }}
             transition={{ duration: 0.4, ease: "easeOut" }}
             whileHover={{ scale: 1.05 }}
-            className={`group relative flex items-center justify-between p-4 rounded-xl border border-white/10 bg-[#1A1A1A]/80 backdrop-blur-sm shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 ${social.containerHover}`}
+            className={`group relative z-10 transform-gpu will-change-transform flex items-center justify-between p-4 rounded-xl border border-white/10 bg-[#1A1A1A]/80 backdrop-blur-sm shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-300 hover:z-50 hover:scale-[1.02] ${social.containerHover}`}
           >
             <div className="flex items-center gap-3">
               <div className={`text-text-secondary transition-colors duration-300 ${social.textHover}`}>
