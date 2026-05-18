@@ -4,7 +4,6 @@ const projectsData = [
   {
     id: 'peds-terminal',
     title: 'PEDS Terminal DSS',
-    description: 'A sophisticated decision support system designed for institutional execution.',
     features: [
       '[📊] RISK_QUANT : Position sizing optimization parameters.',
       '[🔍] MACRO_FEED : Institutional sentiment tracking mechanism.',
@@ -17,7 +16,6 @@ const projectsData = [
   {
     id: 'nemos-ecosystem',
     title: 'NEMOS Ecosystem',
-    description: 'A state-of-the-art fintech infrastructure designed to empower MSMEs.',
     features: [
       '[💻] DEPLOYMENT : Fullstack server architecture with automated DevOps pipeline.',
       '[🛡️] OPS_STATUS : Secure authentication and real-time operational status monitoring.'
@@ -29,7 +27,6 @@ const projectsData = [
   {
     id: 'future-project',
     title: 'Next-Gen Aggregator',
-    description: 'High-frequency liquidity aggregation platform bridging decentralized finance protocols.',
     features: [
       '[⚡] LOW_LATENCY : Sub-millisecond execution routing across fragmented liquidity pools.',
       '[🔗] CROSS_CHAIN : Seamless interoperability with traditional financial infrastructure.'
@@ -42,11 +39,14 @@ const projectsData = [
 
 export default function Projects() {
   return (
-    <section id="builder" className="w-full min-h-screen bg-black py-8 px-4 md:px-8 flex flex-col gap-10 items-center">
+    <section id="builder" className="w-full min-h-screen bg-black py-8 px-4 md:px-8 flex flex-col gap-12 items-center">
         
-        {/* Ultra-Compact Section Header */}
-        <div className="w-full max-w-7xl border-b border-neutral-900 pb-2 mb-4">
-          <p className="text-[10px] font-mono tracking-[0.3em] text-emerald-500/60 uppercase">02 / PORTFOLIO_ARCHIVE</p>
+        {/* Tighter Compact Section Header */}
+        <div className="w-full max-w-7xl border-b border-neutral-900 pb-2 mb-6">
+          <div className="flex items-center gap-2 text-[10px] font-mono tracking-[0.3em] text-neutral-500 uppercase">
+            <span className="w-4 h-px bg-emerald-900" />
+            <span>02 // PORTFOLIO_ARCHIVE</span>
+          </div>
           <h2 className="text-lg font-bold font-mono tracking-tight text-white mt-0.5">THE BUILDER DASHBOARD</h2>
         </div>
 
@@ -60,14 +60,11 @@ export default function Projects() {
               >
                 {/* Text Container */}
                 <div className={`col-span-1 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                  <a href={project.link} className="group block w-fit">
+                  <a href={project.link} className="group block w-fit mb-4">
                     <h3 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
                       {project.title} <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
                     </h3>
                   </a>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-4">
-                    {project.description}
-                  </p>
                   <ul className="space-y-2">
                     {project.features.map((feature, i) => (
                       <li key={i} className="text-[13px] text-neutral-400 font-mono leading-relaxed">
@@ -81,7 +78,7 @@ export default function Projects() {
                 <div className={`col-span-1 lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
                   <a 
                     href={project.link} 
-                    className="group block relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-800/60 p-0.5 overflow-hidden transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.04)] hover:-translate-y-0.5"
+                    className="group block relative aspect-video rounded-xl bg-neutral-950 border border-neutral-800/60 p-0.5 overflow-hidden transition-all duration-500 hover:border-emerald-500/30 hover:shadow-[0_0_30px_rgba(16,185,129,0.04)] hover:-translate-y-0.5"
                   >
                     <img 
                       src={project.image} 
