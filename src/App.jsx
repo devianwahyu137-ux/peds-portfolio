@@ -7,7 +7,7 @@ import MarketTerminal from './components/MarketTerminal';
 import PriceTicker from './components/PriceTicker';
 import RadicalTransparency from './components/RadicalTransparency';
 import TrackRecord from './components/TrackRecord';
-import Projects from './components/Projects';
+const Projects = React.lazy(() => import('./components/Projects'));
 import ContentHub from './components/ContentHub';
 import SocialHub from './components/SocialHub';
 import CustomCursor from './components/CustomCursor';
@@ -45,7 +45,9 @@ function App() {
         {isLargeScreen && <MarketTerminal />}
         <TrackRecord />
         <RadicalTransparency />
-        <Projects />
+        <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
+          <Projects />
+        </React.Suspense>
         <ContentHub />
         <SocialHub />
       </main>
