@@ -40,7 +40,7 @@ function App() {
       {isLargeScreen && <PriceTicker />}
       <Navbar />
       
-      <main className="relative z-10 max-w-7xl mx-auto px-6 py-12 md:py-24 space-y-32">
+      <main className="relative z-10 max-w-7xl mx-auto px-3 md:px-6 py-12 md:py-24 space-y-32">
         <HeroSection />
         {isLargeScreen && <MarketTerminal />}
         <TrackRecord />
