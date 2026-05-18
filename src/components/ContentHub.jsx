@@ -111,6 +111,18 @@ export default function ContentHub() {
             </motion.div>
           ))}
         </div>
+
+        {/* YouTube Gateway */}
+        <div className="w-full flex justify-center mt-10">
+          <a 
+            href="https://youtube.com/@chastflash?si=XHy7taOhQFG25iiD" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="font-mono text-[10px] tracking-widest text-neutral-400 uppercase py-2.5 px-6 rounded-full bg-neutral-950 border border-neutral-900 hover:border-emerald-500/30 hover:text-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.05)] transition-all duration-300"
+          >
+            [ LAUNCH_FULL_YOUTUBE_INTERFACE ↗ ]
+          </a>
+        </div>
       </div>
 
       {/* Area 2: Research Reports */}
@@ -172,6 +184,35 @@ export default function ContentHub() {
               </div>
             </motion.a>
           ))}
+        </div>
+
+        {/* Substack & Medium Gateways */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {/* Substack Gateway Card */}
+          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
+                <span>STRAT_WRITING // 01</span>
+                <span className="text-orange-400 bg-orange-950/20 px-2 py-0.5 rounded border border-orange-500/10 tracking-wider">SUBSTACK</span>
+              </div>
+              <h4 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">PedsAnalysis Macro Letters ↗</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">Analisis berkala mengenai pergeseran geopolitik global, pelacakan likuiditas, dan dampaknya terhadap arsitektur makroekonomi.</p>
+            </div>
+            <span className="font-mono text-[9px] text-neutral-500 mt-6 tracking-wider group-hover:text-neutral-400 transition-colors">[ SUBSCRIBE_TO_LETTERS_STREAM ]</span>
+          </a>
+
+          {/* Medium Gateway Card */}
+          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
+                <span>TECH_REPORTS // 02</span>
+                <span className="text-neutral-300 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 tracking-wider">MEDIUM</span>
+              </div>
+              <h4 className="text-base font-bold text-white group-hover:text-neutral-300 transition-colors">ChastFlash Publications ↗</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">Dokumentasi riset kuantitatif, analisis komparatif protokol desentralisasi, serta catatan teknis mengenai mekanisme pasar keuangan.</p>
+            </div>
+            <span className="font-mono text-[9px] text-neutral-500 mt-6 tracking-wider group-hover:text-neutral-400 transition-colors">[ OPEN_RESEARCH_ARCHIVE ]</span>
+          </a>
         </div>
       </div>
 
