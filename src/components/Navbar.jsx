@@ -29,6 +29,17 @@ const NavItem = ({ href, children, onClick }) => {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleProjectClick = (e) => {
+    e.preventDefault();
+    const target = document.getElementById('the-builder');
+    if (target) {
+      target.scrollIntoView({ 
+        behavior: 'auto', // Disables heavy cinematic smooth-lag, shifts to instant precise frame alignment
+        block: 'start' 
+      });
+    }
+  };
+
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-border bg-base/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -39,7 +50,7 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8 text-sm font-medium">
           <NavItem href="#notion-journal">Journal</NavItem>
-          <NavItem href="#nemos-project">Project</NavItem>
+          <NavItem href="#the-builder" onClick={handleProjectClick}>Project</NavItem>
           <NavItem href="#market-briefs">Insights</NavItem>
           <NavItem href="#social-hub">Social</NavItem>
         </div>
@@ -65,7 +76,7 @@ export default function Navbar() {
           >
             <div className="flex flex-col px-6 py-6 space-y-6 text-base font-medium">
               <NavItem href="#notion-journal" onClick={() => setIsOpen(false)}>Journal</NavItem>
-              <NavItem href="#nemos-project" onClick={() => setIsOpen(false)}>Project</NavItem>
+              <NavItem href="#the-builder" onClick={(e) => { handleProjectClick(e); setIsOpen(false); }}>Project</NavItem>
               <NavItem href="#market-briefs" onClick={() => setIsOpen(false)}>Insights</NavItem>
               <NavItem href="#social-hub" onClick={() => setIsOpen(false)}>Social</NavItem>
             </div>

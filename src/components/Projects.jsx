@@ -39,7 +39,7 @@ const projectsData = [
 
 export default function Projects() {
   return (
-    <section id="builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-3 sm:px-6 md:px-8 flex flex-col gap-10 items-center">
+    <section id="the-builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-3 sm:px-6 md:px-8 flex flex-col gap-10 items-center">
         
         {/* Uniform Section Header */}
         <div className="w-full max-w-7xl mb-10 flex flex-col items-start">

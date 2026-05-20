@@ -3,6 +3,17 @@ import { Activity, Globe, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function HeroSection() {
+  const handleProjectClick = (e) => {
+    e.preventDefault();
+    const target = document.getElementById('the-builder');
+    if (target) {
+      target.scrollIntoView({ 
+        behavior: 'auto', // Disables heavy cinematic smooth-lag, shifts to instant precise frame alignment
+        block: 'start' 
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-[70vh] flex flex-col justify-center mt-8" style={{ willChange: 'transform, opacity' }}>
       <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
@@ -45,7 +56,8 @@ export default function HeroSection() {
                 <span className="relative z-10">View Trading Journal</span>
               </a>
               <a 
-                href="#nemos-project" 
+                href="#the-builder" 
+                onClick={handleProjectClick}
                 className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface border border-white/20 text-white font-semibold rounded-lg overflow-hidden transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
               >
                 <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
