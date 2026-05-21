@@ -1,4 +1,5 @@
 import React from 'react';
+import AboutSection from './AboutSection';
 
 const projectsData = [
   {
@@ -48,6 +49,9 @@ export default function Projects() {
             <span className="absolute bottom-0 left-0 w-12 h-[3px] bg-white rounded-full" />
           </h2>
         </div>
+
+        {/* Builder Profile Subsection */}
+        <AboutSection />
 
         <div className="w-full max-w-7xl flex flex-col gap-12 p-12 -m-12 relative overflow-visible isolate">
           {projectsData.map((project, index) => {
