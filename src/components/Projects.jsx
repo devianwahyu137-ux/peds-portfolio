@@ -65,33 +65,8 @@ export default function Projects() {
                   key="about-card"
                   className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-2xl p-6 border border-neutral-800 bg-[#000] min-h-[320px] ${index > 0 ? '[content-visibility:auto]' : ''}`}
                 >
-                  {/* LEFT COLUMN: PROJECT TEXT SPEC (col-span-1 lg:col-span-5) */}
-                  <div className={`space-y-4 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                    <div className="space-y-1">
-                      <h3 className="text-lg font-black font-mono text-white tracking-tight uppercase flex items-center gap-1">
-                        Sovereign Axis <span className="text-xs">↗</span>
-                      </h3>
-                    </div>
-
-                    {/* Standard Project Badges Specification */}
-                    <div className="space-y-3 font-mono text-[11px] leading-relaxed">
-                      <div className="flex items-start gap-2">
-                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">QUANT</span>
-                        <p className="text-neutral-400"><strong className="text-white">RISK :</strong> Pemodelan matriks kovarians dinamis dan alokasi optimal berbasis Modern Portfolio Theory (MPT).</p>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">MACRO</span>
-                        <p className="text-neutral-400"><strong className="text-white">FEED :</strong> Integrasi pipa data otomatis (FRED, Alpha Vantage, Supabase) dengan interaktivitas interval adaptif.</p>
-                      </div>
-                      <div className="flex items-start gap-2">
-                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">VIEW</span>
-                        <p className="text-neutral-400"><strong className="text-white">DASHBOARD :</strong> Visualisasi kurva imbal yield SBN menggunakan kurva bezier SVG dan arsitektur premium dark finance.</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* RIGHT COLUMN: THE BLACK PLACEHOLDER BOX WITH EMBEDDED IMAGE (col-span-1 lg:col-span-7) */}
-                  <div className={`lg:col-span-7 w-full h-full min-h-[220px] rounded-xl bg-[#050505] border border-neutral-900/60 p-4 relative flex flex-col justify-between overflow-hidden ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                  {/* LEFT COLUMN: THE BLACK PLACEHOLDER BOX WITH EMBEDDED IMAGE (col-span-1 lg:col-span-7) */}
+                  <div className="lg:col-span-7 w-full h-full min-h-[220px] rounded-xl bg-[#050505] border border-neutral-900/60 p-4 relative flex flex-col justify-between overflow-hidden">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-25 pointer-events-none" />
                     
                     <div className="flex items-center justify-between relative z-10 text-[9px] font-mono text-neutral-500 tracking-widest">
@@ -99,7 +74,7 @@ export default function Projects() {
                       <span className="text-amber-500 animate-pulse">[ DEV_PHASE ]</span>
                     </div>
 
-                    {/* THE PROJECT IMAGE PLACED INSIDE THE BLACK DEV BOX */}
+                    {/* THE PROJECT IMAGE PLACED INSIDE THE LEFT BLACK BOX */}
                     <div className="my-auto py-2 flex justify-center relative z-10">
                       <img 
                         src="/builder_avatar.webp" 
@@ -111,6 +86,31 @@ export default function Projects() {
                     <div className="flex items-center justify-between relative z-10 text-[9px] font-mono text-neutral-600">
                       <span>METRIC VALIDATION ACTIVE</span>
                       <span className="text-neutral-500">v3.1 DEPLOYED</span>
+                    </div>
+                  </div>
+
+                  {/* RIGHT COLUMN: PROJECT TEXT SPEC (col-span-1 lg:col-span-5) */}
+                  <div className="space-y-4 lg:col-span-5">
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-black font-mono text-white tracking-tight uppercase flex items-center gap-1">
+                        Sovereign Axis <span className="text-xs">↗</span>
+                      </h3>
+                    </div>
+
+                    {/* Standard Project Badges Specification Alignment */}
+                    <div className="space-y-3 font-mono text-[11px] leading-relaxed">
+                      <div className="flex items-start gap-2">
+                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">QUANT</span>
+                        <p className="text-neutral-400"><strong className="text-white">RISK :</strong> Pemodelan matriks kovarians dinamis dan alokasi optimal berbasis Modern Portfolio Theory (MPT).</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">MACRO</span>
+                        <p className="text-neutral-400"><strong className="text-white">FEED :</strong> Integrasi pipa data otomatis (FRED, Alpha Vantage, Supabase) dengan interaktivitas interval adaptif.</p>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="bg-neutral-900 text-neutral-400 px-1.5 py-0.5 rounded text-[9px] font-bold border border-neutral-800 flex-shrink-0">VIEW</span>
+                        <p className="text-neutral-400"><strong className="text-white">DASHBOARD :</strong> Visualisasi kurva imbal hasil SBN menggunakan kurva bezier SVG dan arsitektur premium dark finance.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
