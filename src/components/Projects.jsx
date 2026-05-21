@@ -63,43 +63,51 @@ export default function Projects() {
               return (
                 <div 
                   key="about-card"
-                  className={`group w-full relative z-10 transform-gpu will-change-transform bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-4 sm:p-6 lg:p-8 transition-all duration-500 ease-out hover:z-[999] hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                  className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl p-5 border border-neutral-800 bg-[#000] h-full scenario-transition hover:border-[var(--accent)] hover:scale-[1.02] transition-all duration-300 ${index > 0 ? '[content-visibility:auto]' : ''}`}
                 >
-                  <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-center">
-                    {/* Text Container */}
-                    <div className={`col-span-1 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-                      <div className="flex flex-col space-y-3 p-5 h-full justify-between">
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-3">
-                            <img 
-                              src="/builder_avatar.webp" 
-                              alt="Sovereign Axis Architect" 
-                              className="w-12 h-12 rounded-xl object-cover border border-neutral-800"
-                            />
-                            <div>
-                              <h4 className="text-xs font-mono font-bold tracking-wider text-white">THE ARCHITECT</h4>
-                              <span className="text-[10px] font-mono text-emerald-400">@ChastFlash / Peds</span>
-                            </div>
-                          </div>
-                          <p className="text-[11px] font-mono text-neutral-400 leading-relaxed pt-2">
-                            Kreator dan analis di balik Sovereign Axis. Fokus pada pengembangan arsitektur kuantitatif, pemodelan matriks risiko portofolio (Modern Portfolio Theory), dan analisis makroekonomi sistemik untuk menjembatani data pasar keuangan global ke dalam visualisasi interaktif yang intuitif.
-                          </p>
-                        </div>
-                        <div className="text-[9px] font-mono text-neutral-600 border-t border-neutral-900 pt-2">
-                          Core Stack: React // Zustand // Tailwind // MPT Engine
-                        </div>
+                  {/* Top Header Section */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      {/* SMALL INTEGRATED AVATAR — No large image outside */}
+                      <img 
+                        src="/builder_avatar.webp" 
+                        alt="Sovereign Axis Architect" 
+                        className="w-11 h-11 rounded-lg object-cover border border-neutral-800"
+                      />
+                      <div>
+                        <h4 className="text-[11px] font-mono font-black tracking-widest text-white uppercase">THE ARCHITECT</h4>
+                        <span className="text-[10px] font-mono text-emerald-400">@ChastFlash // Peds</span>
                       </div>
                     </div>
-                    
-                    {/* Media Container */}
-                    <div className={`col-span-1 lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                      <div className="relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-800/40 overflow-hidden">
+                    <div className="text-[9px] font-mono px-2 py-1 rounded-md bg-neutral-900 text-neutral-600 border border-neutral-800 uppercase tracking-widest">
+                      Active System
+                    </div>
+                  </div>
+
+                  {/* Professional Description Section */}
+                  <p className="text-[11px] font-mono text-neutral-400 leading-relaxed max-w-xl">
+                    Analis & kreator Sovereign Axis. Berfokus pada arsitektur pipa data kuantitatif, pemodelan matriks risiko portofolio (MPT Engine), dan analisis makroekonomi sistemik untuk visualisasi pasar yang intuitif.
+                  </p>
+
+                  {/* Bottom Technical Phase Data Section — Foto masuk di sini */}
+                  <div className="mt-5 border-t border-neutral-900 pt-3">
+                    <div className="flex items-center justify-between text-[10px] font-mono text-neutral-600 tracking-widest uppercase">
+                      <div className="flex items-center gap-2">
+                        <span>DEV PHASE:</span>
+                        {/* FOTO MASUK DI SINI - KECIL - DI DALAM DATA BLOK */}
                         <img 
                           src="/builder_avatar.webp" 
-                          alt="Sovereign Axis Architect Avatar"
-                          className="w-full h-full object-cover rounded-xl opacity-85 group-hover:opacity-100 transition-opacity duration-500"
+                          alt="Dev Phase Avatar" 
+                          className="w-5 h-5 rounded-full object-cover border border-neutral-800"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                        <span className="text-white">v3.1 Deployment</span>
+                      </div>
+                      <span>CORE STACK:</span>
+                      <div className="flex items-center gap-1.5 text-[9px] text-neutral-500">
+                        <span>React</span> |
+                        <span>Zustand</span> |
+                        <span>Tailwind</span> |
+                        <span>MPT</span>
                       </div>
                     </div>
                   </div>
