@@ -63,52 +63,55 @@ export default function Projects() {
               return (
                 <div 
                   key="about-card"
-                  className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl p-5 border border-neutral-800 bg-[#000] h-full scenario-transition hover:border-[var(--accent)] hover:scale-[1.02] transition-all duration-300 ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                  className={`grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-2xl p-6 border border-neutral-800 bg-[#000] min-h-[320px] ${index > 0 ? '[content-visibility:auto]' : ''}`}
                 >
-                  {/* Top Header Section */}
-                  <div className="flex items-center justify-between mb-4">
+                  {/* SIDE A: TEXT CONTENT PACK (col-span-1 lg:col-span-5) */}
+                  <div className={`space-y-4 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
                     <div className="flex items-center gap-3">
-                      {/* SMALL INTEGRATED AVATAR — No large image outside */}
-                      <img 
-                        src="/builder_avatar.webp" 
-                        alt="Sovereign Axis Architect" 
-                        className="w-11 h-11 rounded-lg object-cover border border-neutral-800"
-                      />
-                      <div>
-                        <h4 className="text-[11px] font-mono font-black tracking-widest text-white uppercase">THE ARCHITECT</h4>
-                        <span className="text-[10px] font-mono text-emerald-400">@ChastFlash // Peds</span>
+                      <div className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-widest">
+                        CORE IDENTITY
                       </div>
+                      <span className="text-[10px] font-mono text-neutral-600">STATUS: OPERATIONAL</span>
                     </div>
-                    <div className="text-[9px] font-mono px-2 py-1 rounded-md bg-neutral-900 text-neutral-600 border border-neutral-800 uppercase tracking-widest">
-                      Active System
+                    
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-black font-mono text-white tracking-tight uppercase">THE ARCHITECT</h3>
+                      <span className="text-xs font-mono text-neutral-500">@ChastFlash // Peds</span>
+                    </div>
+
+                    <p className="text-[11px] font-mono text-neutral-400 leading-relaxed">
+                      Kreator dan analis di balik Sovereign Axis. Berfokus pada pengembangan arsitektur pipa data kuantitatif, pemodelan matriks risiko portofolio (Modern Portfolio Theory Engine), dan analisis makroekonomi sistemik untuk menjembatani data pasar keuangan global ke dalam visualisasi dasbor interaktif yang intuitif.
+                    </p>
+
+                    <div className="text-[9px] font-mono text-neutral-600 border-t border-neutral-900 pt-2 flex gap-2">
+                      <span className="text-neutral-500">STACK:</span> React // Zustand // Tailwind // MPT Engine
                     </div>
                   </div>
 
-                  {/* Professional Description Section */}
-                  <p className="text-[11px] font-mono text-neutral-400 leading-relaxed max-w-xl">
-                    Analis & kreator Sovereign Axis. Berfokus pada arsitektur pipa data kuantitatif, pemodelan matriks risiko portofolio (MPT Engine), dan analisis makroekonomi sistemik untuk visualisasi pasar yang intuitif.
-                  </p>
+                  {/* SIDE B: THE BLACK PREVIEW BOX WITH INTEGRATED IMAGE (col-span-1 lg:col-span-7) */}
+                  <div className={`lg:col-span-7 w-full h-full min-h-[220px] rounded-xl bg-[#050505] border border-neutral-900/60 p-4 relative flex flex-col justify-between overflow-hidden ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                    {/* Background grid texture or styling should mirror adjacent project boxes */}
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
+                    
+                    {/* Top box indicators */}
+                    <div className="flex items-center justify-between relative z-10 text-[9px] font-mono text-neutral-500 tracking-widest">
+                      <span>[ PREVIEW_FRAME ]</span>
+                      <span className="text-amber-500 animate-pulse">[ DEV_PHASE ]</span>
+                    </div>
 
-                  {/* Bottom Technical Phase Data Section — Foto masuk di sini */}
-                  <div className="mt-5 border-t border-neutral-900 pt-3">
-                    <div className="flex items-center justify-between text-[10px] font-mono text-neutral-600 tracking-widest uppercase">
-                      <div className="flex items-center gap-2">
-                        <span>DEV PHASE:</span>
-                        {/* FOTO MASUK DI SINI - KECIL - DI DALAM DATA BLOK */}
-                        <img 
-                          src="/builder_avatar.webp" 
-                          alt="Dev Phase Avatar" 
-                          className="w-5 h-5 rounded-full object-cover border border-neutral-800"
-                        />
-                        <span className="text-white">v3.1 Deployment</span>
-                      </div>
-                      <span>CORE STACK:</span>
-                      <div className="flex items-center gap-1.5 text-[9px] text-neutral-500">
-                        <span>React</span> |
-                        <span>Zustand</span> |
-                        <span>Tailwind</span> |
-                        <span>MPT</span>
-                      </div>
+                    {/* THE IMAGE — NEATLY EMBEDDED INSIDE THE BLACK BOX */}
+                    <div className="my-auto py-2 flex justify-center relative z-10">
+                      <img 
+                        src="/builder_avatar.webp" 
+                        alt="Sovereign Axis Platform Core" 
+                        className="w-full max-h-[160px] object-contain rounded-lg border border-neutral-800/80 shadow-2xl" 
+                      />
+                    </div>
+
+                    {/* Bottom box indicators */}
+                    <div className="flex items-center justify-between relative z-10 text-[9px] font-mono text-neutral-600">
+                      <span>ARCHITECTING CORE PLATFORM</span>
+                      <span className="text-neutral-500">v3.1 LIVE</span>
                     </div>
                   </div>
                 </div>
