@@ -1,5 +1,4 @@
 import React from 'react';
-import AboutSection from './AboutSection';
 
 const projectsData = [
   {
@@ -39,6 +38,12 @@ const projectsData = [
 ];
 
 export default function Projects() {
+  const builder_items = [
+    ...projectsData.slice(0, 2),
+    { type: 'about_card_marker' },
+    ...projectsData.slice(2)
+  ];
+
   return (
     <section id="the-builder" className="relative w-full isolate overflow-visible min-h-screen bg-black py-12 px-3 sm:px-6 md:px-8 flex flex-col gap-10 items-center">
         
@@ -50,12 +55,59 @@ export default function Projects() {
           </h2>
         </div>
 
-        {/* Builder Profile Subsection */}
-        <AboutSection />
-
         <div className="w-full max-w-7xl flex flex-col gap-12 p-12 -m-12 relative overflow-visible isolate">
-          {projectsData.map((project, index) => {
+          {builder_items.map((item, index) => {
             const isEven = index % 2 === 0;
+
+            if (item.type === 'about_card_marker') {
+              return (
+                <div 
+                  key="about-card"
+                  className={`group w-full relative z-10 transform-gpu will-change-transform bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 rounded-3xl p-4 sm:p-6 lg:p-8 transition-all duration-500 ease-out hover:z-[999] hover:border-emerald-500/20 hover:shadow-[0_0_40px_rgba(16,185,129,0.02)] ${index > 0 ? '[content-visibility:auto]' : ''}`}
+                >
+                  <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:items-center">
+                    {/* Text Container */}
+                    <div className={`col-span-1 lg:col-span-5 flex flex-col justify-center ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                      <div className="flex flex-col space-y-3 p-5 h-full justify-between">
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-3">
+                            <img 
+                              src="/builder_avatar.webp" 
+                              alt="Sovereign Axis Architect" 
+                              className="w-12 h-12 rounded-xl object-cover border border-neutral-800"
+                            />
+                            <div>
+                              <h4 className="text-xs font-mono font-bold tracking-wider text-white">THE ARCHITECT</h4>
+                              <span className="text-[10px] font-mono text-emerald-400">@ChastFlash / Peds</span>
+                            </div>
+                          </div>
+                          <p className="text-[11px] font-mono text-neutral-400 leading-relaxed pt-2">
+                            Kreator dan analis di balik Sovereign Axis. Fokus pada pengembangan arsitektur kuantitatif, pemodelan matriks risiko portofolio (Modern Portfolio Theory), dan analisis makroekonomi sistemik untuk menjembatani data pasar keuangan global ke dalam visualisasi interaktif yang intuitif.
+                          </p>
+                        </div>
+                        <div className="text-[9px] font-mono text-neutral-600 border-t border-neutral-900 pt-2">
+                          Core Stack: React // Zustand // Tailwind // MPT Engine
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Media Container */}
+                    <div className={`col-span-1 lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                      <div className="relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-800/40 overflow-hidden">
+                        <img 
+                          src="/builder_avatar.webp" 
+                          alt="Sovereign Axis Architect Avatar"
+                          className="w-full h-full object-cover rounded-xl opacity-85 group-hover:opacity-100 transition-opacity duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
+            const project = item;
             return (
               <div 
                 key={project.id}
@@ -139,3 +191,4 @@ export default function Projects() {
       </section>
   );
 }
+
