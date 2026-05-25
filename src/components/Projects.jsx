@@ -26,10 +26,9 @@ const projectsData = [
   },
   {
     id: 'future-project',
-    title: 'Next-Gen Aggregator',
+    title: 'Sovereign Axis',
     features: [
-      { badge: 'SYNC', title: 'LOW_LATENCY', desc: 'Sub-millisecond execution routing across fragmented liquidity pools.' },
-      { badge: 'SWAP', title: 'CROSS_CHAIN', desc: 'Seamless interoperability with traditional financial infrastructure.' }
+      { badge: 'QUANT', title: 'PLATFORM', desc: 'Platform analisis portofolio kuantitatif makroekonomi yang mengintegrasikan pipa data otomatis dengan mesin risiko Modern Portfolio Theory (MPT). Dilengkapi dengan visualisasi kurva imbal hasil obligasi negara (SBN Yield Curve) berbasis SVG interaktif untuk membantu navigasi keputusan investasi.' }
     ],
     image: '',
     link: '#',
@@ -100,15 +99,7 @@ export default function Projects() {
                         />
                       </a>
                     ) : (
-                      <div className="relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-900 flex flex-col items-center justify-center overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:20px_20px] opacity-40" />
-                        <div className="text-center space-y-1.5 relative z-10 font-mono">
-                          <p className="text-[10px] text-amber-500/80 tracking-[0.2em] uppercase flex items-center gap-1.5 justify-center">
-                            <span className="w-1 h-1 rounded-full bg-amber-500 animate-ping" /> [ DEV_PHASE ]
-                          </p>
-                          <p className="text-xs text-neutral-500 uppercase">ARCHITECTING LIQUIDITY ENGINE</p>
-                        </div>
-                      </div>
+                      <img src="/sovereign_axis_dashboard.webp" alt="Sovereign Axis Dashboard" className="w-full h-auto rounded-xl object-contain" />
                     )}
                   </div>
                 </div>
