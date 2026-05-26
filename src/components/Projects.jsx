@@ -28,7 +28,9 @@ const projectsData = [
     id: 'future-project',
     title: 'Sovereign Axis',
     features: [
-      { badge: 'QUANT', title: 'PLATFORM', desc: 'Platform analisis portofolio kuantitatif makroekonomi yang mengintegrasikan pipa data otomatis dengan mesin risiko Modern Portfolio Theory (MPT). Dilengkapi dengan visualisasi kurva imbal hasil obligasi negara (SBN Yield Curve) berbasis SVG interaktif untuk membantu navigasi keputusan investasi.' }
+      { badge: 'QUANT', title: 'RISK', desc: 'Pemodelan matriks risiko Modern Portfolio Theory (MPT) untuk optimasi alokasi.' },
+      { badge: 'DATA', title: 'FEED', desc: 'Integrasi pipa data makroekonomi otomatis secara real-time.' },
+      { badge: 'UI', title: 'VIEW', desc: 'Visualisasi SBN Yield Curve berbasis SVG interaktif untuk keputusan investasi.' }
     ],
     image: '',
     link: '#',
