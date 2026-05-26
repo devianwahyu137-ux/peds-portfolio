@@ -33,7 +33,7 @@ const projectsData = [
       { badge: 'UI', title: 'VIEW', desc: 'Visualisasi SBN Yield Curve berbasis SVG interaktif untuk keputusan investasi.' }
     ],
     image: '',
-    link: '#',
+    link: 'https://peds-final.vercel.app/',
     isPriority: false,
   }
 ];
@@ -101,7 +101,12 @@ export default function Projects() {
                         />
                       </a>
                     ) : (
-                      <img src="/sovereign_axis_dashboard.webp" alt="Sovereign Axis Dashboard" className="w-full h-auto rounded-xl object-contain" />
+                      <a 
+                        href={project.link} 
+                        className="block relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-800/40 overflow-hidden flex items-center justify-center"
+                      >
+                        <img src="/sovereign_axis_dashboard.webp" alt="Sovereign Axis Dashboard" className="w-full h-auto rounded-xl object-contain" />
+                      </a>
                     )}
                   </div>
                 </div>
