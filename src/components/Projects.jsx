@@ -2,16 +2,16 @@ import React from 'react';
 
 const projectsData = [
   {
-    id: 'peds-terminal',
-    title: 'PEDS Terminal DSS',
+    id: 'macroscope',
+    title: 'Macroscope',
     features: [
-      { badge: 'RISK', title: 'QUANT', desc: 'Automated portfolio allocation parameters.' },
-      { badge: 'FEED', title: 'MACRO', desc: 'Institutional sentiment tracking mechanism.' },
-      { badge: 'VIEW', title: 'LIVE_CHART', desc: 'Interactive TradingView interface deployment.' }
+      { badge: 'QUANT', title: 'RISK', desc: 'Pemodelan matriks risiko Modern Portfolio Theory (MPT) untuk simulasi alokasi portofolio makro.' },
+      { badge: 'DATA', title: 'FEED', desc: 'Integrasi pipa data makroekonomi otomatis secara real-time untuk analisis skenario.' },
+      { badge: 'UI', title: 'VIEW', desc: 'Visualisasi SBN Yield Curve berbasis SVG interaktif untuk keputusan investasi.' }
     ],
-    image: '/peds-terminal.webp',
-    link: 'https://peds-terminal.vercel.app/',
-    isPriority: true,
+    image: '/sovereign_axis_dashboard.webp',
+    link: 'https://peds-final.vercel.app/',
+    isPriority: false,
   },
   {
     id: 'nemos-ecosystem',
@@ -25,16 +25,16 @@ const projectsData = [
     isPriority: false,
   },
   {
-    id: 'future-project',
-    title: 'Sovereign Axis',
+    id: 'peds-terminal',
+    title: 'PEDS Terminal DSS',
     features: [
-      { badge: 'QUANT', title: 'RISK', desc: 'Pemodelan matriks risiko Modern Portfolio Theory (MPT) untuk optimasi alokasi.' },
-      { badge: 'DATA', title: 'FEED', desc: 'Integrasi pipa data makroekonomi otomatis secara real-time.' },
-      { badge: 'UI', title: 'VIEW', desc: 'Visualisasi SBN Yield Curve berbasis SVG interaktif untuk keputusan investasi.' }
+      { badge: 'RISK', title: 'QUANT', desc: 'Automated portfolio allocation parameters.' },
+      { badge: 'FEED', title: 'MACRO', desc: 'Institutional sentiment tracking mechanism.' },
+      { badge: 'VIEW', title: 'LIVE_CHART', desc: 'Interactive TradingView interface deployment.' }
     ],
-    image: '',
-    link: 'https://peds-final.vercel.app/',
-    isPriority: false,
+    image: '/peds-terminal.webp',
+    link: 'https://peds-terminal.vercel.app/',
+    isPriority: true,
   }
 ];
 
@@ -91,12 +91,12 @@ export default function Projects() {
                     {project.image ? (
                       <a 
                         href={project.link} 
-                        className="block relative w-full aspect-video rounded-xl bg-neutral-950 border border-neutral-800/40 overflow-hidden"
+                        className={`block relative w-full aspect-video rounded-xl bg-neutral-950 ${project.id === 'macroscope' ? 'border border-gray-800/50' : 'border border-neutral-800/40'} overflow-hidden`}
                       >
                         <img 
                           src={project.image} 
                           alt={project.title}
-                          className="w-full h-full object-cover rounded-xl"
+                          className={`w-full h-full ${project.id === 'macroscope' ? 'object-cover' : 'object-cover'} rounded-xl`}
                           {...(project.isPriority ? { fetchpriority: "high" } : { loading: "lazy" })}
                         />
                       </a>
