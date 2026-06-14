@@ -43,8 +43,7 @@ export default function HeroSection() {
             </h2>
 
             <p className="text-lg md:text-xl text-text-secondary max-w-2xl leading-relaxed mb-12 border-l-2 border-border pl-6">
-              Bridging Management Science with Institutional Execution. 
-              From quantitative risk modeling to high-frequency decision making at <span className="text-white font-medium">Traders Family</span> and <span className="text-white font-medium">FEB UGM</span>.
+              Bridging Management Science with Institutional Execution. From executing high-probability trades at <span className="text-white font-medium">Traders Family</span> to architecting my own proprietary AI-driven macro dashboards for precise quantitative research.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">

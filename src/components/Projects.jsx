@@ -9,6 +9,7 @@ const projectsData = [
       { badge: 'DATA', title: 'FEED', desc: 'Integrasi pipa data makroekonomi otomatis secara real-time untuk analisis skenario.' },
       { badge: 'UI', title: 'VIEW', desc: 'Visualisasi SBN Yield Curve berbasis SVG interaktif untuk keputusan investasi.' }
     ],
+    techStack: ['React', 'Tailwind', 'Zustand', 'Gemini AI', 'Supabase'],
     image: '/sovereign_axis_dashboard.webp',
     link: 'https://peds-final.vercel.app/',
     isPriority: false,
@@ -20,6 +21,7 @@ const projectsData = [
       { badge: 'CORE', title: 'DEPLOYMENT', desc: 'Fullstack server architecture with automated DevOps pipeline.' },
       { badge: 'AUTH', title: 'OPS_STATUS', desc: 'Secure authentication and real-time operational status monitoring.' }
     ],
+    techStack: ['React', 'Blockchain', 'Figma', 'Tailwind'],
     image: '/nemos-ecosystem.webp',
     link: 'https://nemos-three.vercel.app/',
     isPriority: false,
@@ -32,6 +34,7 @@ const projectsData = [
       { badge: 'FEED', title: 'MACRO', desc: 'Institutional sentiment tracking mechanism.' },
       { badge: 'VIEW', title: 'LIVE_CHART', desc: 'Interactive TradingView interface deployment.' }
     ],
+    techStack: ['TradingView Lightweight Charts', 'REST API', 'Vite'],
     image: '/peds-terminal.webp',
     link: 'https://peds-terminal.vercel.app/',
     isPriority: true,
@@ -82,6 +85,14 @@ export default function Projects() {
                             <strong className="text-neutral-200 font-semibold">{feature.title} :</strong> {feature.desc}
                           </p>
                         </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {project.techStack.map((tech) => (
+                        <span key={tech} className="text-[9px] font-mono tracking-wider px-2 py-1 rounded-md bg-white/5 border border-white/10 text-neutral-400">
+                          {tech}
+                        </span>
                       ))}
                     </div>
                   </div>
