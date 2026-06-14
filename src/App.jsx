@@ -9,6 +9,7 @@ import RadicalTransparency from './components/RadicalTransparency';
 import TrackRecord from './components/TrackRecord';
 const Projects = React.lazy(() => import('./components/Projects'));
 import ContentHub from './components/ContentHub';
+import Milestones from './components/Milestones';
 import SocialHub from './components/SocialHub';
 import CustomCursor from './components/CustomCursor';
 
@@ -48,6 +49,7 @@ function App() {
         <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
           <Projects />
         </React.Suspense>
+        <Milestones />
         <ContentHub />
         <SocialHub />
       </main>

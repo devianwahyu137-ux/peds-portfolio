@@ -48,20 +48,20 @@ export default function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
-                href="#notion-journal" 
-                className="relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-base font-semibold rounded-lg hover:bg-gray-100 transition-colors text-black"
-              >
-                <Activity className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">View Trading Journal</span>
-              </a>
-              <a 
                 href="#the-builder" 
                 onClick={handleProjectClick}
+                className="relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-base font-semibold rounded-lg hover:bg-gray-100 transition-colors text-black"
+              >
+                <Globe className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">Explore FinTech Architectures</span>
+              </a>
+              <a 
+                href="#notion-journal" 
                 className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface border border-white/20 text-white font-semibold rounded-lg overflow-hidden transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
               >
                 <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                <Globe className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">Explore FinTech Build</span>
+                <Activity className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">View Trading Journal</span>
               </a>
             </div>
           </motion.div>
