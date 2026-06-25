@@ -48,23 +48,37 @@ export default function HeroSection() {
               Bridging Management Science with Institutional Execution. From executing high-probability trades at <span className="text-white font-medium">Traders Family</span> to architecting my own proprietary AI-driven macro dashboards for precise quantitative research.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-4 w-full sm:w-fit">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
+                <a 
+                  href="#the-builder" 
+                  onClick={(e) => handleAnchorClick(e, 'the-builder')}
+                  className="w-full sm:w-auto relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-base font-semibold rounded-lg hover:bg-gray-100 transition-colors text-black"
+                >
+                  <Globe className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">Explore FinTech Architectures</span>
+                </a>
+                <a 
+                  href="#notion-journal" 
+                  onClick={(e) => handleAnchorClick(e, 'notion-journal')}
+                  className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface border border-white/20 text-white font-semibold rounded-lg overflow-hidden transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+                >
+                  <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+                  <Activity className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">View Trading Journal</span>
+                </a>
+              </div>
+              
               <a 
-                href="#the-builder" 
-                onClick={(e) => handleAnchorClick(e, 'the-builder')}
-                className="relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-base font-semibold rounded-lg hover:bg-gray-100 transition-colors text-black"
+                href="/Resume_Devian_Wahyu.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-full group relative flex items-center justify-center gap-2 px-8 py-4 text-neutral-400 font-mono text-sm tracking-widest uppercase bg-transparent border border-white/10 rounded-lg hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-300"
               >
-                <Globe className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">Explore FinTech Architectures</span>
-              </a>
-              <a 
-                href="#notion-journal" 
-                onClick={(e) => handleAnchorClick(e, 'notion-journal')}
-                className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface border border-white/20 text-white font-semibold rounded-lg overflow-hidden transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
-              >
-                <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-                <Activity className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">View Trading Journal</span>
+                <svg className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>Download Résumé / CV</span>
               </a>
             </div>
           </motion.div>
