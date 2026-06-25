@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import Navbar from './components/Navbar';
 import BackgroundOverlay from './components/BackgroundOverlay';
@@ -7,11 +7,12 @@ import MarketTerminal from './components/MarketTerminal';
 import PriceTicker from './components/PriceTicker';
 import RadicalTransparency from './components/RadicalTransparency';
 import TrackRecord from './components/TrackRecord';
-const Projects = React.lazy(() => import('./components/Projects'));
 import ContentHub from './components/ContentHub';
 import Milestones from './components/Milestones';
 import SocialHub from './components/SocialHub';
 import CustomCursor from './components/CustomCursor';
+
+const Projects = lazy(() => import('./components/Projects'));
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -46,9 +47,9 @@ function App() {
         {isLargeScreen && <MarketTerminal />}
         <TrackRecord />
         <RadicalTransparency />
-        <React.Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
+        <Suspense fallback={<div className="w-full min-h-screen bg-black" />}>
           <Projects />
-        </React.Suspense>
+        </Suspense>
         <Milestones />
         <ContentHub />
         <SocialHub />

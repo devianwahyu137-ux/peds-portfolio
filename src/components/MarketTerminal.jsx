@@ -1,4 +1,3 @@
-import React from 'react';
 import TradingViewMiniChart from './TradingViewMiniChart';
 import { motion } from 'framer-motion';
 

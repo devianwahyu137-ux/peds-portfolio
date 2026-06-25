@@ -1,11 +1,13 @@
-import React from 'react';
+import { useState } from 'react';
 import { Activity, Globe, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function HeroSection() {
-  const handleProjectClick = (e) => {
+  const [imageError, setImageError] = useState(false);
+
+  const handleAnchorClick = (e, targetId) => {
     e.preventDefault();
-    const target = document.getElementById('the-builder');
+    const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ 
         behavior: 'auto', // Disables heavy cinematic smooth-lag, shifts to instant precise frame alignment
@@ -49,7 +51,7 @@ export default function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a 
                 href="#the-builder" 
-                onClick={handleProjectClick}
+                onClick={(e) => handleAnchorClick(e, 'the-builder')}
                 className="relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-base font-semibold rounded-lg hover:bg-gray-100 transition-colors text-black"
               >
                 <Globe className="w-5 h-5 relative z-10" />
@@ -57,6 +59,7 @@ export default function HeroSection() {
               </a>
               <a 
                 href="#notion-journal" 
+                onClick={(e) => handleAnchorClick(e, 'notion-journal')}
                 className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-surface border border-white/20 text-white font-semibold rounded-lg overflow-hidden transition-all hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
               >
                 <div className="absolute inset-0 bg-white/5 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
@@ -93,22 +96,23 @@ export default function HeroSection() {
               whileHover={{ scale: 1.02 }}
               className="relative z-10 w-[280px] h-[350px] md:w-80 md:h-[400px] max-w-[300px] md:max-w-none bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] rounded-xl border border-peds-green/30 overflow-hidden shadow-[0_0_20px_rgba(34,197,94,0.15)] group mx-auto lg:mx-0 will-change-transform"
             >
-              <img 
-                src="/profile.webp" 
-                alt="Devian Wahyu Nugroho Portfolio Photo" 
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-                className="w-full h-full object-cover aspect-[3/4] group-hover:scale-105 transition-all duration-500 ease-in-out"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextElementSibling.style.display = 'flex';
-                }}
-              />
+              {!imageError && (
+                <img 
+                  src="/profile.webp" 
+                  alt="Devian Wahyu Nugroho Portfolio Photo" 
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover aspect-[3/4] group-hover:scale-105 transition-all duration-500 ease-in-out"
+                  onError={() => setImageError(true)}
+                />
+              )}
               {/* Fallback Placeholder */}
-              <div className="hidden absolute inset-0 flex-col items-center justify-center">
-                <User className="w-20 h-20 text-white/10 mb-4" />
-              </div>
+              {imageError && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <User className="w-20 h-20 text-white/10 mb-4" />
+                </div>
+              )}
             </motion.div>
 
             {/* Dynamic Text Label */}

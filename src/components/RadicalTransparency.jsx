@@ -1,4 +1,3 @@
-import React from 'react';
 import { Database, LockOpen, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 

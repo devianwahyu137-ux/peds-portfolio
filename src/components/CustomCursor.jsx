@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
@@ -17,7 +17,7 @@ export default function CustomCursor() {
 
     const onMouseMove = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
+      setIsVisible(true);
     };
 
     const onMouseLeave = () => {
@@ -34,7 +34,7 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', onMouseMove);
       document.body.removeEventListener('mouseleave', onMouseLeave);
     };
-  }, [isVisible, isMobile]);
+  }, [isMobile]);
 
   if (isMobile) return null;
 

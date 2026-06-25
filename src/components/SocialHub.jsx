@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { MonitorPlay, MessageSquareText, LineChart, FileText, BookOpen, ArrowUpRight } from 'lucide-react';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const milestonesData = [
@@ -28,7 +27,7 @@ const milestonesData = [
   }
 ];
 
-export default function Milestones() {
+export default function Milestones() {  
   return (
     <section id="milestones" className="relative w-full overflow-visible isolate py-12 scroll-mt-20 flex flex-col gap-8 items-center">
       {/* Section Header */}
