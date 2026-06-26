@@ -55,9 +55,12 @@ function App() {
         <SocialHub />
       </main>
 
-      <footer className="w-full py-10 mt-16 border-t border-neutral-900 text-center relative z-20">
-        <p className="text-neutral-600 font-mono text-[10px] tracking-[0.3em] uppercase">
-          © 2026 Devian Wahyu Nugroho. All rights reserved.
+      <footer className="w-full py-12 mt-16 border-t border-white/5 bg-gradient-to-t from-emerald-900/5 to-transparent text-center relative z-20 flex flex-col items-center justify-center gap-4">
+        <div className="w-12 h-12 rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+           <span className="text-emerald-500 font-display font-bold text-xl leading-none">D</span>
+        </div>
+        <p className="text-neutral-500 font-mono text-[10px] tracking-[0.3em] uppercase">
+          © {new Date().getFullYear()} Devian Wahyu Nugroho. All rights reserved.
         </p>
       </footer>
     </div>
