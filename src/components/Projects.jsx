@@ -3,6 +3,33 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const projectsData = [
   {
+    id: 'nemos-ecosystem',
+    title: 'NEMOS Ecosystem',
+    subtitle: 'Decentralized Operations Platform',
+    features: [
+      { badge: 'CORE', title: 'DEPLOYMENT', desc: 'Fullstack server architecture with automated DevOps pipeline.' },
+      { badge: 'AUTH', title: 'OPS_STATUS', desc: 'Secure authentication and real-time operational status monitoring.' }
+    ],
+    techStack: ['React', 'Blockchain', 'Figma', 'Tailwind'],
+    image: '/nemos-ecosystem.webp',
+    link: 'https://nemos-three.vercel.app/',
+    isPriority: false,
+  },
+  {
+    id: 'desa-surorejo',
+    title: 'Desa Surorejo',
+    subtitle: 'Official Village Information System',
+    features: [
+      { badge: 'GOV', title: 'PROFILE', desc: 'Platform profil desa resmi untuk digitalisasi administrasi dan informasi publik.' },
+      { badge: 'INFO', title: 'PORTAL', desc: 'Pusat informasi terpadu yang memajukan desa dengan transparansi data.' },
+      { badge: 'WEB', title: 'SERVICE', desc: 'Meningkatkan layanan masyarakat dengan UI/UX yang modern dan aksesibel.' }
+    ],
+    techStack: ['React', 'Tailwind', 'Vite'],
+    image: '/public/beranda%20web%20surorejo.webp',
+    link: 'https://beranda-surorejo.vercel.app/',
+    isPriority: false,
+  },
+  {
     id: 'macroscope',
     title: 'Macroscope',
     subtitle: 'Macro Portfolio Intelligence',
@@ -14,19 +41,6 @@ const projectsData = [
     techStack: ['React', 'Tailwind', 'Zustand', 'Gemini AI', 'Supabase'],
     image: '/sovereign_axis_dashboard.webp',
     link: 'https://peds-final.vercel.app/',
-    isPriority: false,
-  },
-  {
-    id: 'nemos-ecosystem',
-    title: 'NEMOS Ecosystem',
-    subtitle: 'Decentralized Operations Platform',
-    features: [
-      { badge: 'CORE', title: 'DEPLOYMENT', desc: 'Fullstack server architecture with automated DevOps pipeline.' },
-      { badge: 'AUTH', title: 'OPS_STATUS', desc: 'Secure authentication and real-time operational status monitoring.' }
-    ],
-    techStack: ['React', 'Blockchain', 'Figma', 'Tailwind'],
-    image: '/nemos-ecosystem.webp',
-    link: 'https://nemos-three.vercel.app/',
     isPriority: false,
   },
   {
