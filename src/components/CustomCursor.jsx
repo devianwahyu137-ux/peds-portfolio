@@ -31,6 +31,29 @@ export default function CustomCursor() {
         visible.current = true;
         if (outerRef.current) outerRef.current.style.opacity = '1';
       }
+
+      // Check for custom cursor states
+      const hoverEl = e.target.closest('[data-cursor]');
+      if (hoverEl && outerRef.current && innerRef.current) {
+        const cursorType = hoverEl.getAttribute('data-cursor');
+        if (cursorType === 'view') {
+          outerRef.current.style.width = '64px';
+          outerRef.current.style.height = '64px';
+          outerRef.current.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+          outerRef.current.style.backdropFilter = 'blur(2px)';
+          outerRef.current.innerHTML = '<span style="font-size: 10px; font-weight: bold; letter-spacing: 0.1em; color: #10b981;">VIEW</span>';
+          innerRef.current.style.opacity = '0'; // hide inner dot
+        }
+      } else {
+        if (outerRef.current && innerRef.current) {
+          outerRef.current.style.width = '36px';
+          outerRef.current.style.height = '36px';
+          outerRef.current.style.backgroundColor = 'transparent';
+          outerRef.current.style.backdropFilter = 'none';
+          outerRef.current.innerHTML = '';
+          innerRef.current.style.opacity = '1';
+        }
+      }
     };
 
     const onLeave = () => {
@@ -68,7 +91,7 @@ export default function CustomCursor() {
       {/* Outer ring — trails cursor with smooth lerp */}
       <div
         ref={outerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[100]"
+        className="fixed top-0 left-0 pointer-events-none z-[100] flex items-center justify-center"
         style={{
           width: 36,
           height: 36,
@@ -76,7 +99,7 @@ export default function CustomCursor() {
           border: '1.5px solid rgba(16, 185, 129, 0.4)',
           boxShadow: '0 0 12px rgba(16, 185, 129, 0.15), inset 0 0 8px rgba(16, 185, 129, 0.05)',
           opacity: 0,
-          transition: 'opacity 0.3s, width 0.2s, height 0.2s',
+          transition: 'opacity 0.3s, width 0.2s, height 0.2s, background-color 0.2s, backdrop-filter 0.2s',
           willChange: 'transform',
         }}
       />
