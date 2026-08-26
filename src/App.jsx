@@ -10,6 +10,7 @@ import TrackRecord from './components/TrackRecord';
 import ContentHub from './components/ContentHub';
 import Milestones from './components/Milestones';
 import SocialHub from './components/SocialHub';
+import ContactForm from './components/ContactForm';
 import CustomCursor from './components/CustomCursor';
 
 const Projects = lazy(() => import('./components/Projects'));
@@ -53,6 +54,7 @@ function App() {
         <Milestones />
         <ContentHub />
         <SocialHub />
+        <ContactForm />
       </main>
 
       <footer className="w-full py-12 mt-16 border-t border-white/5 bg-gradient-to-t from-emerald-900/5 to-transparent text-center relative z-20 flex flex-col items-center justify-center gap-4">

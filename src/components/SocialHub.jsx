@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MonitorPlay, MessageSquareText, LineChart, FileText, BookOpen, ArrowUpRight } from 'lucide-react';
+import { MonitorPlay, MessageSquareText, LineChart, FileText, BookOpen, ArrowUpRight, Github } from 'lucide-react';
 
 export default function SocialHub() {
   const socials = [
@@ -62,6 +62,16 @@ export default function SocialHub() {
       bgHover: "group-hover:bg-white/10",
       borderHover: "group-hover:border-white/50",
       shadowHover: "hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+    },
+    {
+      name: "GitHub",
+      handle: "@devianwahyu137-ux",
+      icon: <Github className="w-5 h-5" />,
+      link: "https://github.com/devianwahyu137-ux",
+      color: "group-hover:text-neutral-100",
+      bgHover: "group-hover:bg-neutral-100/10",
+      borderHover: "group-hover:border-neutral-100/50",
+      shadowHover: "hover:shadow-[0_0_30px_rgba(245,245,245,0.15)]"
     }
   ];
 
