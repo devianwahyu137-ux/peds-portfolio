@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import BackgroundOverlay from './components/BackgroundOverlay';
 import HeroSection from './components/HeroSection';
 import MarketTerminal from './components/MarketTerminal';
-import PriceTicker from './components/PriceTicker';
 import RadicalTransparency from './components/RadicalTransparency';
 import TrackRecord from './components/TrackRecord';
 import ContentHub from './components/ContentHub';
@@ -40,7 +39,6 @@ function App() {
       />
 
       <BackgroundOverlay />
-      {isLargeScreen && <PriceTicker />}
       <Navbar />
       
       <main className="relative z-10 max-w-7xl mx-auto px-3 md:px-6 py-12 md:py-24 space-y-32">

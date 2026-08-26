@@ -18,15 +18,39 @@ export default function ContactForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    setTimeout(() => {
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // TODO: Ganti 'YOUR_ACCESS_KEY_HERE' dengan Access Key milikmu dari https://web3forms.com/
+          access_key: "36b1d4a7-2bf1-4b20-8494-c0ad74e9caac",
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        alert("Message sent successfully to your email!");
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      alert('Message sent successfully!');
-    }, 1500);
+    }
   };
 
   return (
