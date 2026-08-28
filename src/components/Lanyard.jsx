@@ -1,209 +1,281 @@
-import { useState } from 'react';
-import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate } from 'framer-motion';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, useSpring, useMotionTemplate, animate } from 'framer-motion';
 import { User } from 'lucide-react';
 
 export default function Lanyard({ className = '' }) {
-  const [isFlipped, setIsFlipped] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const cumulativeAngle = useRef(0);
 
-  // Drag motion values
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Card rotation follows horizontal drag like a pendulum
-  const rotateRaw = useTransform(x, [-200, 200], [-25, 25]);
-  const rotate = useSpring(rotateRaw, { stiffness: 150, damping: 15 });
+  // Pendulum Z rotation — LOW DAMPING = tuing-tuing oscillation
+  const rotateZraw = useTransform(x, [-250, 250], [-30, 30]);
+  const rotateZ = useSpring(rotateZraw, { stiffness: 180, damping: 7 });
 
-  // Dynamic strap SVG path that follows the card
-  const cpX = useTransform(x, (v) => 130 + v * 0.35);
-  const endX = useTransform(x, (v) => 130 + v);
-  const endY = useTransform(y, (v) => 220 + v);
-  const strapD = useMotionTemplate`M 130 0 Q ${cpX} 110 ${endX} ${endY}`;
+  // 3D Y-axis rotation — continuous, velocity-based
+  const cardRotateY = useMotionValue(0);
+  const cardRotateYSpring = useSpring(cardRotateY, { stiffness: 120, damping: 14 });
 
-  const handleClick = () => {
-    if (!isDragging) setIsFlipped((prev) => !prev);
-  };
+  // JS-driven face visibility (replaces CSS backface-visibility which doesn't work with framer-motion)
+  const frontOpacity = useTransform(cardRotateYSpring, (v) => {
+    const norm = ((v % 360) + 360) % 360;
+    return (norm > 90 && norm < 270) ? 0 : 1;
+  });
+  const backOpacity = useTransform(cardRotateYSpring, (v) => {
+    const norm = ((v % 360) + 360) % 360;
+    return (norm > 90 && norm < 270) ? 1 : 0;
+  });
 
-  // Deterministic barcode widths
-  const barcodeWidths = [2,1,1,2,1,2,1,1,2,1,2,2,1,1,2,1,2,1,1,2,1,2,1,1,2,1,2,2,1,1];
+  // ─── Dual strap paths — realistic V-shape lanyard ───
+  // Two straps from off-screen (around neck) converging at clasp eyelet
+  const leftCpX = useTransform(x, (v) => 148 + v * 0.12);
+  const rightCpX = useTransform(x, (v) => 202 + v * 0.12);
+  const endX = useTransform(x, (v) => 175 + v);
+  const endY = useTransform(y, (v) => 610 + v);
+  const leftStrapD = useMotionTemplate`M 120 0 Q ${leftCpX} 310 ${endX} ${endY}`;
+  const rightStrapD = useMotionTemplate`M 230 0 Q ${rightCpX} 310 ${endX} ${endY}`;
+
+  const handleDrag = useCallback((event, info) => {
+    // Map horizontal drag offset to Y-axis rotation
+    // Moving 200px = 180° rotation (half flip)
+    const rotationFromDrag = (info.offset.x / 200) * 180;
+    cardRotateY.set(cumulativeAngle.current + rotationFromDrag);
+  }, [cardRotateY]);
+
+  const handleDragEnd = useCallback((event, info) => {
+    // Commit the current rotation
+    const rotationFromDrag = (info.offset.x / 200) * 180;
+    cumulativeAngle.current += rotationFromDrag;
+
+    // Add momentum: fast flick = extra spin
+    const velocityBoost = (info.velocity.x / 800) * 180;
+    if (Math.abs(info.velocity.x) > 200) {
+      cumulativeAngle.current += velocityBoost;
+    }
+
+    // Snap to nearest 180° for clean front/back landing
+    const snapped = Math.round(cumulativeAngle.current / 180) * 180;
+    cumulativeAngle.current = snapped;
+
+    // Animate to snapped position with spring
+    animate(cardRotateY, snapped, {
+      type: 'spring',
+      stiffness: 100,
+      damping: 15,
+    });
+
+    setTimeout(() => setIsDragging(false), 120);
+  }, [cardRotateY]);
+
+  // ─── Idle swing animation ───
+  // Gentle pendulum sway when card is at rest
+  useEffect(() => {
+    if (isDragging) return;
+    let controls;
+    const timeout = setTimeout(() => {
+      controls = animate(x, [0, 6, 0, -6, 0], {
+        duration: 5,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      });
+    }, 1500);
+    return () => {
+      clearTimeout(timeout);
+      if (controls) controls.stop();
+    };
+  }, [isDragging, x]);
+
+  const barcodeW = [2,1,1,2,1,2,1,1,2,1,2,2,1,1,2,1,2,1,1,2,1,2,1,1,2,1,2,2,1,1];
 
   return (
-    <div className={`relative ${className}`} style={{ width: '260px', height: '590px' }}>
-      {/* ── Anchor Clip ── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30">
-        <div className="w-7 h-7 rounded-full bg-gradient-to-b from-neutral-300 to-neutral-500 border-2 border-neutral-400 shadow-[0_2px_8px_rgba(0,0,0,0.5)] flex items-center justify-center">
-          <div className="w-3 h-3 rounded-full bg-neutral-700 border border-neutral-500" />
-        </div>
-      </div>
+    <div className={`relative overflow-visible ${className}`} style={{ width: '350px', height: '700px' }}>
 
-      {/* ── Dynamic Strap SVG ── */}
+      {/* ── Dual V-Shape Lanyard Straps (from off-screen → eyelet) ── */}
       <svg
-        className="absolute top-[28px] left-0 z-10 overflow-visible pointer-events-none"
-        width="260"
-        height="240"
-        viewBox="0 0 260 240"
+        className="absolute left-0 z-10 pointer-events-none"
+        style={{ top: '-400px', overflow: 'visible' }}
+        width="350" height="1000" viewBox="0 0 350 1000"
       >
         <defs>
-          <linearGradient id="strapGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" />
-            <stop offset="40%" stopColor="#047857" />
-            <stop offset="60%" stopColor="#047857" />
+          <linearGradient id="strapFillL" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#059669" />
+            <stop offset="30%" stopColor="#047857" />
+            <stop offset="60%" stopColor="#065f46" />
             <stop offset="100%" stopColor="#10b981" />
           </linearGradient>
+          <linearGradient id="strapFillR" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#047857" />
+            <stop offset="30%" stopColor="#065f46" />
+            <stop offset="60%" stopColor="#047857" />
+            <stop offset="100%" stopColor="#059669" />
+          </linearGradient>
+          <filter id="strapSh">
+            <feDropShadow dx="0" dy="3" stdDeviation="5" floodColor="#000" floodOpacity="0.55" />
+          </filter>
+          <filter id="strapGlow">
+            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#10b981" floodOpacity="0.15" />
+          </filter>
         </defs>
-        {/* Shadow layer */}
-        <motion.path d={strapD} stroke="rgba(0,0,0,0.4)" strokeWidth="10" fill="none" strokeLinecap="round" />
-        {/* Main strap */}
-        <motion.path d={strapD} stroke="url(#strapGrad)" strokeWidth="7" fill="none" strokeLinecap="round" />
-        {/* Center highlight */}
-        <motion.path d={strapD} stroke="rgba(255,255,255,0.12)" strokeWidth="2" fill="none" strokeLinecap="round" />
-        {/* PEDS text on strap */}
-        <motion.text
-          x={useTransform(x, (v) => 130 + v * 0.15)}
-          y="50"
-          textAnchor="middle"
-          className="fill-emerald-200/20 text-[8px] font-mono"
-          style={{ letterSpacing: '0.15em' }}
-        >
-          PEDS
-        </motion.text>
+
+        {/* ═══ LEFT STRAP ═══ */}
+        <motion.path d={leftStrapD} stroke="#022c22" strokeWidth="14" fill="none" strokeLinecap="round" opacity="0.25" />
+        <motion.path d={leftStrapD} stroke="url(#strapFillL)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#strapSh)" />
+        <motion.path d={leftStrapD} stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <motion.path d={leftStrapD} stroke="rgba(16,185,129,0.1)" strokeWidth="8" fill="none" strokeLinecap="round" strokeDasharray="2 6" />
+        <motion.path d={leftStrapD} stroke="rgba(255,255,255,0.03)" strokeWidth="9" fill="none" strokeLinecap="round" strokeDasharray="3 8" />
+        <motion.path d={leftStrapD} stroke="rgba(16,185,129,0.06)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#strapGlow)" />
+
+        {/* ═══ RIGHT STRAP ═══ */}
+        <motion.path d={rightStrapD} stroke="#022c22" strokeWidth="14" fill="none" strokeLinecap="round" opacity="0.25" />
+        <motion.path d={rightStrapD} stroke="url(#strapFillR)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#strapSh)" />
+        <motion.path d={rightStrapD} stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <motion.path d={rightStrapD} stroke="rgba(16,185,129,0.1)" strokeWidth="8" fill="none" strokeLinecap="round" strokeDasharray="2 6" />
+        <motion.path d={rightStrapD} stroke="rgba(255,255,255,0.03)" strokeWidth="9" fill="none" strokeLinecap="round" strokeDasharray="3 8" />
+        <motion.path d={rightStrapD} stroke="rgba(16,185,129,0.06)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#strapGlow)" />
       </svg>
 
-      {/* ── Draggable Card ── */}
+      {/* ── Draggable Card Assembly ── */}
       <motion.div
         drag
-        dragConstraints={{ top: -60, bottom: 60, left: -160, right: 160 }}
-        dragElastic={0.06}
-        dragTransition={{ bounceStiffness: 250, bounceDamping: 18, power: 0.3 }}
+        dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+        dragElastic={0.55}
+        dragTransition={{ bounceStiffness: 400, bounceDamping: 8 }}
         style={{ x, y }}
         onDragStart={() => setIsDragging(true)}
-        onDragEnd={() => setTimeout(() => setIsDragging(false), 120)}
-        className="absolute top-[240px] left-[calc(50%-110px)] md:left-[calc(50%-125px)] z-20 cursor-grab active:cursor-grabbing select-none"
+        onDrag={handleDrag}
+        onDragEnd={handleDragEnd}
+        whileTap={{ scale: 1.03 }}
+        className="absolute top-[210px] left-[calc(50%-150px)] md:left-[calc(50%-160px)] z-20 cursor-grab active:cursor-grabbing select-none touch-none group"
       >
-        <motion.div style={{ rotate }} onClick={handleClick}>
-          <motion.div
-            animate={{ rotateY: isFlipped ? 180 : 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            style={{ transformStyle: 'preserve-3d' }}
-            className="relative w-[220px] h-[310px] md:w-[250px] md:h-[340px]"
-          >
-            {/* ════════ FRONT SIDE ════════ */}
-            <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden' }}>
-              {/* Gradient border wrapper */}
-              <div className="w-full h-full rounded-2xl p-[1.5px] bg-gradient-to-br from-emerald-400/60 via-emerald-800/10 to-emerald-400/60 shadow-[0_0_30px_rgba(16,185,129,0.2),_0_8px_32px_rgba(0,0,0,0.6)]">
-                <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#0f1a15] via-[#0a0f0d] to-[#0d1512] relative">
-                  {/* Subtle grid */}
-                  <div className="absolute inset-0 opacity-[0.03]" style={{
-                    backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
-                    backgroundSize: '18px 18px'
-                  }} />
-                  {/* Corner glow */}
-                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
+        <motion.div
+          style={{ rotateZ, transformStyle: 'preserve-3d' }}
+          whileHover={{ filter: 'drop-shadow(0 0 20px rgba(16,185,129,0.25))' }}
+          transition={{ duration: 0.3 }}
+        >
 
-                  {/* Header */}
-                  <div className="relative z-10 px-4 pt-4 pb-1">
-                    <p className="text-[8px] font-mono text-emerald-500/60 tracking-[0.3em] uppercase text-center">
-                      Analyst // Member
-                    </p>
-                  </div>
+          {/* ── Chrome Eyelet Clasp ── */}
+          <div className="flex flex-col items-center mb-1">
+            {/* Outer chrome ring with 3D depth */}
+            <div className="relative w-9 h-9 rounded-full shadow-[0_3px_12px_rgba(0,0,0,0.6),0_0_20px_rgba(0,0,0,0.15)]">
+              {/* Chrome bezel */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-neutral-100 via-neutral-300 to-neutral-500 p-[3px]">
+                {/* Inner dark hole */}
+                <div className="w-full h-full rounded-full bg-gradient-to-b from-neutral-700 to-neutral-900 shadow-[inset_0_2px_6px_rgba(0,0,0,0.8)]" />
+              </div>
+              {/* Specular highlight */}
+              <div className="absolute top-[3px] left-[6px] w-3 h-1.5 bg-white/35 rounded-full blur-[1px]" />
+            </div>
+            {/* Short metal connector bar */}
+            <div className="w-3 h-2.5 bg-gradient-to-b from-neutral-300 to-neutral-500 shadow-[0_2px_4px_rgba(0,0,0,0.4)] rounded-b-sm" />
+          </div>
 
-                  {/* Photo */}
-                  <div className="relative z-10 flex justify-center px-4 py-2">
-                    <div className="w-[105px] h-[105px] md:w-[115px] md:h-[115px] rounded-xl overflow-hidden border-2 border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15),_inset_0_0_20px_rgba(16,185,129,0.05)]">
-                      {!imageError ? (
-                        <img src="/profile.webp" alt="Devian Wahyu Nugroho" className="w-full h-full object-cover" onError={() => setImageError(true)} />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-neutral-900">
-                          <User className="w-12 h-12 text-neutral-600" />
+          {/* ── 3D Perspective Layer — continuous rotation ── */}
+          <div style={{ perspective: '900px', transformStyle: 'preserve-3d' }}>
+              <motion.div
+                style={{ rotateY: cardRotateYSpring, transformStyle: 'preserve-3d' }}
+                className="relative w-[300px] h-[370px] md:w-[320px] md:h-[395px]"
+              >
+
+                {/* ═══════ FRONT ═══════ */}
+                <motion.div className="absolute inset-0" style={{ opacity: frontOpacity }}>
+                  <div className="w-full h-full rounded-2xl p-[2px] bg-gradient-to-b from-emerald-400/80 via-emerald-700/15 to-emerald-400/80 shadow-[0_0_40px_rgba(16,185,129,0.2),0_12px_40px_rgba(0,0,0,0.7)]">
+                    <div className="w-full h-full rounded-[14px] overflow-hidden bg-gradient-to-br from-[#0f1a15] via-[#0a0f0d] to-[#0d1512] relative flex flex-col">
+                      <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '14px 14px' }} />
+                      <div className="absolute -top-16 -right-16 w-44 h-44 bg-emerald-500/8 rounded-full blur-[80px] pointer-events-none" />
+
+                      <div className="relative z-10 pt-4 text-center shrink-0">
+                        <p className="text-[9px] font-mono text-emerald-400/60 tracking-[0.35em] uppercase">Analyst // Member</p>
+                      </div>
+
+                      <div className="relative z-10 flex justify-center px-5 pt-3 pb-2 shrink-0">
+                        <div className="w-[175px] h-[175px] md:w-[190px] md:h-[190px] rounded-xl overflow-hidden border-2 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.25),inset_0_0_25px_rgba(16,185,129,0.05)]">
+                          {!imageError ? (
+                            <img src="/profile.webp" alt="Devian Wahyu Nugroho" className="w-full h-full object-cover" onError={() => setImageError(true)} />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-neutral-900"><User className="w-16 h-16 text-neutral-600" /></div>
+                          )}
                         </div>
-                      )}
+                      </div>
+
+                      <div className="relative z-10 text-center px-4 pt-2.5 shrink-0">
+                        <h3 className="text-lg md:text-xl font-bold text-white tracking-wide leading-tight" style={{ textShadow: '0 0 20px rgba(255,255,255,0.15), 0 2px 4px rgba(0,0,0,0.5)' }}>Devian Wahyu N.</h3>
+                        <p className="text-xs md:text-sm font-mono text-emerald-300 mt-1" style={{ textShadow: '0 0 12px rgba(16,185,129,0.4)' }}>Market Analyst & Builder</p>
+                      </div>
+
+                      <div className="relative z-10 flex flex-wrap justify-center gap-2 px-4 pt-3 shrink-0">
+                        {['FinTech', 'AI/ML', 'Trading'].map((tag) => (
+                          <span key={tag} className="px-3 py-1 text-[10px] font-mono text-emerald-300 bg-emerald-500/10 border border-emerald-500/25 rounded-full">{tag}</span>
+                        ))}
+                      </div>
+
+                      <div className="relative z-10 px-4 py-3 border-t border-emerald-500/10 bg-black/40 shrink-0 mt-auto">
+                        <div className="flex justify-between mb-1.5">
+                          <span className="text-[8px] font-mono text-neutral-500 uppercase tracking-wider">PEDS Pass</span>
+                          <span className="text-[8px] font-mono text-neutral-500">ID: PEDS-2026-DWN</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-[1px]">
+                          {barcodeW.map((w, i) => (
+                            <div key={i} className="bg-neutral-600/70" style={{ width: `${w * 1.2}px`, height: `${8 + (i % 5)}px` }} />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
+                </motion.div>
 
-                  {/* Name & Role */}
-                  <div className="relative z-10 text-center px-4 pt-1">
-                    <h3 className="text-sm md:text-base font-bold text-white tracking-wide leading-tight">Devian Wahyu N.</h3>
-                    <p className="text-[10px] font-mono text-emerald-400 mt-0.5 tracking-wide">Market Analyst & Builder</p>
-                  </div>
+                {/* ═══════ BACK ═══════ */}
+                <motion.div className="absolute inset-0" style={{ opacity: backOpacity, transform: 'rotateY(180deg)' }}>
+                  <div className="w-full h-full rounded-2xl p-[2px] bg-gradient-to-b from-emerald-400/80 via-emerald-700/15 to-emerald-400/80 shadow-[0_0_40px_rgba(16,185,129,0.2),0_12px_40px_rgba(0,0,0,0.7)]">
+                    <div className="w-full h-full rounded-[14px] overflow-hidden bg-gradient-to-br from-[#0a1510] via-[#0d0d0d] to-[#0f1a15] relative flex flex-col justify-between p-5">
+                      <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-emerald-500/8 rounded-full blur-[80px] pointer-events-none" />
 
-                  {/* Tags */}
-                  <div className="relative z-10 flex flex-wrap justify-center gap-1 px-3 pt-2">
-                    {['FinTech', 'AI/ML', 'Trading'].map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 text-[8px] font-mono text-emerald-300/80 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                      <div className="relative z-10 text-center">
+                        <div className="w-16 h-16 mx-auto rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-center mb-3 shadow-[0_0_25px_rgba(16,185,129,0.15)]">
+                          <span className="text-emerald-500 font-bold text-3xl leading-none">P</span>
+                        </div>
+                        <p className="text-xs font-mono text-emerald-500/60 tracking-[0.25em] uppercase">PEDS Network</p>
+                      </div>
 
-                  {/* Bottom bar */}
-                  <div className="absolute bottom-0 left-0 right-0 px-3 py-2 border-t border-emerald-500/10 bg-black/40">
-                    <div className="flex justify-between mb-1">
-                      <span className="text-[7px] font-mono text-neutral-500 uppercase tracking-wider">PEDS Pass</span>
-                      <span className="text-[7px] font-mono text-neutral-500">ID: PEDS-2026-DWN</span>
-                    </div>
-                    <div className="flex items-center justify-center gap-[1px]">
-                      {barcodeWidths.map((w, i) => (
-                        <div key={i} className="bg-neutral-600/80" style={{ width: `${w}px`, height: `${7 + (i % 5)}px` }} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                      <div className="relative z-10 space-y-3.5 mt-5">
+                        <div className="flex justify-between items-center border-b border-neutral-800/50 pb-2.5">
+                          <span className="text-xs font-mono text-neutral-500 uppercase">Experience</span>
+                          <span className="text-sm font-bold text-white">3+ Years</span>
+                        </div>
+                        <div className="flex justify-between items-center border-b border-neutral-800/50 pb-2.5">
+                          <span className="text-xs font-mono text-neutral-500 uppercase">Focus</span>
+                          <span className="text-sm font-bold text-white">Quantitative</span>
+                        </div>
+                        <div className="flex justify-between items-center border-b border-neutral-800/50 pb-2.5">
+                          <span className="text-xs font-mono text-neutral-500 uppercase">Status</span>
+                          <span className="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+                            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                            Active
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs font-mono text-neutral-500 uppercase">Network</span>
+                          <span className="text-sm font-bold text-white">Traders Family</span>
+                        </div>
+                      </div>
 
-            {/* ════════ BACK SIDE ════════ */}
-            <div className="absolute inset-0" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-              <div className="w-full h-full rounded-2xl p-[1.5px] bg-gradient-to-br from-emerald-400/60 via-emerald-800/10 to-emerald-400/60 shadow-[0_0_30px_rgba(16,185,129,0.2),_0_8px_32px_rgba(0,0,0,0.6)]">
-                <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#0a1510] via-[#0d0d0d] to-[#0f1a15] relative flex flex-col justify-between p-5">
-                  {/* Corner glow */}
-                  <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
-
-                  {/* Logo */}
-                  <div className="relative z-10 text-center">
-                    <div className="w-12 h-12 mx-auto rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-center mb-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                      <span className="text-emerald-500 font-bold text-xl">P</span>
-                    </div>
-                    <p className="text-[10px] font-mono text-emerald-500/70 tracking-[0.25em] uppercase">PEDS Network</p>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="relative z-10 space-y-2.5 mt-3">
-                    <div className="flex justify-between items-center border-b border-neutral-800/60 pb-2">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase">Experience</span>
-                      <span className="text-xs font-bold text-white">3+ Years</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-neutral-800/60 pb-2">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase">Focus</span>
-                      <span className="text-xs font-bold text-white">Quantitative</span>
-                    </div>
-                    <div className="flex justify-between items-center border-b border-neutral-800/60 pb-2">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase">Status</span>
-                      <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                        Active
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] font-mono text-neutral-500 uppercase">Network</span>
-                      <span className="text-xs font-bold text-white">Traders Family</span>
+                      <p className="relative z-10 text-[9px] font-mono text-neutral-600 tracking-widest uppercase text-center mt-5">
+                        Drag to flip back
+                      </p>
                     </div>
                   </div>
+                </motion.div>
 
-                  {/* Bottom hint */}
-                  <p className="relative z-10 text-[8px] font-mono text-neutral-600 tracking-widest uppercase text-center mt-3">
-                    Tap to flip back
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+              </motion.div>
+          </div>
+
         </motion.div>
       </motion.div>
 
-      {/* ── Interaction Hint ── */}
+      {/* ── Hint ── */}
       <p className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[9px] font-mono text-neutral-600 tracking-wider uppercase whitespace-nowrap">
-        Drag to swing · Tap to flip
+        Drag to swing card
       </p>
     </div>
   );

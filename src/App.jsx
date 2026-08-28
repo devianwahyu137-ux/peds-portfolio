@@ -29,7 +29,7 @@ function App() {
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-black isolate overflow-visible text-text-primary selection:bg-bullish/30 selection:text-bullish cursor-default">
+    <div className="relative w-full min-h-screen bg-black isolate overflow-visible text-text-primary selection:bg-bullish selection:text-black cursor-default">
       <CustomCursor />
       
       {/* Scroll Progress Bar */}
