@@ -1,127 +1,212 @@
 import { motion } from 'framer-motion';
-import { MonitorPlay, MessageSquareText, LineChart, FileText, BookOpen, ArrowUpRight } from 'lucide-react';
+import { 
+  FileText, 
+  MessageSquare, 
+  MonitorPlay, 
+  ArrowUpRight, 
+  BookOpen, 
+  Code2, 
+  Globe2, 
+  Sparkles,
+  Share2
+} from 'lucide-react';
 
 export default function SocialHub() {
-  const socials = [
+  const platforms = [
     {
-      name: "LinkedIn",
-      handle: "Devian Wahyu Nugroho",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>,
-      link: "https://www.linkedin.com/in/devianwahyu77",
-      color: "group-hover:text-blue-500",
-      bgHover: "group-hover:bg-blue-500/10",
-      borderHover: "group-hover:border-blue-500/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(59,130,246,0.15)]"
+      id: 'substack',
+      name: 'Substack Publication',
+      handle: '@pedsanalysis',
+      title: 'The Macro Playbook & Sovereign Axis',
+      desc: 'Institutional geopolitical memos, foreign exchange dynamics, and global liquidity flows.',
+      badge: 'FLAGSHIP PUBLICATION',
+      icon: FileText,
+      link: 'https://substack.com/@pedsanalysis?r=399xyt&utm_campaign=profile&utm_medium=profile-page',
+      colSpan: 'md:col-span-2',
+      accentColor: '#10b981',
+      glowColor: 'rgba(16, 185, 129, 0.25)',
+      borderHover: 'hover:border-emerald-500/50',
+      textAccent: 'text-emerald-400',
+      bgTag: 'bg-emerald-500/10 border-emerald-500/30'
     },
     {
-      name: "X (Twitter)",
-      handle: "@ChastFlash",
-      icon: <MessageSquareText className="w-5 h-5" />,
-      link: "https://x.com/chastflash?s=21",
-      color: "group-hover:text-neutral-200",
-      bgHover: "group-hover:bg-neutral-200/10",
-      borderHover: "group-hover:border-neutral-200/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(229,229,229,0.15)]"
+      id: 'x',
+      name: 'X (Formerly Twitter)',
+      handle: '@ChastFlash',
+      title: 'Real-Time Market Sentiment',
+      desc: 'Rapid tactical observations, economic data releases, and intermarket alpha.',
+      badge: 'ALPHA RADAR',
+      icon: MessageSquare,
+      link: 'https://x.com/chastflash?s=21',
+      colSpan: 'col-span-1',
+      accentColor: '#38bdf8',
+      glowColor: 'rgba(56, 189, 248, 0.25)',
+      borderHover: 'hover:border-sky-400/50',
+      textAccent: 'text-sky-400',
+      bgTag: 'bg-sky-500/10 border-sky-500/30'
     },
     {
-      name: "TikTok",
-      handle: "@devianwn",
-      icon: <LineChart className="w-5 h-5" />,
-      link: "https://www.tiktok.com/@devianwn?_r=1&_t=ZS-94ofxUMRHBI",
-      color: "group-hover:text-emerald-400",
-      bgHover: "group-hover:bg-emerald-400/10",
-      borderHover: "group-hover:border-emerald-400/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(52,211,153,0.15)]"
+      id: 'youtube',
+      name: 'YouTube Intelligence',
+      handle: '@ChastFlash',
+      title: 'ChastFlash Video Dispatches',
+      desc: 'Deep-dive trading essentials, institutional order flow breakdowns, and market anatomy.',
+      badge: 'VIDEO DISPATCHES',
+      icon: MonitorPlay,
+      link: 'https://youtube.com/@chastflash?si=iCLJkT1lHcjVJQXS',
+      colSpan: 'col-span-1',
+      accentColor: '#ef4444',
+      glowColor: 'rgba(239, 68, 68, 0.25)',
+      borderHover: 'hover:border-red-500/50',
+      textAccent: 'text-red-400',
+      bgTag: 'bg-red-500/10 border-red-500/30'
     },
     {
-      name: "YouTube",
-      handle: "@ChastFlash",
-      icon: <MonitorPlay className="w-5 h-5" />,
-      link: "https://youtube.com/@chastflash?si=iCLJkT1lHcjVJQXS",
-      color: "group-hover:text-red-500",
-      bgHover: "group-hover:bg-red-500/10",
-      borderHover: "group-hover:border-red-500/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(239,68,68,0.15)]"
+      id: 'linkedin',
+      name: 'LinkedIn Professional',
+      handle: 'Devian Wahyu Nugroho',
+      title: 'Executive Network & Verification',
+      desc: 'Professional credentials, university affiliations (FEB UGM), and strategic partnerships.',
+      badge: 'VERIFIED NETWORK',
+      icon: Globe2,
+      link: 'https://www.linkedin.com/in/devianwahyu77',
+      colSpan: 'col-span-1',
+      accentColor: '#3b82f6',
+      glowColor: 'rgba(59, 130, 246, 0.25)',
+      borderHover: 'hover:border-blue-500/50',
+      textAccent: 'text-blue-400',
+      bgTag: 'bg-blue-500/10 border-blue-500/30'
     },
     {
-      name: "Substack",
-      handle: "@pedsanalysis",
-      icon: <FileText className="w-5 h-5" />,
-      link: "https://substack.com/@pedsanalysis?r=399xyt&utm_campaign=profile&utm_medium=profile-page",
-      color: "group-hover:text-orange-500",
-      bgHover: "group-hover:bg-orange-500/10",
-      borderHover: "group-hover:border-orange-500/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(249,115,22,0.15)]"
+      id: 'github',
+      name: 'GitHub Repositories',
+      handle: '@devianwahyu137-ux',
+      title: 'Quantitative & FinTech Source Code',
+      desc: 'Decision support platforms, algorithmic backtesters, and responsive web architectures.',
+      badge: 'OPEN SOURCE',
+      icon: Code2,
+      link: 'https://github.com/devianwahyu137-ux',
+      colSpan: 'col-span-1',
+      accentColor: '#10b981',
+      glowColor: 'rgba(16, 185, 129, 0.22)',
+      borderHover: 'hover:border-emerald-500/50',
+      textAccent: 'text-emerald-400',
+      bgTag: 'bg-emerald-500/10 border-emerald-500/30'
     },
     {
-      name: "Medium",
-      handle: "@devianwahyu137",
-      icon: <BookOpen className="w-5 h-5" />,
-      link: "https://medium.com/@devianwahyu137",
-      color: "group-hover:text-white",
-      bgHover: "group-hover:bg-white/10",
-      borderHover: "group-hover:border-white/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-    },
-    {
-      name: "GitHub",
-      handle: "@devianwahyu137-ux",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>,
-      link: "https://github.com/devianwahyu137-ux",
-      color: "group-hover:text-neutral-100",
-      bgHover: "group-hover:bg-neutral-100/10",
-      borderHover: "group-hover:border-neutral-100/50",
-      shadowHover: "hover:shadow-[0_0_30px_rgba(245,245,245,0.15)]"
+      id: 'medium',
+      name: 'Medium Publications',
+      handle: '@devianwahyu137',
+      title: 'Indonesian Economic Perspectives',
+      desc: 'Bahasa Indonesia essays on local currency pressure, macroeconomic policy, and tech disruption.',
+      badge: 'REGIONAL ESSAYS',
+      icon: BookOpen,
+      link: 'https://medium.com/@devianwahyu137',
+      colSpan: 'col-span-1',
+      accentColor: '#e2e8f0',
+      glowColor: 'rgba(255, 255, 255, 0.2)',
+      borderHover: 'hover:border-white/50',
+      textAccent: 'text-white',
+      bgTag: 'bg-white/10 border-white/20'
     }
   ];
 
   return (
-    <section id="social-hub" className="relative w-full isolate py-16 scroll-mt-20">
-      
-      {/* Header */}
-      <div className="mb-10 flex flex-col items-start">
-        <p className="text-emerald-500 font-mono text-[10px] uppercase tracking-[0.3em] mb-2">Connect</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight relative pb-3 inline-block">
-          Digital Ecosystem
-          <span className="absolute bottom-0 left-0 w-12 h-[3px] bg-emerald-500 rounded-full" />
-        </h2>
+    <section id="social-hub" className="relative w-full py-12 scroll-mt-24">
+      {/* ── Section Header ── */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <p className="text-emerald-400 font-mono text-xs uppercase tracking-[0.25em]">
+              Digital Ecosystem • Multi-Platform Bento
+            </p>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+            Institutional Network
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
+          <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">
+            6 ECOSYSTEM NODES ACTIVE
+          </span>
+        </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {socials.map((social, idx) => (
-          <motion.a
-            key={idx}
-            href={social.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.4, delay: idx * 0.05, ease: "easeOut" }}
-            className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-neutral-900/40 to-neutral-950/80 backdrop-blur-md border border-neutral-800/60 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:z-10 ${social.borderHover} ${social.shadowHover}`}
-          >
-            {/* Icon Container */}
-            <div className={`flex items-center justify-center w-12 h-12 rounded-xl bg-neutral-800/50 border border-neutral-700/50 text-neutral-400 transition-colors duration-300 ${social.bgHover} ${social.color}`}>
-              {social.icon}
-            </div>
-            
-            {/* Text Info */}
-            <div className="flex flex-col flex-grow">
-              <span className="text-sm font-bold text-neutral-200 group-hover:text-white transition-colors mb-0.5">
-                {social.name}
-              </span>
-              <span className="text-xs font-mono text-neutral-500 tracking-wide transition-colors group-hover:text-neutral-400">
-                {social.handle}
-              </span>
-            </div>
-            
-            {/* Arrow Icon */}
-            <div className={`opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 ${social.color}`}>
-              <ArrowUpRight className="w-5 h-5" />
-            </div>
-          </motion.a>
-        ))}
+      {/* ── Mini Bento Grid (2-Column Mobile, 3-Column Desktop) ── */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4 md:gap-5">
+        {platforms.map((p, idx) => {
+          const Icon = p.icon;
+          const isFullWidthMobile = p.id === 'substack';
+          return (
+            <motion.a
+              key={p.id}
+              href={p.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              className={`group relative rounded-xl md:rounded-2xl p-3 sm:p-5 md:p-7 bg-neutral-950/92 border border-white/10 transition-all duration-500 hover:-translate-y-1 ${isFullWidthMobile ? 'col-span-2 md:col-span-2' : 'col-span-1'} ${p.borderHover} flex flex-col justify-between overflow-hidden shadow-lg`}
+              style={{
+                boxShadow: `0 0 0 rgba(0,0,0,0)`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 0 35px ${p.glowColor}`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              {/* Dynamic Color Ambilight Glow */}
+              <div 
+                className="pointer-events-none absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ backgroundColor: p.glowColor }}
+              />
+
+              <div>
+                {/* Top Badge & Handle */}
+                <div className="flex items-center justify-between mb-2.5 sm:mb-4">
+                  <span className={`px-2 py-0.5 rounded-full font-mono text-[8px] sm:text-[9px] uppercase tracking-wider font-semibold border ${p.bgTag} ${p.textAccent}`}>
+                    {p.badge}
+                  </span>
+                  <div className="flex items-center gap-1 font-mono text-[10px] sm:text-[11px] text-neutral-400 group-hover:text-white transition-colors">
+                    <span className="hidden sm:inline truncate max-w-[120px]">{p.handle}</span>
+                    <ArrowUpRight className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${p.textAccent} group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform`} />
+                  </div>
+                </div>
+
+                {/* Main Identity */}
+                <div className="flex items-start gap-2.5 sm:gap-3.5 mb-1 sm:mb-2">
+                  <div className={`p-1.5 sm:p-2.5 rounded-lg md:rounded-xl bg-white/5 border border-white/10 ${p.textAccent} group-hover:scale-105 transition-transform shrink-0 mt-0.5`}>
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-white transition-colors truncate">
+                      {p.name}
+                    </h3>
+                    <p className={`font-mono text-[10px] sm:text-xs ${p.textAccent} font-medium mt-0.5 truncate`}>
+                      {p.title}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Description (Visible on sm+) */}
+                <p className="hidden sm:block text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mt-2">
+                  {p.desc}
+                </p>
+              </div>
+
+              {/* Bottom Footer Chip (Visible on sm+) */}
+              <div className="hidden sm:flex pt-3 mt-3 border-t border-white/5 items-center justify-between font-mono text-[9px] sm:text-[10px] text-neutral-400">
+                <span className="uppercase tracking-wider">SECURE LINK DISPATCH</span>
+                <span className={`group-hover:${p.textAccent} transition-colors font-semibold`}>CONNECT →</span>
+              </div>
+            </motion.a>
+          );
+        })}
       </div>
     </section>
   );

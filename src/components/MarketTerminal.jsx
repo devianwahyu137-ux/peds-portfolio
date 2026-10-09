@@ -1,34 +1,39 @@
-import TradingViewMiniChart from './TradingViewMiniChart';
+import MarketAnalyticsTerminal from './MarketAnalyticsTerminal';
+import { Activity, ShieldCheck, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function MarketTerminal() {
-  const assets = [
-    { name: "BTC/USDT", symbol: "BINANCE:BTCUSDT", id: "tv_chart_btc" },
-    { name: "ETH/USDT", symbol: "BINANCE:ETHUSDT", id: "tv_chart_eth" },
-    { name: "XAU/USD (Gold)", symbol: "OANDA:XAUUSD", id: "tv_chart_xau" },
-  ];
-
   return (
-    <section className="relative">
-      <div className="mb-8">
-        <h2 className="text-3xl font-display font-bold tracking-tight mb-4">Market Intelligence</h2>
-        <div className="w-20 h-1 bg-bullish rounded-full"></div>
+    <section id="market-terminal-section" className="relative scroll-mt-24">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <p className="text-emerald-400 font-mono text-xs uppercase tracking-[0.25em]">
+              Quantitative Intelligence & Execution
+            </p>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-white">
+            Market Analytics Terminal
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 font-mono text-xs text-emerald-400">
+            <Zap className="w-3.5 h-3.5" />
+            <span>NATIVE LIGHTWEIGHT CHARTS v5</span>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {assets.map((asset, idx) => (
-          <motion.div
-            key={asset.symbol}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className="glass-card p-1 overflow-hidden"
-          >
-            <TradingViewMiniChart symbol={asset.symbol} containerId={asset.id} />
-          </motion.div>
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <MarketAnalyticsTerminal />
+      </motion.div>
     </section>
   );
 }

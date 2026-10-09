@@ -8,10 +8,29 @@
   --color-surface-hover: rgba(255, 255, 255, 0.08);
   --color-border: rgba(255, 255, 255, 0.1);
   --color-text-primary: #FFFFFF;
-  --color-text-secondary: #A0AEC0;
+  --color-text-secondary: #CBD5E1;
+
+  --color-neutral-100: #F8FAFC;
+  --color-neutral-200: #E2E8F0;
+  --color-neutral-300: #CBD5E1;
+  --color-neutral-400: #94A3B8;
+  --color-neutral-500: #64748B;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1E293B;
+  --color-neutral-900: #0F172A;
+  --color-neutral-950: #020617;
 
   --font-display: "Satoshi", "Inter", sans-serif;
   --font-body: "Inter", sans-serif;
+}
+
+:root {
+  --color-neutral-100: #F8FAFC !important;
+  --color-neutral-200: #E2E8F0 !important;
+  --color-neutral-300: #CBD5E1 !important;
+  --color-neutral-400: #94A3B8 !important;
+  --color-neutral-500: #64748B !important;
 }
 
 @layer base {
@@ -24,11 +43,25 @@
     color: var(--color-text-primary);
     overflow-x: visible !important;
   }
+  a:not([class*="text-black"]) {
+    color: inherit;
+  }
+
+  /* Modern CSS Containment: Prevents rendering off-screen sections until near viewport */
+  #the-builder,
+  #milestones,
+  #market-terminal-section,
+  #social-hub,
+  #notion-journal,
+  #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
 }
 
 @layer utilities {
   .glass-card {
-    @apply bg-surface border border-border backdrop-blur-xl rounded-2xl transition-all duration-300;
+    @apply bg-neutral-950/92 border border-border rounded-2xl transition-all duration-300;
   }
   
   .glass-card:hover {

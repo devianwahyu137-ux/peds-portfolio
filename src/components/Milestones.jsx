@@ -1,80 +1,308 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { 
+  Trophy, 
+  Award, 
+  Target, 
+  ShieldCheck, 
+  ExternalLink, 
+  Zap, 
+  Sparkles, 
+  Cpu, 
+  TrendingUp, 
+  Briefcase, 
+  Layers, 
+  Lightbulb 
+} from 'lucide-react';
 
-const milestonesData = [
+const timelineData = [
   {
-    id: 1,
-    category: 'FEB 2026 // MARKET SIMULATION',
-    title: 'Silver Medalist - National Trading Competition',
-    description: 'Secured the Silver Medal at TRACTION OU Festival 11. Demonstrated strict discipline in technical analysis and robust risk management strategies within a highly competitive real-market simulation.'
+    year: '2026',
+    quarter: 'ACTIVE // 2026',
+    milestones: [
+      {
+        badge: 'FINTECH_INNOVATION // NATIONAL_AWARD',
+        title: 'Top 4 National Finalist - PIDI Digdaya Hackathon 2026',
+        issuer: 'Bank Indonesia x Kemenperin (FEKDI x IFSE)',
+        description: 'Secured Top 4 national standing out of 800+ proposals at FEKDI x IFSE 2026 Grand Final. Architected NEMOS, an AI-powered alternative revenue-based financing platform delivering automated credit assessment, cash flow deconstruction, and capital liquidity for underserved MSMEs.',
+        icon: Zap,
+        tags: ['#Fintech', '#AI/ML Architecture', '#Revenue-Based Financing', '#Bank Indonesia'],
+        status: 'TOP 4 FINALIST',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'MARKET_SIMULATION // VERIFIED',
+        title: 'Silver Medalist - National Trading Competition',
+        issuer: 'TRACTION OU Festival 11',
+        description: 'Secured the Silver Medal in high-stakes market simulation across multi-asset instruments. Demonstrated strict adherence to quantitative risk rules, tight drawdown control (-3.2% max), and disciplined technical execution.',
+        icon: Trophy,
+        tags: ['#Forex', '#Risk Budgeting', '#Technical Alpha'],
+        status: 'MEDALIST',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'VENTURE_STRATEGY // SCHOLARSHIP',
+        title: 'National Finalist & MEM UC Scholarship Recipient',
+        issuer: 'Universitas Ciputra Surabaya',
+        description: 'Advanced to the national finals and secured the MEM UC venture scholarship award for architecting an algorithmic business model with robust unit economics, market expansion roadmap, and financial feasibility modeling.',
+        icon: Award,
+        tags: ['#Venture Logic', '#Financial Feasibility', '#Scholarship'],
+        status: 'SCHOLAR',
+        statusColor: 'sky'
+      },
+      {
+        badge: 'BUSINESS_INNOVATION // FINALIST',
+        title: 'Top 10 National Finalist - BizClash 3.0 Business Competition',
+        issuer: 'Kasir Pintar',
+        description: 'Ranked among the Top 10 national teams in an intensive corporate challenge, formulating high-impact go-to-market strategies, operational risk mitigations, and commercial scalability frameworks.',
+        icon: Target,
+        tags: ['#Corporate Strategy', '#GoToMarket', '#Business Scalability'],
+        status: 'TOP 10',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'ARTIFICIAL_INTELLIGENCE // INNOVATION',
+        title: 'Top 20 National Finalist - AI Innovation Challenge (COMPFEST)',
+        issuer: 'Fasilkom Universitas Indonesia',
+        description: 'Advanced as a Top 20 national finalist at Universitas Indonesia, engineering an AI-driven decision engine designed to solve systemic data inefficiencies and structured information verification.',
+        icon: Cpu,
+        tags: ['#AI Innovation', '#NLP', '#Decision Engine', '#COMPFEST UI'],
+        status: 'TOP 20',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'STRATEGIC_SOLUTIONS // CASE_COMP',
+        title: 'Top 20 National Team - Business Case Competition',
+        issuer: 'DreamCareer Indonesia',
+        description: 'Placed in the Top 20 nationally by deconstructing complex corporate market bottlenecks, designing comprehensive market expansion roadmaps, and quantifying expected return on investment (ROI).',
+        icon: TrendingUp,
+        tags: ['#Business Case', '#Corporate Expansion', '#ROI Modeling'],
+        status: 'TOP 20',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'BUSINESS_PLAN // NATIONAL',
+        title: 'National Grand Finalist - Business Plan Competition #2',
+        issuer: 'Ikut Lomba & National Network',
+        description: 'Recognized as a national grand finalist for building an end-to-end commercial business plan, integrating discounted cash flow projections, supply chain logistics, and market sensitivity modeling.',
+        icon: Briefcase,
+        tags: ['#Business Planning', '#Cashflow Forecast', '#Risk Modeling'],
+        status: 'GRAND FINALIST',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'BMC_FRAMEWORK // NATIONAL',
+        title: 'National Finalist - B-PRENEURSHIP BMC Competition',
+        issuer: 'Universitas Jenderal Soedirman',
+        description: 'Achieved national finalist standing at Universitas Jenderal Soedirman for presenting a lean, highly validated business model canvas centered on digital capital accessibility and ecosystem synergy.',
+        icon: Layers,
+        tags: ['#Business Model Canvas', '#Unsoed', '#Lean Startup'],
+        status: 'FINALIST',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'VENTURE_IDEATION // FINALIST',
+        title: 'National Finalist - National BMC Competition',
+        issuer: 'Halo Mentor Indonesia',
+        description: 'Earned national finalist honors by modeling scalable value propositions, cost structure optimizations, and institutional monetization channels for early-stage enterprise ventures.',
+        icon: Lightbulb,
+        tags: ['#Venture Ideation', '#Value Proposition', '#Cost Architecture'],
+        status: 'FINALIST',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'QUANT_CAPITAL // PROP_TRADING',
+        title: 'Phase 1 Evaluation Cleared - Proprietary Trading',
+        issuer: 'FundingPips Evaluation Program',
+        description: 'Successfully cleared institutional trading evaluation with an 8% profit target under strict drawdown limits, utilizing rule-based systematic risk management and volatility regime modeling.',
+        icon: ShieldCheck,
+        tags: ['#Prop Trading', '#Quantitative Risk', '#Capital Preservation'],
+        status: 'PASSED',
+        statusColor: 'emerald'
+      }
+    ]
   },
   {
-    id: 2,
-    category: 'NOV 2025 // BUSINESS STRATEGY',
-    title: '1st Place Winner - Business Model Canvas',
-    description: 'Awarded first place by BEM FK-KMK UGM for developing a comprehensive strategic business model, excelling in value proposition mapping and market feasibility implementation.'
-  },
-  {
-    id: 3,
-    category: 'JUN 2026 // TECH INNOVATION',
-    title: 'Qualifier - PIDI 4.0 Hackathon (Ongoing)',
-    description: 'Successfully advanced through the initial proposal phase in the national digital industry hackathon by Pusat Industri Digital Indonesia 4.0, architecting a tech-driven solution.'
-  },
-  {
-    id: 4,
-    category: 'APR - MAY 2026 // FRAMEWORK DEVELOPMENT',
-    title: 'Multi-Time National Finalist',
-    description: 'Achieved national finalist status in "Beyond Business Plan" (UC) and "B-PRENEURSHIP" (Unsoed), securing a MEM UC scholarship for innovative business frameworks.'
+    year: '2025',
+    quarter: 'Q3-Q4',
+    milestones: [
+      {
+        badge: 'BUSINESS_STRATEGY // 1ST_PLACE',
+        title: '1st Place Winner - Business Model Canvas Competition',
+        issuer: 'BEM FK-KMK Universitas Gadjah Mada',
+        description: 'Awarded first place champion for developing an exhaustive business feasibility framework, excelling in strategic value proposition mapping, cashflow sustainability, and institutional stakeholder alignment.',
+        icon: Sparkles,
+        tags: ['#Business Modeling', '#Value Mapping', '#FEB UGM'],
+        status: '1ST PLACE',
+        statusColor: 'emerald'
+      },
+      {
+        badge: 'INSTITUTIONAL // EXECUTION',
+        title: 'Analyst & Quantitative Market Strategist',
+        issuer: 'Traders Family & Proprietary Research',
+        description: 'Spearheaded quantitative market research, formulating macroeconomic scenario models and publishing over 20+ analytical research papers covering currency regimes, liquidity flow, and crypto dynamics.',
+        icon: Target,
+        tags: ['#Macroeconomics', '#Order Flow', '#Substack Research'],
+        status: 'ACTIVE',
+        statusColor: 'emerald'
+      }
+    ]
   }
 ];
 
-export default function Milestones() {  
-  return (
-    <section id="milestones" className="relative w-full overflow-visible isolate py-12 scroll-mt-20 flex flex-col gap-8 items-center">
-      {/* Section Header */}
-      <div className="w-full max-w-7xl flex flex-col items-start mb-2">
-        <h2 className="text-2xl font-bold text-white tracking-tight relative pb-2">
-          Market Validation & Milestones
-          <span className="absolute bottom-0 left-0 w-12 h-[3px] bg-white rounded-full" />
-        </h2>
-      </div>
+export default function Milestones() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 85%', 'end 50%'],
+  });
 
-      {/* Grid Container */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-4">
-        {milestonesData.map((milestone) => (
-          <motion.div
-            key={milestone.id}
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            whileHover={{ scale: 1.01 }}
-            className="p-5 rounded-xl bg-black/40 border border-white/10 hover:border-white/20 transition-all duration-300 flex flex-col justify-between"
-          >
-            <div>
-              <p className="text-[9px] font-mono text-emerald-500 mb-2 uppercase tracking-widest">
-                {milestone.category}
-              </p>
-              <h3 className="text-sm font-bold text-white mb-2 leading-snug">
-                {milestone.title}
-              </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                {milestone.description}
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  return (
+    <section id="milestones" ref={containerRef} className="relative w-full py-12 scroll-mt-24 overflow-visible">
+      
+      {/* ── Sticky Section Header ── */}
+      <div className="sticky top-14 sm:top-16 md:top-20 z-20 py-2.5 sm:py-3 md:py-4 mb-4 sm:mb-6 md:mb-8 bg-neutral-950/85 backdrop-blur-md border-b border-emerald-500/10 transition-all">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-emerald-400 font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em]">
+                Aceternity Timeline Architecture
               </p>
             </div>
-          </motion.div>
-        ))}
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+              Market Validation & Milestones
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              href="https://www.linkedin.com/in/devianwahyu77"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[11px] sm:text-xs hover:bg-emerald-500 hover:text-black transition-all"
+            >
+              <span>Verify on LinkedIn</span>
+              <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            </a>
+          </div>
+        </div>
       </div>
 
-      {/* Bottom Action Button */}
-      <div className="w-full flex justify-center mt-6">
-        <a 
-          href="https://www.linkedin.com/in/devianwahyu77"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center gap-2 font-mono text-[10px] font-medium tracking-[0.2em] text-neutral-400 bg-neutral-900/40 backdrop-blur-md border border-neutral-800/80 rounded-full py-3 px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] hover:border-emerald-500/40 hover:text-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.08),inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 uppercase"
-        >
-          <span>Verify Full Track Record ↗</span>
-        </a>
+      {/* ── Aceternity Vertical Timeline Track ── */}
+      <div className="relative w-full max-w-5xl mx-auto px-1 sm:px-4">
+        {/* Static Background Vertical Line */}
+        <div className="absolute left-4 md:left-28 -translate-x-1/2 top-2 bottom-0 w-[2px] bg-white/10" />
+
+        {/* Animated Glowing Emerald Vertical Beam */}
+        <motion.div
+          style={{ height: lineHeight }}
+          className="absolute left-4 md:left-28 -translate-x-1/2 top-2 w-[2px] bg-gradient-to-b from-emerald-400 via-emerald-500 to-transparent shadow-[0_0_15px_rgba(16,185,129,0.8)] origin-top z-10"
+        />
+
+        {/* Timeline Items */}
+        <div className="space-y-12 sm:space-y-16">
+          {timelineData.map((epoch) => (
+            <div key={epoch.year} className="relative flex flex-col md:flex-row items-start">
+              {/* Year Stamp Indicator (Desktop side header) */}
+              <div className="hidden md:flex w-28 shrink-0 flex-col text-right pr-8 pt-1">
+                <span className="font-display font-bold text-2xl text-white tracking-tight leading-none">
+                  {epoch.year}
+                </span>
+                <span className="font-mono text-xs tracking-wider text-emerald-400 font-semibold mt-1.5">
+                  {epoch.quarter}
+                </span>
+              </div>
+
+              {/* Node Pill on Line (Centered exactly with line axis) */}
+              <div className="absolute left-4 md:left-28 -translate-x-1/2 top-1 md:top-1.5 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-950 border-2 border-emerald-400 z-20 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400" />
+                </span>
+              </div>
+
+              {/* Mobile Year Stamp Header */}
+              <div className="md:hidden flex items-center gap-2 mb-3 pl-9 pt-0.5">
+                <span className="font-display font-bold text-lg text-white tracking-tight">{epoch.year}</span>
+                <span className="font-mono text-xs text-emerald-400 font-semibold tracking-wider">({epoch.quarter})</span>
+              </div>
+
+              {/* Milestones inside this Epoch */}
+              <div className="flex-1 w-full space-y-4 sm:space-y-6 pl-8 sm:pl-10 md:pl-8">
+                {epoch.milestones.map((item, idx) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: '-40px' }}
+                      transition={{ duration: 0.5, delay: Math.min(idx * 0.05, 0.3) }}
+                      className="group relative p-3.5 sm:p-5 md:p-7 rounded-xl md:rounded-2xl bg-neutral-950/92 border border-white/10 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 overflow-hidden"
+                    >
+                      {/* Aceternity Subtle Hover Glow */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                      <div className="relative z-10 flex flex-col justify-between">
+                        {/* Header Badge & Issuer */}
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2 sm:mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[9px] sm:text-[10px] tracking-widest font-semibold uppercase">
+                              {item.badge}
+                            </span>
+                            <span className="font-mono text-[11px] sm:text-xs text-neutral-400 hidden sm:inline">
+                              {item.issuer}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 font-mono text-[9px] sm:text-[10px] text-white">
+                            <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" />
+                            <span>{item.status}</span>
+                          </div>
+                        </div>
+
+                        {/* Title with Icon */}
+                        <div className="flex items-start gap-2.5 sm:gap-3 my-0.5 sm:my-1">
+                          <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                          </div>
+                          <div>
+                            <h3 className="font-display font-bold text-sm sm:text-lg md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug">
+                              {item.title}
+                            </h3>
+                            <p className="font-mono text-[10px] sm:text-xs text-neutral-400 sm:hidden mt-0.5">
+                              {item.issuer}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed my-2 sm:my-3 font-body">
+                          {item.description}
+                        </p>
+
+                        {/* Tech & Discipline Tags */}
+                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-white/5 font-mono text-[9px] sm:text-[10px]">
+                          {item.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,52 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, ExternalLink } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Play, X, ExternalLink, BookOpen, Clock, ShieldCheck, Cpu, ArrowUpRight, MonitorPlay, BarChart3 } from 'lucide-react';
+import BorderBeam from './BorderBeam';
+
+// 3D Card Hover Container
+function TiltCard({ children, className, isFeatured = false }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 25 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    x.set(mouseX / rect.width - 0.5);
+    y.set(mouseY / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+      }}
+      className={`relative will-change-transform ${className}`}
+    >
+      <div style={{ transform: 'translateZ(20px)' }} className="h-full">
+        {children}
+      </div>
+    </motion.div>
+  );
+}
 
 export default function ContentHub() {
   const [activeVideo, setActiveVideo] = useState(null);
@@ -10,261 +56,304 @@ export default function ContentHub() {
       id: "qM3-fv5LukQ",
       title: "Trading Essentials Series: Part 1 - How to Read Any Market",
       thumbnail: "https://i.ytimg.com/vi/qM3-fv5LukQ/sddefault.jpg",
-      tag: "PDS-001 | FOUNDATION"
+      tag: "PDS-001 | FOUNDATION",
+      duration: "14:20",
+      views: "Institutional Tape Reading",
+      confidence: "98.2%"
     },
     {
       id: "8HEU5I7qRNM",
       title: "My First Trading Plan: Putting It All Together",
       thumbnail: "https://i.ytimg.com/vi/8HEU5I7qRNM/sddefault.jpg",
-      tag: "PDS-002 | TACTICAL"
+      tag: "PDS-002 | TACTICAL",
+      duration: "18:45",
+      views: "Risk Management Matrix",
+      confidence: "96.5%"
     },
     {
       id: "rm8YgeCLcaI",
       title: "Unmasking the Whales: Tracking Institutional Moves with Arkham",
       thumbnail: "https://i.ytimg.com/vi/rm8YgeCLcaI/sddefault.jpg",
-      tag: "PDS-003 | INTELLIGENCE"
+      tag: "PDS-003 | INTELLIGENCE",
+      duration: "21:10",
+      views: "On-Chain & Order Flow",
+      confidence: "99.1%"
     }
   ];
 
   const reports = [
     {
       date: "Apr 18, 2026",
-      category: "GEOPOLITICS",
+      category: "GEOPOLITICS // CURRENCY REGIME",
       title: "The Petrodollar Is Not Dying. But It Is Fracturing.",
-      abstract: "Global trade is witnessing a structural shift as alternative settlement platforms like mBridge process billions in cross-border transactions. This report explores the fracturing of dollar dominance and the emergence of a multi-polar financial system.",
+      abstract: "Global trade is witnessing a structural shift as alternative settlement platforms like mBridge process billions in cross-border settlements. An institutional audit on dollar hegemony and multi-currency clearing architectures.",
       readingTime: "6 min read",
       platform: "Substack",
       label: "Institutional Deep-Dive (ENG)",
-      link: "https://substack.com/@pedsanalysis/note/c-245342784?r=399xyt&utm_source=notes-share-action&utm_medium=web"
-    },
-    {
-      date: "Mar 29, 2026",
-      category: "MACRO ECONOMY",
-      title: "Mengapa Rupiah Menyentuh Rp17.000?",
-      abstract: "Pelemahan Rupiah bukan hanya soal penguatan Dolar, melainkan gabungan tekanan inflasi domestik dan sentimen investor. Artikel tersebut mengupas tiga lapisan masalah utama yang memicu mata uang Garuda menembus level psikologis baru pada Maret 2026.",
-      readingTime: "4 min read",
-      platform: "Medium",
-      label: "Market Insights (IDN)",
-      link: "https://medium.com/@devianwahyu137/mengapa-rupiah-menyentuh-rp17-000-d4942c191db9"
+      link: "https://substack.com/@pedsanalysis/note/c-245342784?r=399xyt&utm_source=notes-share-action&utm_medium=web",
+      isFeatured: true,
+      confidence: "98.4%",
+      macroDepth: "Tier-1 Sovereign",
+      beamColorFrom: "#10b981",
+      beamColorTo: "#38bdf8"
     },
     {
       date: "May 1, 2026",
-      category: "MARKET STRUCTURE",
+      category: "MARKET STRUCTURE // QUANT ALPHA",
       title: "Why Bitcoin's Recovery Looks Different This Time",
-      abstract: "Bitcoin has recovered nearly 22% from its early 2026 lows, but is this a genuine trend reversal? This analysis utilizes eight critical data points to determine if the market is entering a new accumulation phase or a sophisticated bull trap.",
+      abstract: "Analyzing eight institutional liquidity metrics to differentiate whether current structural momentum represents sovereign-level spot accumulation or an engineered derivative short-squeeze trap.",
       readingTime: "10 min read",
       platform: "Substack",
       label: "Institutional Deep-Dive (ENG)",
-      link: "https://substack.com/@pedsanalysis/note/c-251401558?r=399xyt&utm_source=notes-share-action&utm_medium=web"
+      link: "https://substack.com/@pedsanalysis/note/c-251401558?r=399xyt&utm_source=notes-share-action&utm_medium=web",
+      isFeatured: true,
+      confidence: "95.8%",
+      macroDepth: "On-Chain & Macro",
+      beamColorFrom: "#a855f7",
+      beamColorTo: "#10b981"
+    },
+    {
+      date: "Mar 29, 2026",
+      category: "MACRO ECONOMY // FX VALUATION",
+      title: "Mengapa Rupiah Menyentuh Rp17.000?",
+      abstract: "Dekomposisi tiga lapis tekanan makroekonomi: inflasi impor, defisit neraca pembayaran, dan disparitas yield SBN vs US Treasuries yang mendorong mata uang Garuda ke level psikologis baru.",
+      readingTime: "5 min read",
+      platform: "Medium",
+      label: "Market Insights (IDN)",
+      link: "https://medium.com/@devianwahyu137/mengapa-rupiah-menyentuh-rp17-000-d4942c191db9",
+      isFeatured: false,
+      confidence: "94.2%",
+      macroDepth: "Domestic Fiscal & FX",
+      beamColorFrom: "#10b981",
+      beamColorTo: "#50fa7b"
     }
   ];
 
   return (
-    <section className="relative w-full space-y-24 isolate overflow-visible" style={{ willChange: 'transform, opacity' }}>
+    <section className="relative w-full space-y-24 isolate overflow-visible scroll-mt-24">
       
-      {/* Area 1: Market Briefs */}
+      {/* ══ Area 1: Market Briefs (YouTube Intelligence) ══ */}
       <div id="market-briefs" className="scroll-mt-24">
-        <div className="mb-8">
-          <h2 className="text-3xl font-display font-bold tracking-tight mb-4">Market Briefs</h2>
-          <div className="w-20 h-1 bg-white rounded-full"></div>
-        </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <p className="text-red-400 font-mono text-xs uppercase tracking-[0.25em]">
+                Video Intelligence • 3D Card Architecture
+              </p>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+              Market Briefs & Dispatches
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-12 -m-12 relative overflow-visible isolate">
-          {videos.map((video, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.01, margin: "100px" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => setActiveVideo(video.id)}
-              className="relative z-10 transform-gpu will-change-transform rounded-xl cursor-pointer group shadow-[0_0_20px_rgba(34,197,94,0.15)] aspect-video bg-[#1A1A1A] border border-white/10 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 transition-all duration-500 ease-out hover:z-[999]"
-            >
-              {/* Thumbnail */}
-              <img 
-                src={video.thumbnail} 
-                alt={video.title} 
-                loading="lazy"
-                width="640"
-                height="360"
-                className="w-full h-full object-cover rounded-xl transition-all duration-500 ease-in-out aspect-video"
-              />
-              
-              {/* Glass Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-between p-4 rounded-xl">
-                <span className="self-start px-2 py-1 bg-black/50 backdrop-blur-md border border-white/10 rounded text-[10px] font-mono tracking-widest text-white/80">
-                  {video.tag}
-                </span>
-                
-                <h3 className="font-bold text-white text-lg leading-tight group-hover:text-bullish transition-colors">
-                  {video.title}
-                </h3>
-              </div>
-
-              {/* Play Button */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-14 h-14 bg-black/60 backdrop-blur-md rounded-full border border-bullish/50 flex items-center justify-center shadow-[0_0_20px_rgba(80,250,123,0.3)]">
-                  <Play className="w-6 h-6 text-bullish ml-1" fill="currentColor" />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* YouTube Gateway */}
-        <div className="w-full flex justify-center mt-8">
-          <a 
-            href="https://youtube.com/@chastflash?si=XHy7taOhQFG25iiD" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="group flex items-center gap-2.5 font-mono text-[10px] font-semibold tracking-[0.2em] text-neutral-300 bg-neutral-900/60 backdrop-blur-md border border-neutral-800 rounded-full py-3 px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.02)] hover:border-red-500/30 hover:text-white hover:shadow-[0_0_30px_rgba(239,68,68,0.06),inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-300 uppercase"
+          <a
+            href="https://youtube.com/@chastflash?si=XHy7taOhQFG25iiD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 font-mono text-xs hover:bg-red-500 hover:text-white transition-all w-fit"
           >
-            <span className="w-2 h-2 rounded-full bg-red-600 group-hover:animate-ping flex-shrink-0" />
-            <span>Access ChastFlash YouTube Channel</span>
-            <svg className="w-3 h-3 text-neutral-500 group-hover:text-red-400 group-hover:translate-x-0.5 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
+            <MonitorPlay className="w-4 h-4" />
+            <span>ChastFlash YouTube Channel</span>
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
-      </div>
 
-      {/* Area 2: Research Reports */}
-      <div>
-        <div className="mb-8">
-          <h2 className="text-3xl font-display font-bold tracking-tight mb-4">Research Reports</h2>
-          <div className="w-20 h-1 bg-white rounded-full"></div>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {videos.map((video, idx) => (
+            <TiltCard key={video.id} className="h-full">
+              <div
+                onClick={() => setActiveVideo(video.id)}
+                className="group relative h-full rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-col justify-between"
+              >
+                {/* Media Thumbnail Container */}
+                <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
+                  <img 
+                    src={video.thumbnail} 
+                    alt={video.title} 
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-85 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-12 -m-12 relative overflow-visible isolate">
-          {reports.map((report, idx) => (
-            <motion.a
-              key={idx}
-              href={report.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.01, margin: "100px" }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              whileHover={{ scale: 1.05 }}
-              className="group relative z-10 transform-gpu will-change-transform flex flex-col p-6 rounded-xl border border-white/10 bg-[#0A0A0A]/80 backdrop-blur-md shadow-[0_0_20px_rgba(34,197,94,0.15)] transition-all duration-500 ease-out h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:border-white/30 hover:z-[999]"
-            >
-              {/* Mathematical Grid Background */}
-              <div 
-                className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-xl"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(255, 255, 255, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 1) 1px, transparent 1px)`,
-                  backgroundSize: '20px 20px'
-                }}
-              />
-              
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono text-text-secondary">{report.date}</span>
-                  <span className="px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-mono tracking-widest text-bullish">
-                    {report.category}
-                  </span>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white/90 leading-tight">
-                  {report.title}
-                </h3>
-                
-                <p className="text-sm text-text-secondary leading-relaxed mb-6 flex-grow">
-                  {report.abstract}
-                </p>
-                
-                <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto">
-                  <div className="flex items-center gap-2">
-                    <span className={`w-2 h-2 rounded-full ${report.platform === 'Substack' ? 'bg-orange-500' : 'bg-white'}`}></span>
-                    <span className="text-xs font-medium text-white/80">{report.label}</span>
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-white/90 uppercase tracking-wider">
+                    {video.tag}
                   </div>
-                  <span className="text-xs font-mono text-text-secondary flex items-center gap-1">
-                    {report.readingTime}
-                    <ExternalLink className="w-3 h-3 ml-1 group-hover:text-bullish transition-colors" />
-                  </span>
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-emerald-400 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>{video.duration}</span>
+                  </div>
+
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-14 h-14 bg-red-600/90 backdrop-blur-md rounded-full border border-red-400 flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.6)] group-hover:scale-110 transition-transform">
+                      <Play className="w-6 h-6 text-white ml-0.5" fill="currentColor" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Details */}
+                <div className="p-5 flex flex-col justify-between flex-1">
+                  <div>
+                    <h3 className="font-display font-bold text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-3">
+                      {video.title}
+                    </h3>
+                  </div>
+
+                  {/* Terminal Metadata Footer */}
+                  <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[10px] text-neutral-400">
+                    <span className="flex items-center gap-1 text-emerald-400">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      Confidence: {video.confidence}
+                    </span>
+                    <span className="text-neutral-400 uppercase">
+                      {video.views}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </motion.a>
+            </TiltCard>
           ))}
         </div>
+      </div>
 
-        {/* Substack & Medium Gateways */}
-        <div className="w-full flex flex-col md:flex-row justify-center items-stretch gap-6 mt-8">
-          {/* Substack Gateway Card */}
-          <a href="https://substack.com/@pedsanalysis" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-orange-500/20 hover:shadow-[0_0_30px_rgba(249,115,22,0.02)] transition-all duration-500 ease-out hover:z-[999]">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
-                <span>STRAT_WRITING // 01</span>
-                <span className="text-orange-400 bg-orange-950/20 px-2 py-0.5 rounded border border-orange-500/10 tracking-wider">SUBSTACK</span>
-              </div>
-              <h4 className="text-base font-bold text-white group-hover:text-orange-400 transition-colors">PedsAnalysis Macro Letters ↗</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">Analisis berkala mengenai pergeseran geopolitik global, pelacakan likuiditas, dan dampaknya terhadap arsitektur makroekonomi.</p>
+      {/* ══ Area 2: Research Reports (3D Tilt + Magic UI Border Beam) ══ */}
+      <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-emerald-400 font-mono text-xs uppercase tracking-[0.25em]">
+                Institutional Research • Magic UI Border Beam
+              </p>
             </div>
-            <div className="mt-auto pt-4 border-t border-neutral-900/60 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
-              <span className="font-mono text-[9px] tracking-widest uppercase">Access Publication Stream</span>
-              <span className="text-xs transform group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </div>
-          </a>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+              Macro & Geopolitical Reports
+            </h2>
+          </div>
 
-          {/* Medium Gateway Card */}
-          <a href="https://medium.com/@devianwahyu137" target="_blank" rel="noopener noreferrer" className="w-full md:w-[calc(50%-12px)] max-w-xl relative z-10 transform-gpu will-change-transform group p-6 rounded-2xl bg-gradient-to-b from-neutral-900/30 to-neutral-950/60 border border-neutral-800/60 flex flex-col justify-between hover:border-neutral-400 hover:shadow-[0_0_30px_rgba(255,255,255,0.02)] transition-all duration-500 ease-out hover:z-[999]">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between font-mono text-[9px] text-neutral-500">
-                <span>TECH_REPORTS // 02</span>
-                <span className="text-neutral-300 bg-neutral-900 px-2 py-0.5 rounded border border-neutral-800 tracking-wider">MEDIUM</span>
-              </div>
-              <h4 className="text-base font-bold text-white group-hover:text-neutral-300 transition-colors">ChastFlash Publications ↗</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">Dokumentasi riset kuantitatif, analisis komparatif protokol desentralisasi, serta catatan teknis mengenai mekanisme pasar keuangan.</p>
-            </div>
-            <div className="mt-auto pt-4 border-t border-neutral-900/60 flex items-center justify-between text-neutral-500 group-hover:text-neutral-300 transition-colors duration-300">
-              <span className="font-mono text-[9px] tracking-widest uppercase">Access Publication Stream</span>
-              <span className="text-xs transform group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </div>
+          <a
+            href="https://substack.com/@pedsanalysis"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs hover:bg-emerald-500 hover:text-black transition-all w-fit"
+          >
+            <BookOpen className="w-4 h-4" />
+            <span>Visit Substack Publication</span>
+            <ExternalLink className="w-3.5 h-3.5" />
           </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {reports.map((report, idx) => (
+            <TiltCard key={idx} className="h-full">
+              <a
+                href={report.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative h-full rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.15)] p-6 sm:p-7 flex flex-col justify-between block"
+              >
+                {/* Magic UI Border Beam on Featured Reports */}
+                {report.isFeatured && (
+                  <BorderBeam
+                    duration={8}
+                    colorFrom={report.beamColorFrom}
+                    colorTo={report.beamColorTo}
+                    borderWidth={1.5}
+                  />
+                )}
+
+                <div>
+                  {/* Top Header & Metadata Badges */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-[10px] text-neutral-400">
+                      {report.date}
+                    </span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-medium">
+                      {report.category}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-display font-bold text-lg sm:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug mb-3">
+                    {report.title}
+                  </h3>
+
+                  {/* Abstract */}
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mb-6">
+                    {report.abstract}
+                  </p>
+                </div>
+
+                {/* Bottom Institutional Terminal Badges */}
+                <div className="pt-4 border-t border-white/5 space-y-2.5">
+                  <div className="flex items-center justify-between font-mono text-[10px]">
+                    <span className="text-neutral-400">
+                      MACRO DEPTH: <strong className="text-white font-medium">{report.macroDepth}</strong>
+                    </span>
+                    <span className="text-emerald-400 font-semibold">
+                      CONFIDENCE: {report.confidence}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between font-mono text-[10px] pt-1">
+                    <div className="flex items-center gap-2">
+                      <span className={`w-2 h-2 rounded-full ${report.platform === 'Substack' ? 'bg-orange-500' : 'bg-emerald-400'}`} />
+                      <span className="text-neutral-300">{report.label}</span>
+                    </div>
+                    <span className="text-neutral-400 flex items-center gap-1 group-hover:text-emerald-400 transition-colors">
+                      {report.readingTime}
+                      <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </TiltCard>
+          ))}
         </div>
       </div>
 
-      {/* Video Modal */}
+      {/* ══ Video Player Lightbox Modal ══ */}
       <AnimatePresence>
         {activeVideo && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl"
-            onClick={() => setActiveVideo(null)}
-          >
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-8">
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/20"
-              onClick={e => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveVideo(null)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative w-full max-w-4xl bg-neutral-950 border border-red-500/30 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(239,68,68,0.2)] z-10"
             >
-              <button 
-                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full backdrop-blur-md transition-colors"
-                onClick={() => setActiveVideo(null)}
-              >
-                <X className="w-6 h-6" />
-              </button>
-              
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="absolute inset-0"
-              ></iframe>
+              <div className="flex items-center justify-between px-4 py-3 bg-neutral-900/90 border-b border-white/10">
+                <span className="font-mono text-xs text-neutral-300">Market Brief Dispatch</span>
+                <button
+                  onClick={() => setActiveVideo(null)}
+                  className="p-1 rounded-md text-neutral-400 hover:text-white transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+                  title="YouTube video player"
+                  className="w-full h-full border-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
-
     </section>
   );
 }

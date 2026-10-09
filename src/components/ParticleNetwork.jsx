@@ -127,10 +127,11 @@ class Particle {
 }
 
 // ── Responsive config ─────────────────────────────────────────────────
-function getConfig(width) {
-  if (width < 640)  return { count: 40,  dist: 100 };
-  if (width < 1024) return { count: 75,  dist: 120 };
-  return                    { count: 150, dist: 145 };
+function getConfig(width, isTouch = false) {
+  if (isTouch)      return { count: 18,  dist: 85 };
+  if (width < 640)  return { count: 30,  dist: 95 };
+  if (width < 1024) return { count: 65,  dist: 115 };
+  return                    { count: 120, dist: 135 };
 }
 
 // ── Component ─────────────────────────────────────────────────────────
@@ -154,7 +155,8 @@ export default function ParticleNetwork() {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    const dpr = isTouch ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
     let w = window.innerWidth;
     let h = window.innerHeight;
     const st = stateRef.current;
@@ -174,7 +176,7 @@ export default function ParticleNetwork() {
     };
 
     const initParticles = () => {
-      const { count } = getConfig(w);
+      const { count } = getConfig(w, isTouch);
       const particles = [];
       for (let i = 0; i < count; i++) {
         const layer = i < count * 0.3 ? 0 : i < count * 0.65 ? 1 : 2;

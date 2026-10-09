@@ -28,6 +28,10 @@ export default function Lanyard({ className = '' }) {
     return (norm > 90 && norm < 270) ? 1 : 0;
   });
 
+  // Holographic sheen transforms (PVC reflection responding to drag & swing)
+  const glareX = useTransform(x, [-160, 160], ['-60%', '120%']);
+  const glareRotate = useTransform(x, [-160, 160], [-20, 20]);
+
   // ─── Dual strap paths — realistic V-shape lanyard ───
   // Two straps from off-screen (around neck) converging at clasp eyelet
   const leftCpX = useTransform(x, (v) => 148 + v * 0.12);
@@ -69,10 +73,29 @@ export default function Lanyard({ className = '' }) {
     setTimeout(() => setIsDragging(false), 120);
   }, [cardRotateY]);
 
-  // ─── Idle swing animation ───
-  // Gentle pendulum sway when card is at rest
+  const containerRef = useRef(null);
+  const [isIntersecting, setIsIntersecting] = useState(true);
+
+  // Sleep physics and render loop calculations when off-screen
   useEffect(() => {
-    if (isDragging) return;
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // ─── Idle swing animation ───
+  // Gentle pendulum sway only when component is visible in viewport
+  useEffect(() => {
+    if (isDragging || !isIntersecting) return;
     let controls;
     const timeout = setTimeout(() => {
       controls = animate(x, [0, 6, 0, -6, 0], {
@@ -85,12 +108,12 @@ export default function Lanyard({ className = '' }) {
       clearTimeout(timeout);
       if (controls) controls.stop();
     };
-  }, [isDragging, x]);
+  }, [isDragging, isIntersecting, x]);
 
   const barcodeW = [2,1,1,2,1,2,1,1,2,1,2,2,1,1,2,1,2,1,1,2,1,2,1,1,2,1,2,2,1,1];
 
   return (
-    <div className={`relative overflow-visible ${className}`} style={{ width: '350px', height: '700px' }}>
+    <div ref={containerRef} className={`relative overflow-visible ${className}`} style={{ width: '350px', height: '700px' }}>
 
       {/* ── Dual V-Shape Lanyard Straps (from off-screen → eyelet) ── */}
       <svg
@@ -185,6 +208,16 @@ export default function Lanyard({ className = '' }) {
                       <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)', backgroundSize: '14px 14px' }} />
                       <div className="absolute -top-16 -right-16 w-44 h-44 bg-emerald-500/8 rounded-full blur-[80px] pointer-events-none" />
 
+                      {/* Holographic Iridescent PVC Sheen Overlay */}
+                      <motion.div
+                        className="pointer-events-none absolute -inset-10 z-20 opacity-35 group-hover:opacity-70 transition-opacity duration-300 mix-blend-color-dodge"
+                        style={{
+                          background: 'linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.3) 35%, rgba(56,189,248,0.25) 45%, rgba(236,72,153,0.25) 55%, rgba(80,250,123,0.3) 65%, rgba(255,255,255,0.35) 75%, transparent 88%)',
+                          x: glareX,
+                          rotate: glareRotate,
+                        }}
+                      />
+
                       <div className="relative z-10 pt-4 text-center shrink-0">
                         <p className="text-[9px] font-mono text-emerald-400/60 tracking-[0.35em] uppercase">Analyst // Member</p>
                       </div>
@@ -192,7 +225,7 @@ export default function Lanyard({ className = '' }) {
                       <div className="relative z-10 flex justify-center px-5 pt-3 pb-2 shrink-0">
                         <div className="w-[175px] h-[175px] md:w-[190px] md:h-[190px] rounded-xl overflow-hidden border-2 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.25),inset_0_0_25px_rgba(16,185,129,0.05)]">
                           {!imageError ? (
-                            <img src="/profile.webp" alt="Devian Wahyu Nugroho" className="w-full h-full object-cover" onError={() => setImageError(true)} />
+                            <img src="/profile.webp" alt="Devian Wahyu Nugroho" width="190" height="190" decoding="async" className="w-full h-full object-cover" onError={() => setImageError(true)} />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center bg-neutral-900"><User className="w-16 h-16 text-neutral-600" /></div>
                           )}
@@ -231,6 +264,16 @@ export default function Lanyard({ className = '' }) {
                     <div className="w-full h-full rounded-[14px] overflow-hidden bg-gradient-to-br from-[#0a1510] via-[#0d0d0d] to-[#0f1a15] relative flex flex-col justify-between p-5">
                       <div className="absolute -bottom-16 -left-16 w-44 h-44 bg-emerald-500/8 rounded-full blur-[80px] pointer-events-none" />
 
+                      {/* Holographic Iridescent PVC Sheen Overlay on Back */}
+                      <motion.div
+                        className="pointer-events-none absolute -inset-10 z-20 opacity-30 group-hover:opacity-60 transition-opacity duration-300 mix-blend-color-dodge"
+                        style={{
+                          background: 'linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.3) 35%, rgba(56,189,248,0.25) 45%, rgba(236,72,153,0.25) 55%, rgba(80,250,123,0.3) 65%, rgba(255,255,255,0.35) 75%, transparent 88%)',
+                          x: glareX,
+                          rotate: glareRotate,
+                        }}
+                      />
+
                       <div className="relative z-10 text-center">
                         <div className="w-16 h-16 mx-auto rounded-xl border border-emerald-500/20 bg-emerald-500/5 flex items-center justify-center mb-3 shadow-[0_0_25px_rgba(16,185,129,0.15)]">
                           <span className="text-emerald-500 font-bold text-3xl leading-none">P</span>
@@ -260,7 +303,7 @@ export default function Lanyard({ className = '' }) {
                         </div>
                       </div>
 
-                      <p className="relative z-10 text-[9px] font-mono text-neutral-600 tracking-widest uppercase text-center mt-5">
+                      <p className="relative z-10 text-[9px] font-mono text-neutral-400 tracking-widest uppercase text-center mt-5">
                         Drag to flip back
                       </p>
                     </div>
@@ -273,8 +316,8 @@ export default function Lanyard({ className = '' }) {
         </motion.div>
       </motion.div>
 
-      {/* ── Hint ── */}
-      <p className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[9px] font-mono text-neutral-600 tracking-wider uppercase whitespace-nowrap">
+      {/* ── Hint (Desktop only) ── */}
+      <p className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 text-[9px] font-mono text-neutral-400 tracking-wider uppercase whitespace-nowrap">
         Drag to swing card
       </p>
     </div>

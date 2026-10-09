@@ -1,6 +1,10 @@
 import { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll } from 'framer-motion';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import Navbar from './components/Navbar';
+import MarketTicker from './components/MarketTicker';
+import CommandMenu from './components/CommandMenu';
 import BackgroundOverlay from './components/BackgroundOverlay';
 import HeroSection from './components/HeroSection';
 import MarketTerminal from './components/MarketTerminal';
@@ -16,20 +20,33 @@ const Projects = lazy(() => import('./components/Projects'));
 
 function App() {
   const { scrollYProgress } = useScroll();
-  const [isLargeScreen, setIsLargeScreen] = useState(
-    typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
-  );
+  const [isCommandOpen, setIsCommandOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsLargeScreen(window.innerWidth >= 1024);
-    // Initial check
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    // High-performance smooth scroll configuration
+    const lenis = new Lenis({
+      lerp: 0.1,
+      duration: 1.2,
+      smoothWheel: true,
+      syncTouch: false, // Preserve lightweight native touch physics on mobile
+    });
+
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   return (
-    <div className="relative w-full min-h-screen bg-black isolate overflow-visible text-text-primary selection:bg-bullish selection:text-black cursor-default">
+    <div className="relative w-full min-h-screen bg-black isolate overflow-x-hidden text-text-primary selection:bg-bullish selection:text-black cursor-default">
       <CustomCursor />
       
       {/* Scroll Progress Bar */}
@@ -39,11 +56,19 @@ function App() {
       />
 
       <BackgroundOverlay />
-      <Navbar />
       
-      <main className="relative z-10 max-w-7xl mx-auto px-3 md:px-6 py-12 md:py-24 space-y-32">
+      {/* Navbar with Command Palette Trigger */}
+      <Navbar onOpenCommand={() => setIsCommandOpen(true)} />
+      
+      {/* Running Market Ticker Marquee */}
+      <MarketTicker />
+
+      {/* Global Terminal Command Palette (Cmd + K) */}
+      <CommandMenu isOpen={isCommandOpen} setIsOpen={setIsCommandOpen} />
+      
+      <main className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 py-8 sm:py-16 md:py-24 space-y-20 sm:space-y-28 md:space-y-32">
         <HeroSection />
-        {isLargeScreen && <MarketTerminal />}
+        <MarketTerminal />
         <TrackRecord />
         <RadicalTransparency />
         <Suspense fallback={<div className="w-full min-h-screen bg-black" />}>

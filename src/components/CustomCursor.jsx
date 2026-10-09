@@ -32,6 +32,11 @@ export default function CustomCursor() {
         if (outerRef.current) outerRef.current.style.opacity = '1';
       }
 
+      if (!isAnimating) {
+        isAnimating = true;
+        raf.current = requestAnimationFrame(animate);
+      }
+
       // Check for custom cursor states
       const hoverEl = e.target.closest('[data-cursor]');
       if (hoverEl && outerRef.current && innerRef.current) {
@@ -62,25 +67,32 @@ export default function CustomCursor() {
       if (innerRef.current) innerRef.current.style.opacity = '0';
     };
 
-    // Outer ring follows with smooth lag (lerp)
+    let isAnimating = false;
+    // Outer ring follows with smooth lag (lerp), sleeps when idle
     const animate = () => {
-      outer.current.x += (pos.current.x - outer.current.x) * 0.12;
-      outer.current.y += (pos.current.y - outer.current.y) * 0.12;
+      const dx = pos.current.x - outer.current.x;
+      const dy = pos.current.y - outer.current.y;
+      outer.current.x += dx * 0.15;
+      outer.current.y += dy * 0.15;
       if (outerRef.current) {
         outerRef.current.style.transform = `translate(${outer.current.x}px, ${outer.current.y}px) translate(-50%, -50%)`;
       }
-      raf.current = requestAnimationFrame(animate);
+      if (Math.abs(dx) > 0.2 || Math.abs(dy) > 0.2) {
+        raf.current = requestAnimationFrame(animate);
+      } else {
+        isAnimating = false;
+        raf.current = null;
+      }
     };
 
     window.addEventListener('mousemove', onMove, { passive: true });
     document.body.addEventListener('mouseleave', onLeave);
-    raf.current = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('mousemove', onMove);
       document.body.removeEventListener('mouseleave', onLeave);
-      cancelAnimationFrame(raf.current);
+      if (raf.current) cancelAnimationFrame(raf.current);
     };
   }, [isMobile]);
 
