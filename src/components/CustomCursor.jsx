@@ -8,6 +8,7 @@ export default function CustomCursor() {
   const outer = useRef({ x: -100, y: -100 });
   const visible = useRef(false);
   const raf = useRef(null);
+  const cursorState = useRef('default');
 
   useEffect(() => {
     const checkMobile = () => {
@@ -15,18 +16,23 @@ export default function CustomCursor() {
       setIsMobile(match.matches || window.innerWidth < 768);
     };
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', checkMobile, { passive: true });
 
     if (isMobile) return () => window.removeEventListener('resize', checkMobile);
+
+    let isAnimating = false;
 
     const onMove = (e) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
-      // Inner dot follows instantly
+
       if (innerRef.current) {
-        innerRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-        innerRef.current.style.opacity = '1';
+        innerRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+        if (!visible.current) {
+          innerRef.current.style.opacity = '1';
+        }
       }
+
       if (!visible.current) {
         visible.current = true;
         if (outerRef.current) outerRef.current.style.opacity = '1';
@@ -37,47 +43,48 @@ export default function CustomCursor() {
         raf.current = requestAnimationFrame(animate);
       }
 
-      // Check for custom cursor states
-      const hoverEl = e.target.closest('[data-cursor]');
-      if (hoverEl && outerRef.current && innerRef.current) {
-        const cursorType = hoverEl.getAttribute('data-cursor');
-        if (cursorType === 'view') {
-          outerRef.current.style.width = '64px';
-          outerRef.current.style.height = '64px';
-          outerRef.current.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
-          outerRef.current.style.backdropFilter = 'blur(2px)';
-          outerRef.current.innerHTML = '<span style="font-size: 10px; font-weight: bold; letter-spacing: 0.1em; color: #10b981;">VIEW</span>';
-          innerRef.current.style.opacity = '0'; // hide inner dot
-        }
-      } else {
+      // Check for custom cursor state only when target changes
+      const hoverEl = e.target && e.target.closest ? e.target.closest('[data-cursor]') : null;
+      const targetState = hoverEl ? hoverEl.getAttribute('data-cursor') : 'default';
+
+      if (targetState !== cursorState.current) {
+        cursorState.current = targetState;
         if (outerRef.current && innerRef.current) {
-          outerRef.current.style.width = '36px';
-          outerRef.current.style.height = '36px';
-          outerRef.current.style.backgroundColor = 'transparent';
-          outerRef.current.style.backdropFilter = 'none';
-          outerRef.current.innerHTML = '';
-          innerRef.current.style.opacity = '1';
+          if (targetState === 'view') {
+            outerRef.current.style.width = '56px';
+            outerRef.current.style.height = '56px';
+            outerRef.current.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
+            outerRef.current.innerHTML = '<span style="font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #10b981;">VIEW</span>';
+            innerRef.current.style.opacity = '0';
+          } else {
+            outerRef.current.style.width = '32px';
+            outerRef.current.style.height = '32px';
+            outerRef.current.style.backgroundColor = 'transparent';
+            outerRef.current.innerHTML = '';
+            innerRef.current.style.opacity = '1';
+          }
         }
       }
     };
 
     const onLeave = () => {
       visible.current = false;
+      cursorState.current = 'default';
       if (outerRef.current) outerRef.current.style.opacity = '0';
       if (innerRef.current) innerRef.current.style.opacity = '0';
     };
 
-    let isAnimating = false;
-    // Outer ring follows with smooth lag (lerp), sleeps when idle
     const animate = () => {
       const dx = pos.current.x - outer.current.x;
       const dy = pos.current.y - outer.current.y;
-      outer.current.x += dx * 0.15;
-      outer.current.y += dy * 0.15;
+      outer.current.x += dx * 0.2;
+      outer.current.y += dy * 0.2;
+
       if (outerRef.current) {
-        outerRef.current.style.transform = `translate(${outer.current.x}px, ${outer.current.y}px) translate(-50%, -50%)`;
+        outerRef.current.style.transform = `translate3d(${outer.current.x}px, ${outer.current.y}px, 0) translate(-50%, -50%)`;
       }
-      if (Math.abs(dx) > 0.2 || Math.abs(dy) > 0.2) {
+
+      if (Math.abs(dx) > 0.3 || Math.abs(dy) > 0.3) {
         raf.current = requestAnimationFrame(animate);
       } else {
         isAnimating = false;
@@ -105,13 +112,13 @@ export default function CustomCursor() {
         ref={outerRef}
         className="fixed top-0 left-0 pointer-events-none z-[100] flex items-center justify-center"
         style={{
-          width: 36,
-          height: 36,
+          width: 32,
+          height: 32,
           borderRadius: '50%',
-          border: '1.5px solid rgba(16, 185, 129, 0.4)',
-          boxShadow: '0 0 12px rgba(16, 185, 129, 0.15), inset 0 0 8px rgba(16, 185, 129, 0.05)',
+          border: '1.5px solid rgba(16, 185, 129, 0.45)',
+          boxShadow: '0 0 10px rgba(16, 185, 129, 0.15)',
           opacity: 0,
-          transition: 'opacity 0.3s, width 0.2s, height 0.2s, background-color 0.2s, backdrop-filter 0.2s',
+          transition: 'opacity 0.2s, width 0.15s, height 0.15s, background-color 0.15s',
           willChange: 'transform',
         }}
       />
@@ -120,13 +127,13 @@ export default function CustomCursor() {
         ref={innerRef}
         className="fixed top-0 left-0 pointer-events-none z-[100]"
         style={{
-          width: 5,
-          height: 5,
+          width: 4,
+          height: 4,
           borderRadius: '50%',
-          backgroundColor: 'rgba(16, 185, 129, 0.8)',
+          backgroundColor: 'rgba(16, 185, 129, 0.85)',
           boxShadow: '0 0 6px rgba(16, 185, 129, 0.5)',
           opacity: 0,
-          transition: 'opacity 0.3s',
+          transition: 'opacity 0.2s',
           willChange: 'transform',
         }}
       />

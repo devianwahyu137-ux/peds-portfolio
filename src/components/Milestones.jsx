@@ -192,116 +192,119 @@ export default function Milestones() {
       </div>
 
       {/* ── Aceternity Vertical Timeline Track ── */}
-      <div className="relative w-full max-w-5xl mx-auto px-1 sm:px-4">
-        {/* Static Background Vertical Line */}
-        <div className="absolute left-4 md:left-28 -translate-x-1/2 top-2 bottom-0 w-[2px] bg-white/10" />
+      <div className="w-full max-w-5xl mx-auto px-2 sm:px-4">
+        <div className="relative w-full">
+          {/* Static Background Vertical Line */}
+          <div className="absolute left-4 md:left-28 -translate-x-1/2 top-2 bottom-0 w-[2px] bg-white/10 pointer-events-none" />
 
-        {/* Animated Glowing Emerald Vertical Beam */}
-        <motion.div
-          style={{ height: lineHeight }}
-          className="absolute left-4 md:left-28 -translate-x-1/2 top-2 w-[2px] bg-gradient-to-b from-emerald-400 via-emerald-500 to-transparent shadow-[0_0_15px_rgba(16,185,129,0.8)] origin-top z-10"
-        />
+          {/* Animated Glowing Emerald Vertical Beam */}
+          <motion.div
+            style={{ height: lineHeight }}
+            className="absolute left-4 md:left-28 -translate-x-1/2 top-2 w-[2px] bg-gradient-to-b from-emerald-400 via-emerald-500 to-transparent shadow-[0_0_15px_rgba(16,185,129,0.8)] origin-top z-10 pointer-events-none"
+          />
 
-        {/* Timeline Items */}
-        <div className="space-y-12 sm:space-y-16">
-          {timelineData.map((epoch) => (
-            <div key={epoch.year} className="relative flex flex-col md:flex-row items-start">
-              {/* Year Stamp Indicator (Desktop side header) */}
-              <div className="hidden md:flex w-28 shrink-0 flex-col text-right pr-8 pt-1">
-                <span className="font-display font-bold text-2xl text-white tracking-tight leading-none">
-                  {epoch.year}
-                </span>
-                <span className="font-mono text-xs tracking-wider text-emerald-400 font-semibold mt-1.5">
-                  {epoch.quarter}
-                </span>
-              </div>
+          {/* Timeline Items */}
+          <div className="space-y-12 sm:space-y-16">
+            {timelineData.map((epoch) => (
+              <div key={epoch.year} className="relative flex flex-col md:flex-row items-start">
+                {/* Year Stamp Indicator (Desktop side header) */}
+                <div className="hidden md:flex w-28 shrink-0 flex-col text-right pr-8 pt-1">
+                  <span className="font-display font-bold text-2xl text-white tracking-tight leading-none" style={{ color: '#FFFFFF' }}>
+                    {epoch.year}
+                  </span>
+                  <span className="font-mono text-xs tracking-wider text-emerald-400 font-semibold mt-1.5" style={{ color: '#34D399' }}>
+                    {epoch.quarter}
+                  </span>
+                </div>
 
-              {/* Node Pill on Line (Centered exactly with line axis) */}
-              <div className="absolute left-4 md:left-28 -translate-x-1/2 top-1 md:top-1.5 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-950 border-2 border-emerald-400 z-20 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400" />
-                </span>
-              </div>
+                {/* Node Pill on Line (Centered exactly with line axis) */}
+                <div className="absolute left-4 md:left-28 -translate-x-1/2 top-1 md:top-1.5 flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-neutral-950 border-2 border-emerald-400 z-20 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-400" />
+                  </span>
+                </div>
 
-              {/* Mobile Year Stamp Header */}
-              <div className="md:hidden flex items-center gap-2 mb-3 pl-9 pt-0.5">
-                <span className="font-display font-bold text-lg text-white tracking-tight">{epoch.year}</span>
-                <span className="font-mono text-xs text-emerald-400 font-semibold tracking-wider">({epoch.quarter})</span>
-              </div>
+                {/* Mobile Year Stamp Header */}
+                <div className="md:hidden flex items-center gap-2 mb-3 pl-9 pt-0.5">
+                  <span className="font-display font-bold text-lg text-white tracking-tight" style={{ color: '#FFFFFF' }}>{epoch.year}</span>
+                  <span className="font-mono text-xs text-emerald-400 font-semibold tracking-wider" style={{ color: '#34D399' }}>({epoch.quarter})</span>
+                </div>
 
-              {/* Milestones inside this Epoch */}
-              <div className="flex-1 w-full space-y-4 sm:space-y-6 pl-8 sm:pl-10 md:pl-8">
-                {epoch.milestones.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: '-40px' }}
-                      transition={{ duration: 0.5, delay: Math.min(idx * 0.05, 0.3) }}
-                      className="group relative p-3.5 sm:p-5 md:p-7 rounded-xl md:rounded-2xl bg-neutral-950/92 border border-white/10 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 overflow-hidden"
-                    >
-                      {/* Aceternity Subtle Hover Glow */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                {/* Milestones inside this Epoch */}
+                <div className="flex-1 w-full space-y-3 sm:space-y-4 md:space-y-6 pl-7 sm:pl-10 md:pl-8">
+                  {epoch.milestones.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.5, delay: Math.min(idx * 0.05, 0.3) }}
+                        className="group relative p-3 sm:p-4.5 md:p-7 rounded-xl md:rounded-2xl bg-neutral-950/92 border border-white/10 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.12)] hover:-translate-y-0.5 overflow-hidden"
+                      >
+                        {/* Aceternity Subtle Hover Glow */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                      <div className="relative z-10 flex flex-col justify-between">
-                        {/* Header Badge & Issuer */}
-                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2 sm:mb-3">
-                          <div className="flex items-center gap-2">
-                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[9px] sm:text-[10px] tracking-widest font-semibold uppercase">
-                              {item.badge}
-                            </span>
-                            <span className="font-mono text-[11px] sm:text-xs text-neutral-400 hidden sm:inline">
-                              {item.issuer}
-                            </span>
+                        <div className="relative z-10 flex flex-col justify-between">
+                          {/* Header Badge & Issuer */}
+                          <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 mb-1.5 sm:mb-2 md:mb-3">
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[8px] sm:text-[9px] md:text-[10px] tracking-widest font-semibold uppercase">
+                                {item.badge}
+                              </span>
+                              <span className="font-mono text-[10px] sm:text-xs text-neutral-400 hidden sm:inline" style={{ color: '#94A3B8' }}>
+                                {item.issuer}
+                              </span>
+                            </div>
+
+                            <div className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 font-mono text-[8px] sm:text-[9px] md:text-[10px] text-white" style={{ color: '#FFFFFF' }}>
+                              <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-emerald-400" />
+                              <span style={{ color: '#FFFFFF' }}>{item.status}</span>
+                            </div>
                           </div>
 
-                          <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 font-mono text-[9px] sm:text-[10px] text-white">
-                            <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" />
-                            <span>{item.status}</span>
+                          {/* Title with Icon */}
+                          <div className="flex items-start gap-2 sm:gap-2.5 md:gap-3 my-0.5">
+                            <div className="p-1 sm:p-1.5 md:p-2 rounded-lg md:rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
+                              <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
+                            </div>
+                            <div className="min-w-0">
+                              <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug" style={{ color: '#FFFFFF' }}>
+                                {item.title}
+                              </h3>
+                              <p className="font-mono text-[9px] sm:text-xs text-neutral-400 sm:hidden mt-0.5 truncate" style={{ color: '#94A3B8' }}>
+                                {item.issuer}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed my-1.5 sm:my-2 md:my-3 font-body" style={{ color: '#CBD5E1' }}>
+                            {item.description}
+                          </p>
+
+                          {/* Tech & Discipline Tags */}
+                          <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 md:gap-2 pt-1.5 sm:pt-2 border-t border-white/5 font-mono text-[8px] sm:text-[9px] md:text-[10px]">
+                            {item.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors"
+                                style={{ color: '#94A3B8' }}
+                              >
+                                {tag}
+                              </span>
+                            ))}
                           </div>
                         </div>
-
-                        {/* Title with Icon */}
-                        <div className="flex items-start gap-2.5 sm:gap-3 my-0.5 sm:my-1">
-                          <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 mt-0.5 group-hover:scale-105 transition-transform">
-                            <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                          </div>
-                          <div>
-                            <h3 className="font-display font-bold text-sm sm:text-lg md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug">
-                              {item.title}
-                            </h3>
-                            <p className="font-mono text-[10px] sm:text-xs text-neutral-400 sm:hidden mt-0.5">
-                              {item.issuer}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Description */}
-                        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed my-2 sm:my-3 font-body">
-                          {item.description}
-                        </p>
-
-                        {/* Tech & Discipline Tags */}
-                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-white/5 font-mono text-[9px] sm:text-[10px]">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2.5 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                      </motion.div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

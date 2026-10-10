@@ -159,23 +159,29 @@ const ScrambleText = ({ text }) => {
 
 const TiltImage = ({ proj }) => {
   const ref = useRef(null);
+  const rectRef = useRef(null);
   
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+  const mouseXSpring = useSpring(x, { stiffness: 250, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 250, damping: 25 });
   
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7.5deg", "-7.5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7.5deg", "7.5deg"]);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["6deg", "-6deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-6deg", "6deg"]);
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+  };
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
+    if (!rectRef.current) return;
+    const width = rectRef.current.width;
+    const height = rectRef.current.height;
+    const mouseX = e.clientX - rectRef.current.left;
+    const mouseY = e.clientY - rectRef.current.top;
     const xPct = mouseX / width - 0.5;
     const yPct = mouseY / height - 0.5;
     x.set(xPct);
@@ -183,14 +189,16 @@ const TiltImage = ({ proj }) => {
   };
 
   const handleMouseLeave = () => {
+    rectRef.current = null;
     x.set(0);
     y.set(0);
   };
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-[#050505] flex items-center justify-center p-0" style={{ perspective: 1200 }}>
+    <div className="w-full h-full relative overflow-hidden bg-[#050505] flex items-center justify-center p-0">
       <motion.a 
         ref={ref}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
@@ -1179,38 +1187,38 @@ export default function Projects() {
                     </div>
 
                     {/* Floating Glass Card (Asymmetric) */}
-                    <div className="absolute bottom-4 left-4 right-4 md:bottom-10 md:right-10 md:left-auto md:w-[480px] lg:w-[550px] p-6 sm:p-8 bg-neutral-950/70 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,1)] flex flex-col z-20">
+                    <div className="absolute bottom-2 left-2 right-2 md:bottom-10 md:right-10 md:left-auto md:w-[480px] lg:w-[550px] p-3.5 sm:p-6 md:p-8 bg-neutral-950/85 backdrop-blur-xl border border-white/10 rounded-xl md:rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,1)] flex flex-col z-20 max-h-[78%] overflow-y-auto hide-scrollbar">
                       
                       {/* Project label */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-emerald-500 font-mono text-[10px] tracking-[0.2em] uppercase">
+                      <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
+                        <span className="text-emerald-500 font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase">
                           Project {String(index + 1).padStart(2, '0')}
                         </span>
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.6)] animate-pulse" />
                       </div>
 
                       {/* Title */}
-                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="group inline-flex w-fit mb-1">
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white flex items-center gap-3 group-hover:text-emerald-400 transition-colors">
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="group inline-flex w-fit mb-0.5 md:mb-1">
+                        <h3 className="text-base sm:text-2xl md:text-4xl font-bold text-white flex items-center gap-2 md:gap-3 group-hover:text-emerald-400 transition-colors">
                           {activeIndex === index ? <ScrambleText text={proj.title} /> : proj.title}
                           <svg
-                            className="w-6 h-6 text-neutral-600 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 flex-shrink-0"
+                            className="w-4 h-4 md:w-6 md:h-6 text-neutral-600 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300 flex-shrink-0"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"
                           >
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                           </svg>
                         </h3>
                       </a>
-                      <p className="text-xs sm:text-sm text-neutral-500 font-mono tracking-wider mb-8">{proj.subtitle}</p>
+                      <p className="text-[10px] sm:text-xs md:text-sm text-neutral-400 font-mono tracking-wider mb-2 sm:mb-4 md:mb-8">{proj.subtitle}</p>
 
                       {/* Features */}
-                      <div className="space-y-5 mb-10 flex-grow">
+                      <div className="space-y-1.5 sm:space-y-3 md:space-y-5 mb-2.5 sm:mb-5 md:mb-10 flex-grow">
                         {proj.features.map((feature, i) => (
-                          <div key={i} className="flex items-start gap-4">
-                            <span className="flex-shrink-0 text-[10px] px-2 py-1 rounded font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 uppercase tracking-widest mt-0.5">
+                          <div key={i} className="flex items-start gap-2 md:gap-4">
+                            <span className="flex-shrink-0 text-[8px] md:text-[10px] px-1.5 py-0.5 md:px-2 md:py-1 rounded font-mono bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 uppercase tracking-widest mt-0.5">
                               {feature.badge}
                             </span>
-                            <p className="text-sm leading-relaxed text-neutral-400">
+                            <p className="text-[11px] sm:text-xs md:text-sm leading-relaxed text-neutral-400 line-clamp-2 md:line-clamp-none">
                               <strong className="text-neutral-200 font-semibold">{feature.title}:</strong> {feature.desc}
                             </p>
                           </div>
@@ -1218,7 +1226,7 @@ export default function Projects() {
                       </div>
 
                       {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 mb-8">
+                      <div className="flex flex-wrap gap-1 sm:gap-2 mb-2.5 sm:mb-5 md:mb-8">
                         {proj.techStack.map((tech) => {
                           const techColors = {
                             'React': '#61dafb',
@@ -1236,7 +1244,7 @@ export default function Projects() {
                           return (
                             <span 
                               key={tech} 
-                              className="text-[10px] font-mono tracking-wider px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-neutral-400 transition-all duration-300 cursor-default"
+                              className="text-[9px] md:text-[10px] font-mono tracking-wider px-2 py-0.5 md:px-3 md:py-1.5 rounded-lg bg-white/5 border border-white/10 text-neutral-400 transition-all duration-300 cursor-default"
                               onMouseEnter={(e) => {
                                 e.currentTarget.style.borderColor = color;
                                 e.currentTarget.style.color = color;
@@ -1257,17 +1265,17 @@ export default function Projects() {
                       </div>
 
                       {/* CTA */}
-                      <div className="pt-2">
+                      <div className="pt-1 md:pt-2">
                         <button
                           onClick={() => {
                             playBeep();
                             setPreviewUrl(proj.link);
                             setIsPreviewOpen(true);
                           }}
-                          className="group/cta inline-flex items-center gap-2 w-fit px-6 py-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 text-emerald-400 font-mono text-xs uppercase tracking-widest hover:bg-emerald-500/15 hover:border-emerald-500/60 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300"
+                          className="group/cta inline-flex items-center gap-1.5 md:gap-2 w-fit px-3.5 py-1.5 md:px-6 md:py-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 text-emerald-400 font-mono text-[10px] md:text-xs uppercase tracking-widest hover:bg-emerald-500/15 hover:border-emerald-500/60 hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300"
                         >
                           <span>View Live Protocol</span>
-                          <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <svg className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                           </svg>
                         </button>

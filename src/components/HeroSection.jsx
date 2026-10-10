@@ -60,12 +60,52 @@ export default function HeroSection() {
               Bridging Management Science with Institutional Execution. From executing high-probability trades at <strong className="font-bold text-white tracking-wide" style={{ color: '#FFFFFF' }}>Traders Family</strong> to architecting my own proprietary AI-driven macro dashboards for precise quantitative research.
             </p>
 
-            <div className="flex flex-col gap-2.5 sm:gap-3 w-full sm:w-fit mx-auto lg:ml-auto lg:mr-0">
-              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 w-full">
+            {/* Mobile Layout (2 Rows: Row 1 Explore FinTech, Row 2 Journal + CV) */}
+            <div className="flex flex-col gap-2 w-full sm:hidden">
+              <a 
+                href="#the-builder" 
+                onClick={(e) => handleAnchorClick(e, 'the-builder')}
+                className="w-full relative inline-flex items-center justify-center gap-2 py-2.5 px-3 bg-white text-black text-xs font-semibold rounded-lg hover:bg-neutral-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+              >
+                <Globe className="w-4 h-4 relative z-10" />
+                <span className="relative z-10">Explore FinTech Architectures</span>
+              </a>
+
+              <div className="grid grid-cols-2 gap-2 w-full">
+                <a 
+                  href="#notion-journal" 
+                  onClick={(e) => handleAnchorClick(e, 'notion-journal')}
+                  className="group relative inline-flex items-center justify-center gap-1.5 py-2.5 px-2 bg-neutral-900/80 border border-white/20 hover:border-emerald-500/50 text-white text-[11px] font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] truncate"
+                  style={{ color: '#FFFFFF' }}
+                >
+                  <Activity className="w-3.5 h-3.5 relative z-10 text-emerald-400 shrink-0" />
+                  <span className="relative z-10 text-white font-semibold truncate" style={{ color: '#FFFFFF' }}>View Journal</span>
+                </a>
+
+                <a 
+                  href="/CV%20Devian%20Wahyu%20Nugroho.pdf" 
+                  download="CV_Devian_Wahyu_Nugroho.pdf" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group relative inline-flex items-center justify-center gap-1.5 py-2.5 px-2 font-mono text-[10px] tracking-wider uppercase bg-neutral-900/50 border border-white/20 rounded-lg hover:bg-white/10 hover:border-white/50 text-white transition-all truncate"
+                  style={{ color: '#FFFFFF' }}
+                >
+                  <svg className="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <span className="font-mono text-white truncate" style={{ color: '#FFFFFF' }}>View CV</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Desktop Layout (Preserved original 2 rows with same desktop sizing) */}
+            <div className="hidden sm:flex flex-col gap-2.5 sm:gap-3 w-fit mx-auto lg:ml-auto lg:mr-0">
+              <div className="flex flex-row items-center gap-2 sm:gap-3 w-full">
                 <a 
                   href="#the-builder" 
                   onClick={(e) => handleAnchorClick(e, 'the-builder')}
-                  className="w-full sm:w-auto relative inline-flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 bg-white text-black text-xs sm:text-sm md:text-base font-semibold rounded-lg hover:bg-neutral-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+                  className="w-auto relative inline-flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 bg-white text-black text-xs sm:text-sm md:text-base font-semibold rounded-lg hover:bg-neutral-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.15)]"
                 >
                   <Globe className="w-4 h-4 sm:w-5 sm:h-5 relative z-10" />
                   <span className="relative z-10">Explore FinTech Architectures</span>
@@ -73,7 +113,7 @@ export default function HeroSection() {
                 <a 
                   href="#notion-journal" 
                   onClick={(e) => handleAnchorClick(e, 'notion-journal')}
-                  className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 bg-neutral-900/80 border border-white/20 hover:border-emerald-500/50 text-white text-xs sm:text-sm md:text-base font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+                  className="w-auto group relative inline-flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 bg-neutral-900/80 border border-white/20 hover:border-emerald-500/50 text-white text-xs sm:text-sm md:text-base font-semibold rounded-lg overflow-hidden transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.2)]"
                   style={{ color: '#FFFFFF' }}
                 >
                   <Activity className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 text-emerald-400 shrink-0" />
@@ -83,7 +123,7 @@ export default function HeroSection() {
               
               <a 
                 href="/CV%20Devian%20Wahyu%20Nugroho.pdf" 
-                download="CV_Devian_Wahyu_Nugroho.pdf"
+                download="CV_Devian_Wahyu_Nugroho.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full group relative flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 font-mono text-[11px] sm:text-xs md:text-sm tracking-widest uppercase bg-neutral-900/50 border border-white/20 rounded-lg hover:bg-white/10 hover:border-white/50 text-white transition-all duration-300"

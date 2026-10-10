@@ -26,36 +26,54 @@
 }
 
 :root {
+  color-scheme: dark;
+  --color-white: #FFFFFF !important;
+  --color-text-primary: #FFFFFF !important;
+  --color-text-secondary: #CBD5E1 !important;
   --color-neutral-100: #F8FAFC !important;
   --color-neutral-200: #E2E8F0 !important;
   --color-neutral-300: #CBD5E1 !important;
   --color-neutral-400: #94A3B8 !important;
   --color-neutral-500: #64748B !important;
+  --color-neutral-600: #475569 !important;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    color-scheme: dark;
+    /* Lenis controls smooth scrolling; avoid fighting browser native smooth-scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   body {
     @apply bg-base text-text-primary font-body antialiased;
     background-color: var(--color-base);
     color: var(--color-text-primary);
-    overflow-x: visible !important;
+    overflow-x: hidden !important;
   }
   a:not([class*="text-black"]) {
     color: inherit;
   }
 
-  /* Modern CSS Containment: Prevents rendering off-screen sections until near viewport */
-  #the-builder,
-  #milestones,
-  #market-terminal-section,
-  #social-hub,
-  #notion-journal,
-  #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 700px;
+  /* Universal high-contrast text fallbacks for dark mode */
+  .text-white {
+    color: #FFFFFF !important;
+  }
+  .text-neutral-200 {
+    color: #E2E8F0 !important;
+  }
+  .text-neutral-300 {
+    color: #CBD5E1 !important;
+  }
+  .text-neutral-400 {
+    color: #94A3B8 !important;
+  }
+  .text-text-primary {
+    color: #FFFFFF !important;
+  }
+  .text-text-secondary {
+    color: #CBD5E1 !important;
   }
 }
 

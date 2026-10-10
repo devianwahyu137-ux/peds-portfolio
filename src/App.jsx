@@ -23,12 +23,16 @@ function App() {
   const [isCommandOpen, setIsCommandOpen] = useState(false);
 
   useEffect(() => {
-    // High-performance smooth scroll configuration
+    // On touch devices, preserve 120Hz native hardware momentum physics with zero JS overhead
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouch) return;
+
+    // High-performance smooth scroll configuration for desktop mouse wheels
     const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
+      lerp: 0.12,
+      duration: 0.9,
       smoothWheel: true,
-      syncTouch: false, // Preserve lightweight native touch physics on mobile
+      syncTouch: false,
     });
 
     let rafId;

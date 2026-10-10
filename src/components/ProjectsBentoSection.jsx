@@ -87,7 +87,7 @@ export default function ProjectsBentoSection() {
                 <span className="font-mono text-[10px] text-emerald-400 truncate">
                   100% Primary Statutory Data
                 </span>
-                <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                <h4 className="text-xs sm:text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                   Meridian Market Intelligence
                 </h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -155,7 +155,7 @@ export default function ProjectsBentoSection() {
 
               {/* Description & Tags */}
               <div className="mt-3 flex flex-col justify-end">
-                <p className="text-sm text-neutral-300 line-clamp-3 leading-relaxed mb-3">
+                <p className="text-sm text-neutral-300 line-clamp-3 leading-relaxed mb-3" style={{ color: '#CBD5E1' }}>
                   Independent buy-side equity and macroeconomic research desk delivering institutional-grade rigor across Indonesian capital markets. Features 20 statutory publications, a 1,000-run Monte Carlo Stochastic DCF valuation engine, and Nelson-Siegel sovereign yield curve modeling with zero commercial bias.
                 </p>
                 <div className="flex flex-wrap items-center gap-2 font-mono text-[10px]">
@@ -163,6 +163,7 @@ export default function ProjectsBentoSection() {
                     <span
                       key={tech}
                       className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors"
+                      style={{ color: '#94A3B8' }}
                     >
                       {tech}
                     </span>
@@ -201,7 +202,7 @@ export default function ProjectsBentoSection() {
                 <span className="font-mono text-[10px] text-sky-400 truncate">
                   Top 4 BI Hackathon • AI Underwriting
                 </span>
-                <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                <h4 className="text-xs sm:text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                   NEMOS Ecosystem
                 </h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -269,7 +270,7 @@ export default function ProjectsBentoSection() {
 
               {/* Description & Tags */}
               <div className="mt-3 flex flex-col justify-end">
-                <p className="text-sm text-neutral-300 line-clamp-3 leading-relaxed mb-3">
+                <p className="text-sm text-neutral-300 line-clamp-3 leading-relaxed mb-3" style={{ color: '#CBD5E1' }}>
                   Alternative revenue-based financing platform designed to bridge liquidity gaps for Indonesian MSMEs. Engineered an automated risk-adjusted credit underwriting engine with cash flow deconstruction, securing Top 4 National Finalist honors at PIDI Digdaya x Bank Indonesia Hackathon 2026.
                 </p>
                 <div className="flex flex-wrap items-center gap-2 font-mono text-[10px]">
@@ -277,6 +278,7 @@ export default function ProjectsBentoSection() {
                     <span
                       key={tech}
                       className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-sky-500/20 group-hover:text-sky-300 transition-colors"
+                      style={{ color: '#94A3B8' }}
                     >
                       {tech}
                     </span>
@@ -315,7 +317,7 @@ export default function ProjectsBentoSection() {
                 <span className="font-mono text-[10px] text-purple-400 truncate">
                   Econometrics • MPT Covariance
                 </span>
-                <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                <h4 className="text-xs sm:text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                   Macroscope Axis
                 </h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -379,12 +381,12 @@ export default function ProjectsBentoSection() {
               </div>
 
               <div className="mt-2">
-                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3">
+                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3" style={{ color: '#CBD5E1' }}>
                   Macro-financial simulation terminal analyzing empirical policy transmissions between central bank rates, SBN sovereign yield durations, and equity performance. Integrates Modern Portfolio Theory (MPT) variance-covariance algorithms and tail-risk stress testing.
                 </p>
                 <div className="flex flex-wrap gap-1.5 font-mono text-[9px]">
                   {['React', 'Python', 'Supabase', 'Zustand', 'Econometrics'].map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-purple-500/20 group-hover:text-purple-300 transition-colors">
+                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-purple-500/20 group-hover:text-purple-300 transition-colors" style={{ color: '#94A3B8' }}>
                       {t}
                     </span>
                   ))}
@@ -422,7 +424,7 @@ export default function ProjectsBentoSection() {
                 <span className="font-mono text-[10px] text-amber-400 truncate">
                   TradingView Engine • MPT Risk
                 </span>
-                <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                <h4 className="text-xs sm:text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                   PEDS Terminal DSS
                 </h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -486,12 +488,12 @@ export default function ProjectsBentoSection() {
               </div>
 
               <div className="mt-2">
-                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3">
+                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3" style={{ color: '#CBD5E1' }}>
                   Proprietary institutional decision support system integrating real-time macroeconomic feeds, order book imbalance tracking, automated risk-budgeting parameters, and algorithmic execution analytics.
                 </p>
                 <div className="flex flex-wrap gap-1.5 font-mono text-[9px]">
                   {['TradingView Lightweight', 'REST API', 'Vite', 'Macro Engine', 'Quantitative Risk'].map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-amber-500/20 group-hover:text-amber-300 transition-colors">
+                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-amber-500/20 group-hover:text-amber-300 transition-colors" style={{ color: '#94A3B8' }}>
                       {t}
                     </span>
                   ))}
@@ -529,7 +531,7 @@ export default function ProjectsBentoSection() {
                 <span className="font-mono text-[10px] text-emerald-400 truncate">
                   Public Sector • Governance GIS
                 </span>
-                <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                <h4 className="text-xs sm:text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                   Desa Surorejo Portal
                 </h4>
                 <div className="flex items-center gap-1.5 mt-0.5">
@@ -593,12 +595,12 @@ export default function ProjectsBentoSection() {
               </div>
 
               <div className="mt-2">
-                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3">
+                <p className="text-xs text-neutral-300 leading-relaxed mb-3 line-clamp-3" style={{ color: '#CBD5E1' }}>
                   Regional governance portal delivering public budget transparency, spatial GIS cadastral mapping, citizen administrative routing, and economic analytics for rural community empowerment.
                 </p>
                 <div className="flex flex-wrap gap-1.5 font-mono text-[9px]">
                   {['React', 'Leaflet GIS', 'Tailwind', 'Public API', 'Open Government'].map((t) => (
-                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors">
+                    <span key={t} className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors" style={{ color: '#94A3B8' }}>
                       {t}
                     </span>
                   ))}

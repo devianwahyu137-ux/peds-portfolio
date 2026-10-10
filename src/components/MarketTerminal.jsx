@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function MarketTerminal() {
   return (
-    <section id="market-terminal-section" className="relative scroll-mt-24">
+    <section id="market-terminal-section" className="hidden md:block relative scroll-mt-24">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">

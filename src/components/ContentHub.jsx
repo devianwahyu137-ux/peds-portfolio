@@ -3,28 +3,35 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 import { Play, X, ExternalLink, BookOpen, Clock, ShieldCheck, Cpu, ArrowUpRight, MonitorPlay, BarChart3 } from 'lucide-react';
 import BorderBeam from './BorderBeam';
 
-// 3D Card Hover Container
-function TiltCard({ children, className, isFeatured = false }) {
+// 3D Card Hover Container (High-performance optimized)
+function TiltCard({ children, className }) {
   const ref = useRef(null);
+  const rectRef = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 25 });
-  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 25 });
+  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 25 });
+  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 25 });
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['5deg', '-5deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-5deg', '5deg']);
+
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      rectRef.current = ref.current.getBoundingClientRect();
+    }
+  };
 
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    x.set(mouseX / rect.width - 0.5);
-    y.set(mouseY / rect.height - 0.5);
+    if (!rectRef.current) return;
+    const mouseX = e.clientX - rectRef.current.left;
+    const mouseY = e.clientY - rectRef.current.top;
+    x.set(mouseX / rectRef.current.width - 0.5);
+    y.set(mouseY / rectRef.current.height - 0.5);
   };
 
   const handleMouseLeave = () => {
+    rectRef.current = null;
     x.set(0);
     y.set(0);
   };
@@ -32,16 +39,16 @@ function TiltCard({ children, className, isFeatured = false }) {
   return (
     <motion.div
       ref={ref}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
         rotateX,
         rotateY,
-        transformStyle: 'preserve-3d',
       }}
-      className={`relative will-change-transform ${className}`}
+      className={`relative ${className}`}
     >
-      <div style={{ transform: 'translateZ(20px)' }} className="h-full">
+      <div className="h-full">
         {children}
       </div>
     </motion.div>
@@ -159,15 +166,15 @@ export default function ContentHub() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {videos.map((video, idx) => (
             <TiltCard key={video.id} className="h-full">
               <div
                 onClick={() => setActiveVideo(video.id)}
-                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-col justify-between"
+                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-row md:flex-col justify-between items-stretch"
               >
-                {/* Media Thumbnail Container: Sleek 16:9 Widescreen */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-900">
+                {/* Media Thumbnail Container: Compact landscape on mobile, 16:9 on desktop */}
+                <div className="relative w-36 xs:w-40 sm:w-48 md:w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-neutral-900 shrink-0">
                   <img 
                     src={video.thumbnail} 
                     alt={video.title} 
@@ -178,27 +185,27 @@ export default function ContentHub() {
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
 
                   {/* Badges */}
-                  <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-white/90 uppercase tracking-wider">
+                  <div className="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[8px] md:text-[9px] text-white/90 uppercase tracking-wider truncate max-w-[85%]">
                     {video.tag}
                   </div>
-                  <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-emerald-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
+                  <div className="absolute bottom-2 right-2 md:top-2 md:bottom-auto px-1.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[8px] md:text-[9px] text-emerald-400 flex items-center gap-1">
+                    <Clock className="w-2.5 h-2.5" />
                     <span>{video.duration}</span>
                   </div>
 
                   {/* Play Button Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-11 h-11 sm:w-12 sm:h-12 bg-red-600/90 backdrop-blur-md rounded-full border border-red-400 flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.6)] group-hover:scale-110 transition-transform">
-                      <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-red-600/90 backdrop-blur-md rounded-full border border-red-400 flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.6)] group-hover:scale-110 transition-transform">
+                      <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white ml-0.5" fill="currentColor" />
                     </div>
                   </div>
                 </div>
 
                 {/* Content Details */}
-                <div className="p-3.5 sm:p-5 flex flex-col justify-between flex-1">
+                <div className="p-3 sm:p-4 md:p-5 flex flex-col justify-between flex-1 min-w-0">
                   <div>
                     <h3 
-                      className="font-display font-bold text-sm sm:text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-2 sm:mb-3"
+                      className="font-display font-bold text-xs sm:text-sm md:text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-1.5 md:mb-3"
                       style={{ color: '#FFFFFF' }}
                     >
                       {video.title}
@@ -206,12 +213,12 @@ export default function ContentHub() {
                   </div>
 
                   {/* Terminal Metadata Footer */}
-                  <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[10px] text-neutral-300">
-                    <span className="flex items-center gap-1 text-emerald-400">
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      Confidence: {video.confidence}
+                  <div className="pt-2 md:pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[9px] md:text-[10px] text-neutral-300">
+                    <span className="flex items-center gap-1 text-emerald-400 truncate">
+                      <ShieldCheck className="w-3 h-3 md:w-3.5 md:h-3.5 shrink-0" />
+                      <span>{video.confidence}</span>
                     </span>
-                    <span className="text-neutral-400 uppercase">
+                    <span className="text-neutral-400 uppercase truncate ml-2 text-right">
                       {video.views}
                     </span>
                   </div>
@@ -224,15 +231,15 @@ export default function ContentHub() {
 
       {/* ══ Area 2: Research Reports (3D Tilt + Magic UI Border Beam) ══ */}
       <div>
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8 md:mb-10">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <p className="text-emerald-400 font-mono text-xs uppercase tracking-[0.25em]">
+              <p className="text-emerald-400 font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em]">
                 Institutional Research • Magic UI Border Beam
               </p>
             </div>
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
               Macro & Geopolitical Reports
             </h2>
           </div>
@@ -241,22 +248,22 @@ export default function ContentHub() {
             href="https://substack.com/@pedsanalysis"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs hover:bg-emerald-500 hover:text-black transition-all w-fit"
+            className="flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-[11px] sm:text-xs hover:bg-emerald-500 hover:text-black transition-all w-fit"
           >
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span>Visit Substack Publication</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {reports.map((report, idx) => (
             <TiltCard key={idx} className="h-full">
               <a
                 href={report.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative h-full rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.15)] p-6 sm:p-7 flex flex-col justify-between block"
+                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-emerald-500/40 hover:shadow-[0_0_35px_rgba(16,185,129,0.15)] p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col justify-between block"
               >
                 {/* Magic UI Border Beam on Featured Reports */}
                 {report.isFeatured && (
@@ -270,40 +277,40 @@ export default function ContentHub() {
 
                 <div>
                   {/* Top Header & Metadata Badges */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[10px] text-neutral-400">
+                  <div className="flex items-center justify-between gap-2 mb-2 md:mb-4">
+                    <span className="font-mono text-[9px] sm:text-[10px] text-neutral-400">
                       {report.date}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 font-mono text-[9px] uppercase tracking-wider text-emerald-400 font-medium">
+                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 font-mono text-[8px] sm:text-[9px] uppercase tracking-wider text-emerald-400 font-medium truncate">
                       {report.category}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display font-bold text-lg sm:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug mb-3">
+                  <h3 className="font-display font-bold text-sm sm:text-base md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug mb-1.5 md:mb-3 line-clamp-2">
                     {report.title}
                   </h3>
 
                   {/* Abstract */}
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mb-6">
+                  <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed font-body mb-3 md:mb-6 line-clamp-2 sm:line-clamp-3">
                     {report.abstract}
                   </p>
                 </div>
 
                 {/* Bottom Institutional Terminal Badges */}
-                <div className="pt-4 border-t border-white/5 space-y-2.5">
-                  <div className="flex items-center justify-between font-mono text-[10px]">
-                    <span className="text-neutral-400">
-                      MACRO DEPTH: <strong className="text-white font-medium">{report.macroDepth}</strong>
+                <div className="pt-2.5 md:pt-4 border-t border-white/5 space-y-1.5 md:space-y-2.5">
+                  <div className="flex items-center justify-between font-mono text-[9px] md:text-[10px]">
+                    <span className="text-neutral-400 truncate">
+                      MACRO: <strong className="text-white font-medium">{report.macroDepth}</strong>
                     </span>
-                    <span className="text-emerald-400 font-semibold">
+                    <span className="text-emerald-400 font-semibold shrink-0 ml-2">
                       CONFIDENCE: {report.confidence}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between font-mono text-[10px] pt-1">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-2 h-2 rounded-full ${report.platform === 'Substack' ? 'bg-orange-500' : 'bg-emerald-400'}`} />
+                  <div className="flex items-center justify-between font-mono text-[9px] md:text-[10px] pt-0.5 md:pt-1">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${report.platform === 'Substack' ? 'bg-orange-500' : 'bg-emerald-400'}`} />
                       <span className="text-neutral-300">{report.label}</span>
                     </div>
                     <span className="text-neutral-400 flex items-center gap-1 group-hover:text-emerald-400 transition-colors">
