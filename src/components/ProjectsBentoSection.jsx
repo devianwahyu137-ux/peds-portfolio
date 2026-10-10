@@ -516,7 +516,7 @@ export default function ProjectsBentoSection() {
             <div className="flex md:hidden items-center gap-3 w-full">
               <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shrink-0 relative">
                 <img
-                  src="/beranda web surorejo.webp"
+                  src="/beranda-web-surorejo.webp"
                   alt="Desa Surorejo Portal"
                   loading="lazy"
                   decoding="async"

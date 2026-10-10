@@ -159,51 +159,54 @@ export default function ContentHub() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {videos.map((video, idx) => (
             <TiltCard key={video.id} className="h-full">
               <div
                 onClick={() => setActiveVideo(video.id)}
-                className="group relative h-full rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-col justify-between"
+                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-col justify-between"
               >
-                {/* Media Thumbnail Container */}
-                <div className="relative aspect-video w-full overflow-hidden bg-neutral-900">
+                {/* Media Thumbnail Container: Sleek 16:9 Widescreen */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-900">
                   <img 
                     src={video.thumbnail} 
                     alt={video.title} 
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-85 group-hover:opacity-100"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
 
                   {/* Badges */}
-                  <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-white/90 uppercase tracking-wider">
+                  <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-white/90 uppercase tracking-wider">
                     {video.tag}
                   </div>
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-emerald-400 flex items-center gap-1">
+                  <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-black/80 backdrop-blur-md border border-white/15 font-mono text-[9px] text-emerald-400 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
                     <span>{video.duration}</span>
                   </div>
 
                   {/* Play Button Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-14 h-14 bg-red-600/90 backdrop-blur-md rounded-full border border-red-400 flex items-center justify-center shadow-[0_0_30px_rgba(239,68,68,0.6)] group-hover:scale-110 transition-transform">
-                      <Play className="w-6 h-6 text-white ml-0.5" fill="currentColor" />
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 bg-red-600/90 backdrop-blur-md rounded-full border border-red-400 flex items-center justify-center shadow-[0_0_25px_rgba(239,68,68,0.6)] group-hover:scale-110 transition-transform">
+                      <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
                     </div>
                   </div>
                 </div>
 
                 {/* Content Details */}
-                <div className="p-5 flex flex-col justify-between flex-1">
+                <div className="p-3.5 sm:p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <h3 className="font-display font-bold text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-3">
+                    <h3 
+                      className="font-display font-bold text-sm sm:text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-2 sm:mb-3"
+                      style={{ color: '#FFFFFF' }}
+                    >
                       {video.title}
                     </h3>
                   </div>
 
                   {/* Terminal Metadata Footer */}
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[10px] text-neutral-400">
+                  <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[10px] text-neutral-300">
                     <span className="flex items-center gap-1 text-emerald-400">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       Confidence: {video.confidence}

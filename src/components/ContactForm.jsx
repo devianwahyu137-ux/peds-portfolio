@@ -78,21 +78,21 @@ export default function ContactForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="relative p-6 sm:p-10 rounded-3xl bg-neutral-950/85 border border-emerald-500/25 backdrop-blur-2xl shadow-[0_0_50px_rgba(16,185,129,0.12)] overflow-hidden"
+          className="relative p-4 sm:p-8 md:p-10 rounded-2xl md:rounded-3xl bg-neutral-950/85 border border-emerald-500/25 backdrop-blur-2xl shadow-[0_0_50px_rgba(16,185,129,0.12)] overflow-hidden"
         >
           {/* Ambient Corner Plasma Glows */}
           <div className="pointer-events-none absolute -top-32 -right-32 w-72 h-72 bg-emerald-500/15 rounded-full blur-[90px]" />
           <div className="pointer-events-none absolute -bottom-32 -left-32 w-72 h-72 bg-teal-500/10 rounded-full blur-[90px]" />
 
           {/* Form Top Header */}
-          <div className="flex items-center justify-between pb-5 mb-6 border-b border-white/10 font-mono text-[11px] text-neutral-400">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-4 mb-6 border-b border-white/10 font-mono text-[10px] sm:text-[11px]">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="text-white font-medium">DIRECT CHANNEL: DEVIAN WAHYU NUGROHO</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span className="text-white font-medium tracking-wide">DIRECT CHANNEL: DEVIAN WAHYU NUGROHO</span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-neutral-400">STATUS: </span>
-              <span className="text-emerald-400">AVAILABLE FOR INQUIRIES</span>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 w-fit">
+              <span className="text-neutral-400">STATUS:</span>
+              <span className="text-emerald-400 font-semibold">AVAILABLE FOR INQUIRIES</span>
             </div>
           </div>
 
@@ -111,13 +111,13 @@ export default function ContactForm() {
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Name Field */}
-              <div className="flex flex-col gap-2">
-                <label htmlFor="name" className="text-xs font-mono text-neutral-300 ml-1 flex items-center justify-between">
+              <div className="flex flex-col gap-1.5 sm:gap-2">
+                <label htmlFor="name" className="text-xs font-mono text-neutral-200 ml-1 flex items-center justify-between">
                   <span>Your Name</span>
-                  <span className="text-emerald-400/80 text-[10px] font-semibold">*Required</span>
+                  <span className="text-emerald-400/90 text-[10px] font-semibold">*Required</span>
                 </label>
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400 group-focus-within:text-emerald-400 transition-colors">
@@ -131,13 +131,13 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder="Nama Anda atau Institusi"
-                    className="w-full bg-black/70 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs md:py-3 md:pl-11 md:pr-4 md:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
+                    className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1.5 sm:gap-2">
                 <label htmlFor="email" className="text-xs font-mono text-neutral-300 ml-1 flex items-center justify-between">
                   <span>Email Address</span>
                   <span className="text-emerald-400/80 text-[10px] font-semibold">*Required</span>
@@ -154,15 +154,15 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                     placeholder="emailanda@domain.com"
-                    className="w-full bg-black/70 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs md:py-3 md:pl-11 md:pr-4 md:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
+                    className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                   />
                 </div>
               </div>
             </div>
 
             {/* Subject Field */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="subject" className="text-xs font-mono text-neutral-300 ml-1">
+            <div className="flex flex-col gap-1.5 sm:gap-2">
+              <label htmlFor="subject" className="text-xs font-mono text-neutral-200 ml-1">
                 <span>Subject</span>
               </label>
               <div className="relative group">
@@ -177,18 +177,18 @@ export default function ContactForm() {
                   onChange={handleChange}
                   required
                   placeholder="Topik diskusi atau kolaborasi"
-                  className="w-full bg-black/70 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs md:py-3 md:pl-11 md:pr-4 md:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
+                  className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                 />
               </div>
             </div>
 
             {/* Message Field */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="message" className="text-xs font-mono text-neutral-300 ml-1">
+            <div className="flex flex-col gap-1.5 sm:gap-2">
+              <label htmlFor="message" className="text-xs font-mono text-neutral-200 ml-1">
                 <span>Message</span>
               </label>
               <div className="relative group">
-                <div className="absolute top-2.5 md:top-3.5 left-0 pl-3 md:pl-3.5 pointer-events-none text-neutral-400 group-focus-within:text-emerald-400 transition-colors">
+                <div className="absolute top-3 left-0 pl-3 md:pl-3.5 pointer-events-none text-neutral-400 group-focus-within:text-emerald-400 transition-colors">
                   <MessageSquare className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 </div>
                 <textarea
@@ -199,7 +199,7 @@ export default function ContactForm() {
                   required
                   rows="3"
                   placeholder="Tuliskan pesan Anda di sini..."
-                  className="w-full bg-black/70 border border-white/10 rounded-xl py-2 pl-9 pr-3 text-xs md:py-3 md:pl-11 md:pr-4 md:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all resize-none font-body text-white"
+                  className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all resize-none font-body text-white"
                 />
               </div>
             </div>

@@ -553,26 +553,26 @@ export default function Projects() {
               >
                 <div className="relative w-full h-full flex flex-col justify-between">
                   {/* Mobile Compact Landscape Row */}
-                  <div className="flex md:hidden items-center gap-3 w-full">
-                    <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-black shrink-0 relative">
+                  <div className="flex md:hidden items-center gap-3.5 w-full">
+                    <div className="w-28 h-20 rounded-xl overflow-hidden border border-white/15 bg-neutral-900 shrink-0 relative shadow-md">
                       <img
                         src="/meridian-dashboard.png"
                         alt="Meridian Market Intelligence"
                         loading="lazy"
                         decoding="async"
-                        width="96"
-                        height="64"
-                        className="w-full h-full object-cover object-top opacity-90"
+                        width="112"
+                        height="80"
+                        className="w-full h-full object-cover object-top opacity-95"
                       />
                     </div>
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                      <span className="font-mono text-[10px] text-emerald-400 truncate">
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                      <span className="font-mono text-[10px] text-emerald-400 font-medium truncate">
                         100% Primary Statutory Data
                       </span>
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                      <h4 className="text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                         Meridian Market Intelligence
                       </h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -580,9 +580,9 @@ export default function Projects() {
                             setPreviewUrl('https://meridian-market-intelligence-ivory.vercel.app/');
                             setIsPreviewOpen(true);
                           }}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-mono hover:bg-emerald-500 hover:text-black transition-all"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono font-medium hover:bg-emerald-500 hover:text-black transition-all shadow-sm"
                         >
-                          <Maximize2 className="w-2.5 h-2.5" />
+                          <Maximize2 className="w-3 h-3" />
                           <span>Preview</span>
                         </button>
                         <a
@@ -590,9 +590,10 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded bg-white/5 border border-white/10 text-neutral-300 hover:text-emerald-400 transition-colors"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-neutral-200 hover:text-white hover:bg-white/10 text-[11px] font-mono transition-all"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <span>Live</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     </div>
@@ -674,26 +675,26 @@ export default function Projects() {
               >
                 <div className="relative w-full h-full flex flex-col justify-between">
                   {/* Mobile Compact Landscape Row */}
-                  <div className="flex md:hidden items-center gap-3 w-full">
-                    <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-black shrink-0 relative">
+                  <div className="flex md:hidden items-center gap-3.5 w-full">
+                    <div className="w-28 h-20 rounded-xl overflow-hidden border border-white/15 bg-neutral-900 shrink-0 relative shadow-md">
                       <img
                         src="/nemos-ecosystem.webp"
                         alt="NEMOS Ecosystem"
                         loading="lazy"
                         decoding="async"
-                        width="96"
-                        height="64"
-                        className="w-full h-full object-cover object-top opacity-90"
+                        width="112"
+                        height="80"
+                        className="w-full h-full object-cover object-top opacity-95"
                       />
                     </div>
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                      <span className="font-mono text-[10px] text-sky-400 truncate">
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                      <span className="font-mono text-[10px] text-sky-400 font-medium truncate">
                         Top 4 BI Hackathon • AI Underwriting
                       </span>
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                      <h4 className="text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                         NEMOS Ecosystem
                       </h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -701,9 +702,9 @@ export default function Projects() {
                             setPreviewUrl('https://nemos-three.vercel.app/');
                             setIsPreviewOpen(true);
                           }}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded bg-sky-500/15 border border-sky-500/30 text-sky-300 text-[10px] font-mono hover:bg-sky-400 hover:text-black transition-all"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 border border-sky-500/40 text-sky-300 text-[11px] font-mono font-medium hover:bg-sky-400 hover:text-black transition-all shadow-sm"
                         >
-                          <Maximize2 className="w-2.5 h-2.5" />
+                          <Maximize2 className="w-3 h-3" />
                           <span>Preview</span>
                         </button>
                         <a
@@ -711,9 +712,10 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded bg-white/5 border border-white/10 text-neutral-300 hover:text-sky-400 transition-colors"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-neutral-200 hover:text-white hover:bg-white/10 text-[11px] font-mono transition-all"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <span>Live</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     </div>
@@ -795,26 +797,26 @@ export default function Projects() {
               >
                 <div className="relative w-full h-full flex flex-col justify-between">
                   {/* Mobile Compact Landscape Row */}
-                  <div className="flex md:hidden items-center gap-3 w-full">
-                    <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shrink-0 relative">
+                  <div className="flex md:hidden items-center gap-3.5 w-full">
+                    <div className="w-28 h-20 rounded-xl overflow-hidden border border-white/15 bg-neutral-900 shrink-0 relative shadow-md">
                       <img
                         src="/sovereign_axis_dashboard.webp"
                         alt="Macroscope Dashboard"
                         loading="lazy"
                         decoding="async"
-                        width="96"
-                        height="64"
-                        className="w-full h-full object-cover opacity-85"
+                        width="112"
+                        height="80"
+                        className="w-full h-full object-cover opacity-95"
                       />
                     </div>
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                      <span className="font-mono text-[10px] text-purple-400 truncate">
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                      <span className="font-mono text-[10px] text-purple-400 font-medium truncate">
                         Econometrics • MPT Covariance
                       </span>
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                      <h4 className="text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                         Macroscope Axis
                       </h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -822,9 +824,9 @@ export default function Projects() {
                             setPreviewUrl('https://peds-final.vercel.app/');
                             setIsPreviewOpen(true);
                           }}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300 text-[10px] font-mono hover:bg-purple-400 hover:text-black transition-all"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[11px] font-mono font-medium hover:bg-purple-400 hover:text-black transition-all shadow-sm"
                         >
-                          <Maximize2 className="w-2.5 h-2.5" />
+                          <Maximize2 className="w-3 h-3" />
                           <span>Preview</span>
                         </button>
                         <a
@@ -832,9 +834,10 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded bg-white/5 border border-white/10 text-neutral-300 hover:text-purple-400 transition-colors"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-neutral-200 hover:text-white hover:bg-white/10 text-[11px] font-mono transition-all"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <span>Live</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     </div>
@@ -912,26 +915,26 @@ export default function Projects() {
               >
                 <div className="relative w-full h-full flex flex-col justify-between">
                   {/* Mobile Compact Landscape Row */}
-                  <div className="flex md:hidden items-center gap-3 w-full">
-                    <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shrink-0 relative">
+                  <div className="flex md:hidden items-center gap-3.5 w-full">
+                    <div className="w-28 h-20 rounded-xl overflow-hidden border border-white/15 bg-neutral-900 shrink-0 relative shadow-md">
                       <img
                         src="/peds-terminal.webp"
                         alt="PEDS Terminal DSS"
                         loading="lazy"
                         decoding="async"
-                        width="96"
-                        height="64"
-                        className="w-full h-full object-cover opacity-85"
+                        width="112"
+                        height="80"
+                        className="w-full h-full object-cover opacity-95"
                       />
                     </div>
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                      <span className="font-mono text-[10px] text-amber-400 truncate">
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                      <span className="font-mono text-[10px] text-amber-400 font-medium truncate">
                         TradingView Engine • MPT Risk
                       </span>
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                      <h4 className="text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                         PEDS Terminal DSS
                       </h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -939,9 +942,9 @@ export default function Projects() {
                             setPreviewUrl('https://peds-terminal.vercel.app/');
                             setIsPreviewOpen(true);
                           }}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-mono hover:bg-amber-400 hover:text-black transition-all"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] font-mono font-medium hover:bg-amber-400 hover:text-black transition-all shadow-sm"
                         >
-                          <Maximize2 className="w-2.5 h-2.5" />
+                          <Maximize2 className="w-3 h-3" />
                           <span>Preview</span>
                         </button>
                         <a
@@ -949,9 +952,10 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded bg-white/5 border border-white/10 text-neutral-300 hover:text-amber-400 transition-colors"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-neutral-200 hover:text-white hover:bg-white/10 text-[11px] font-mono transition-all"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <span>Live</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     </div>
@@ -1029,26 +1033,26 @@ export default function Projects() {
               >
                 <div className="relative w-full h-full flex flex-col justify-between">
                   {/* Mobile Compact Landscape Row */}
-                  <div className="flex md:hidden items-center gap-3 w-full">
-                    <div className="w-24 h-16 rounded-lg overflow-hidden border border-white/10 bg-neutral-900 shrink-0 relative">
+                  <div className="flex md:hidden items-center gap-3.5 w-full">
+                    <div className="w-28 h-20 rounded-xl overflow-hidden border border-white/15 bg-neutral-900 shrink-0 relative shadow-md">
                       <img
-                        src="/beranda web surorejo.webp"
+                        src="/beranda-web-surorejo.webp"
                         alt="Desa Surorejo Portal"
                         loading="lazy"
                         decoding="async"
-                        width="96"
-                        height="64"
-                        className="w-full h-full object-cover opacity-85"
+                        width="112"
+                        height="80"
+                        className="w-full h-full object-cover opacity-95"
                       />
                     </div>
-                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
-                      <span className="font-mono text-[10px] text-emerald-400 truncate">
-                        Public Sector • Governance GIS
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1.5">
+                      <span className="font-mono text-[10px] text-emerald-400 font-medium truncate">
+                         Public Sector • Governance GIS
                       </span>
-                      <h4 className="text-xs sm:text-sm font-semibold text-white truncate">
+                      <h4 className="text-sm font-semibold text-white truncate" style={{ color: '#FFFFFF' }}>
                         Desa Surorejo Portal
                       </h4>
-                      <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="flex items-center gap-2 mt-0.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -1056,9 +1060,9 @@ export default function Projects() {
                             setPreviewUrl('https://beranda-surorejo.vercel.app/');
                             setIsPreviewOpen(true);
                           }}
-                          className="flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[10px] font-mono hover:bg-emerald-500 hover:text-black transition-all"
+                          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono font-medium hover:bg-emerald-500 hover:text-black transition-all shadow-sm"
                         >
-                          <Maximize2 className="w-2.5 h-2.5" />
+                          <Maximize2 className="w-3 h-3" />
                           <span>Preview</span>
                         </button>
                         <a
@@ -1066,9 +1070,10 @@ export default function Projects() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded bg-white/5 border border-white/10 text-neutral-300 hover:text-emerald-400 transition-colors"
+                          className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/15 text-neutral-200 hover:text-white hover:bg-white/10 text-[11px] font-mono transition-all"
                         >
-                          <ExternalLink className="w-3 h-3" />
+                          <span>Live</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </a>
                       </div>
                     </div>

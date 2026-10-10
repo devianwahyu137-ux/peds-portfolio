@@ -184,7 +184,10 @@ export default function SocialHub() {
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-white transition-colors truncate">
+                    <h3 
+                      className="font-display font-bold text-xs sm:text-base md:text-xl text-white tracking-tight truncate"
+                      style={{ color: '#FFFFFF' }}
+                    >
                       {p.name}
                     </h3>
                     <p className={`font-mono text-[10px] sm:text-xs ${p.textAccent} font-medium mt-0.5 truncate`}>
@@ -194,15 +197,18 @@ export default function SocialHub() {
                 </div>
 
                 {/* Description (Visible on sm+) */}
-                <p className="hidden sm:block text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mt-2">
+                <p 
+                  className="hidden sm:block text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mt-2"
+                  style={{ color: '#CBD5E1' }}
+                >
                   {p.desc}
                 </p>
               </div>
 
               {/* Bottom Footer Chip (Visible on sm+) */}
-              <div className="hidden sm:flex pt-3 mt-3 border-t border-white/5 items-center justify-between font-mono text-[9px] sm:text-[10px] text-neutral-400">
+              <div className="hidden sm:flex pt-3 mt-3 border-t border-white/10 items-center justify-between font-mono text-[9px] sm:text-[10px] text-neutral-300">
                 <span className="uppercase tracking-wider">SECURE LINK DISPATCH</span>
-                <span className={`group-hover:${p.textAccent} transition-colors font-semibold`}>CONNECT →</span>
+                <span className={`${p.textAccent} font-semibold`}>CONNECT →</span>
               </div>
             </motion.a>
           );
