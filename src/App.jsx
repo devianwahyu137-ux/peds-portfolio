@@ -15,7 +15,6 @@ import SocialHub from './components/SocialHub';
 import ContactForm from './components/ContactForm';
 import CustomCursor from './components/CustomCursor';
 
-const MarketTerminal = lazy(() => import('./components/MarketTerminal'));
 const Projects = lazy(() => import('./components/Projects'));
 
 function App() {
@@ -27,10 +26,10 @@ function App() {
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
     if (isTouch) return;
 
-    // High-performance smooth scroll configuration for desktop mouse wheels
+    // Snappy smooth scroll configuration for desktop mouse wheels
     const lenis = new Lenis({
-      lerp: 0.12,
-      duration: 0.9,
+      lerp: 0.15,
+      duration: 0.75,
       smoothWheel: true,
       syncTouch: false,
     });
@@ -72,9 +71,6 @@ function App() {
       
       <main className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 py-8 sm:py-16 md:py-24 space-y-20 sm:space-y-28 md:space-y-32">
         <HeroSection />
-        <Suspense fallback={<div className="w-full h-[460px] rounded-2xl bg-neutral-950/60 border border-white/10 animate-pulse" />}>
-          <MarketTerminal />
-        </Suspense>
         <TrackRecord />
         <RadicalTransparency />
         <Suspense fallback={<div className="w-full min-h-screen bg-black" />}>

@@ -308,18 +308,17 @@ export default function Lanyard({ className = '' }) {
               }}
               className="relative w-[300px] h-[400px] md:w-[320px] md:h-[425px]"
             >
-              {/* Simulated 3D PVC Card Thickness Layers */}
-              <div
-                className="absolute inset-0 rounded-2xl border border-emerald-400/20 bg-emerald-950/60 pointer-events-none"
-                style={{ transform: 'translateZ(-4px)' }}
-              />
-              <div
-                className="absolute inset-0 rounded-2xl border border-emerald-400/25 bg-neutral-900/80 pointer-events-none"
-                style={{ transform: 'translateZ(-2px)' }}
-              />
-
               {/* ═══════ FRONT FACE ═══════ */}
-              <motion.div className="absolute inset-0" style={{ opacity: frontOpacity, transform: 'translateZ(1px)' }}>
+              <motion.div
+                className="absolute inset-0"
+                style={{
+                  opacity: frontOpacity,
+                  transform: 'translateZ(2px)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  pointerEvents: isFlipped ? 'none' : 'auto',
+                }}
+              >
                 <div className="w-full h-full rounded-2xl p-[1.5px] bg-gradient-to-br from-emerald-400/80 via-emerald-700/20 to-teal-300/70 shadow-[0_0_45px_rgba(16,185,129,0.22),0_20px_50px_rgba(0,0,0,0.85)]">
                   <div className="w-full h-full rounded-[15px] overflow-hidden bg-gradient-to-br from-[#0b1612] via-[#070b09] to-[#0a1310] relative flex flex-col">
                     {/* Top Emerald Header Banner */}
@@ -462,7 +461,13 @@ export default function Lanyard({ className = '' }) {
               {/* ═══════ BACK FACE ═══════ */}
               <motion.div
                 className="absolute inset-0"
-                style={{ opacity: backOpacity, transform: 'rotateY(180deg) translateZ(1px)' }}
+                style={{
+                  opacity: backOpacity,
+                  transform: 'rotateY(180deg) translateZ(2px)',
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  pointerEvents: isFlipped ? 'auto' : 'none',
+                }}
               >
                 <div className="w-full h-full rounded-2xl p-[1.5px] bg-gradient-to-br from-emerald-400/80 via-emerald-700/20 to-teal-300/70 shadow-[0_0_45px_rgba(16,185,129,0.22),0_20px_50px_rgba(0,0,0,0.85)]">
                   <div className="w-full h-full rounded-[15px] overflow-hidden bg-gradient-to-br from-[#09130f] via-[#0b0d0c] to-[#0d1814] relative flex flex-col justify-between">

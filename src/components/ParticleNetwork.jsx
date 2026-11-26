@@ -31,8 +31,8 @@ class Particle {
     this.baseVx = this.vx;
     this.baseVy = this.vy;
 
-    this.radius = 1.6 + layer * 1.2;
-    this.opacity = 0.52 + layer * 0.34;
+    this.radius = 1.4 + layer * 1.0;
+    this.opacity = 0.32 + layer * 0.24;
     this.pulsePhase = Math.random() * Math.PI * 2;
     this.color = pickColor();
   }
@@ -96,10 +96,10 @@ class Particle {
 }
 
 function getConfig(width, isTouch) {
-  if (width < 640) return { count: 24, dist: 120, fps: 30, packets: 4 };
-  if (isTouch || width < 1024) return { count: 44, dist: 150, fps: 45, packets: 8 };
-  if (width < 1360) return { count: 68, dist: 165, fps: 60, packets: 12 };
-  return { count: 85, dist: 175, fps: 60, packets: 16 };
+  if (width < 640) return { count: 20, dist: 115, fps: 30, packets: 4 };
+  if (isTouch || width < 1024) return { count: 34, dist: 140, fps: 40, packets: 6 };
+  if (width < 1360) return { count: 48, dist: 155, fps: 60, packets: 10 };
+  return { count: 56, dist: 165, fps: 60, packets: 12 };
 }
 
 export default function ParticleNetwork() {
@@ -129,12 +129,10 @@ export default function ParticleNetwork() {
     const applySize = () => {
       w = window.innerWidth;
       h = window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, isTouch ? 1.5 : 2);
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
+      canvas.width = w;
+      canvas.height = h;
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     const initParticles = () => {
@@ -197,8 +195,8 @@ export default function ParticleNetwork() {
 
     const drawWaves = (time) => {
       const waves = [
-        { amp: 28, freq: 0.0026, speed: 0.00065, yBase: h * 0.32, color: 'rgba(16, 185, 129, 0.18)' },
-        { amp: 36, freq: 0.0019, speed: -0.00048, yBase: h * 0.68, color: 'rgba(56, 189, 248, 0.13)' },
+        { amp: 26, freq: 0.0026, speed: 0.0006, yBase: h * 0.32, color: 'rgba(16, 185, 129, 0.10)' },
+        { amp: 34, freq: 0.0019, speed: -0.00045, yBase: h * 0.68, color: 'rgba(56, 189, 248, 0.07)' },
       ];
       const scrollShift = st.scrollY * 0.1;
       const step = w < 640 ? 24 : 18;
@@ -272,12 +270,12 @@ export default function ParticleNetwork() {
             const pdSq = pdx * pdx + pdy * pdy;
             const pointerRadiusSq = (dist * 1.35) * (dist * 1.35);
             if (pdSq < pointerRadiusSq) {
-              const pAlpha = (1 - Math.sqrt(pdSq) / (dist * 1.35)) * 0.55;
+              const pAlpha = (1 - Math.sqrt(pdSq) / (dist * 1.35)) * 0.35;
               ctx.beginPath();
               ctx.moveTo(pi.x, pi.y);
               ctx.lineTo(mx, my);
               ctx.strokeStyle = `rgba(80, 250, 123, ${pAlpha})`;
-              ctx.lineWidth = 1.1;
+              ctx.lineWidth = 1.0;
               ctx.stroke();
             }
           }
@@ -290,12 +288,12 @@ export default function ParticleNetwork() {
 
             if (dSq < distSq) {
               const ratio = 1 - Math.sqrt(dSq) / dist;
-              const alpha = ratio * 0.42;
+              const alpha = ratio * 0.24;
               ctx.beginPath();
               ctx.moveTo(pi.x, pi.y);
               ctx.lineTo(pj.x, pj.y);
               ctx.strokeStyle = `rgba(16, 185, 129, ${alpha})`;
-              ctx.lineWidth = 0.85;
+              ctx.lineWidth = 0.8;
               ctx.stroke();
             }
           }

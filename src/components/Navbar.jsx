@@ -30,7 +30,6 @@ const NavItem = ({ href, children, onClick, isActive }) => {
 };
 
 const NAV_LINKS = [
-  { id: 'market-terminal-section', label: 'Terminal' },
   { id: 'notion-journal', label: 'Journal' },
   { id: 'the-builder', label: 'Projects' },
   { id: 'milestones', label: 'Milestones' },

@@ -8,7 +8,7 @@ const FLOATING_ELEMENTS = [
     id: 'btc',
     type: 'crypto-btc',
     tier: 'all',
-    pos: 'top-[10%] left-[3%] sm:left-[4%]',
+    pos: 'top-[6%] left-[3%] sm:left-[4%]',
     rotate: '-7deg',
     duration: '17s',
     delay: '0s',
@@ -17,7 +17,7 @@ const FLOATING_ELEMENTS = [
     id: 'candle-card',
     type: 'candlestick-sketch',
     tier: 'all',
-    pos: 'top-[16%] right-[3%] sm:right-[5%]',
+    pos: 'top-[12%] right-[3%] sm:right-[5%]',
     rotate: '6deg',
     duration: '20s',
     delay: '-3s',
@@ -26,9 +26,9 @@ const FLOATING_ELEMENTS = [
     id: 'monte-carlo',
     type: 'pill',
     label: 'Monte Carlo N=1,000',
-    accent: 'text-emerald-300/75 border-emerald-500/30 bg-emerald-950/40',
+    accent: 'text-emerald-300/65 border-emerald-500/25 bg-emerald-950/25',
     tier: 'all',
-    pos: 'bottom-[14%] left-[4%] sm:left-[5%]',
+    pos: 'bottom-[3%] left-[3%] sm:bottom-[14%] sm:left-[5%]',
     rotate: '-5deg',
     duration: '22s',
     delay: '-7s',
@@ -37,9 +37,9 @@ const FLOATING_ELEMENTS = [
     id: 'ai-ml',
     type: 'pill',
     label: 'AI / ML • Quant',
-    accent: 'text-sky-300/75 border-sky-500/30 bg-sky-950/35',
+    accent: 'text-sky-300/65 border-sky-500/25 bg-sky-950/25',
     tier: 'all',
-    pos: 'bottom-[10%] right-[4%] sm:right-[6%]',
+    pos: 'bottom-[3%] right-[3%] sm:bottom-[10%] sm:right-[6%]',
     rotate: '5deg',
     duration: '19s',
     delay: '-5s',
@@ -143,11 +143,11 @@ function getTierClass(tier) {
 function FloatingItemVisual({ item }) {
   if (item.type === 'crypto-btc') {
     return (
-      <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-amber-500/35 bg-amber-950/35 backdrop-blur-[2px] shadow-[0_0_20px_rgba(245,158,11,0.15)]">
-        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400/90" viewBox="0 0 24 24" fill="currentColor">
+      <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-amber-500/25 bg-amber-950/20">
+        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400/80" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm3.22 11.45a2.65 2.65 0 0 1-1.93 2.41v1.64h-1.15v-1.56h-.92v1.56H10.1v-1.56H7.8v-1.22h.84c.31 0 .45-.18.45-.44V9.72c0-.26-.14-.44-.45-.44H7.8V8.06h2.3V6.5h1.12v1.56h.92V6.5h1.15v1.6a2.47 2.47 0 0 1 1.72 2.21 2 2 0 0 1-.82 1.69 2.2 2.2 0 0 1 1.03 1.45zm-3.95-4.18v2.2h1.26c.73 0 1.21-.39 1.21-1.1s-.48-1.1-1.21-1.1zm1.47 5.56c.82 0 1.35-.44 1.35-1.2s-.53-1.2-1.35-1.2h-1.47v2.4z" />
         </svg>
-        <span className="font-mono text-[9px] sm:text-[10px] text-amber-300/85 font-semibold tracking-wider">
+        <span className="font-mono text-[9px] sm:text-[10px] text-amber-300/75 font-semibold tracking-wider">
           BTC/USD
         </span>
       </div>
@@ -156,11 +156,11 @@ function FloatingItemVisual({ item }) {
 
   if (item.type === 'crypto-eth') {
     return (
-      <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-sky-500/30 bg-sky-950/30 backdrop-blur-[2px] shadow-[0_0_20px_rgba(56,189,248,0.12)]">
-        <svg className="w-4 h-4 text-sky-400/90" viewBox="0 0 24 24" fill="currentColor">
+      <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-sky-500/25 bg-sky-950/20">
+        <svg className="w-4 h-4 text-sky-400/80" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2L5.5 12.2 12 16l6.5-3.8L12 2zm0 15.6L5.5 13.8 12 22l6.5-8.2-6.5 3.8z" />
         </svg>
-        <span className="font-mono text-[10px] text-sky-300/85 font-semibold tracking-wider">
+        <span className="font-mono text-[10px] text-sky-300/75 font-semibold tracking-wider">
           ETH/USD
         </span>
       </div>
@@ -169,18 +169,18 @@ function FloatingItemVisual({ item }) {
 
   if (item.type === 'candlestick-sketch') {
     return (
-      <div className="p-2 sm:p-2.5 rounded-xl border border-emerald-500/30 bg-neutral-950/50 backdrop-blur-[2px] shadow-[0_0_24px_rgba(16,185,129,0.12)]">
+      <div className="p-2 sm:p-2.5 rounded-xl border border-emerald-500/20 bg-neutral-950/30">
         <svg className="w-16 h-10 sm:w-20 sm:h-12" viewBox="0 0 80 48" fill="none">
-          <line x1="12" y1="22" x2="12" y2="42" stroke="#10b981" strokeOpacity="0.7" strokeWidth="1.5" />
-          <rect x="9" y="26" width="6" height="11" rx="1" fill="#10b981" fillOpacity="0.6" />
-          <line x1="26" y1="16" x2="26" y2="38" stroke="#ef4444" strokeOpacity="0.65" strokeWidth="1.5" />
-          <rect x="23" y="20" width="6" height="12" rx="1" fill="#ef4444" fillOpacity="0.55" />
-          <line x1="40" y1="12" x2="40" y2="34" stroke="#10b981" strokeOpacity="0.75" strokeWidth="1.5" />
-          <rect x="37" y="16" width="6" height="13" rx="1" fill="#10b981" fillOpacity="0.65" />
-          <line x1="54" y1="6" x2="54" y2="26" stroke="#50fa7b" strokeOpacity="0.8" strokeWidth="1.5" />
-          <rect x="51" y="10" width="6" height="11" rx="1" fill="#50fa7b" fillOpacity="0.7" />
-          <line x1="68" y1="3" x2="68" y2="20" stroke="#50fa7b" strokeOpacity="0.85" strokeWidth="1.5" />
-          <rect x="65" y="6" width="6" height="9" rx="1" fill="#50fa7b" fillOpacity="0.75" />
+          <line x1="12" y1="22" x2="12" y2="42" stroke="#10b981" strokeOpacity="0.6" strokeWidth="1.5" />
+          <rect x="9" y="26" width="6" height="11" rx="1" fill="#10b981" fillOpacity="0.5" />
+          <line x1="26" y1="16" x2="26" y2="38" stroke="#ef4444" strokeOpacity="0.55" strokeWidth="1.5" />
+          <rect x="23" y="20" width="6" height="12" rx="1" fill="#ef4444" fillOpacity="0.45" />
+          <line x1="40" y1="12" x2="40" y2="34" stroke="#10b981" strokeOpacity="0.65" strokeWidth="1.5" />
+          <rect x="37" y="16" width="6" height="13" rx="1" fill="#10b981" fillOpacity="0.55" />
+          <line x1="54" y1="6" x2="54" y2="26" stroke="#50fa7b" strokeOpacity="0.7" strokeWidth="1.5" />
+          <rect x="51" y="10" width="6" height="11" rx="1" fill="#50fa7b" fillOpacity="0.6" />
+          <line x1="68" y1="3" x2="68" y2="20" stroke="#50fa7b" strokeOpacity="0.75" strokeWidth="1.5" />
+          <rect x="65" y="6" width="6" height="9" rx="1" fill="#50fa7b" fillOpacity="0.65" />
         </svg>
       </div>
     );
@@ -188,17 +188,17 @@ function FloatingItemVisual({ item }) {
 
   if (item.type === 'trend-sketch') {
     return (
-      <div className="px-2.5 py-2 rounded-xl border border-emerald-500/25 bg-neutral-950/45 backdrop-blur-[2px]">
+      <div className="px-2.5 py-2 rounded-xl border border-emerald-500/20 bg-neutral-950/30">
         <svg className="w-20 h-9" viewBox="0 0 80 36" fill="none">
           <path
             d="M2 30 L16 24 L28 27 L42 15 L56 18 L76 4"
             stroke="#34d399"
-            strokeOpacity="0.75"
+            strokeOpacity="0.65"
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-          <circle cx="76" cy="4" r="2.5" fill="#50fa7b" fillOpacity="0.9" />
+          <circle cx="76" cy="4" r="2.5" fill="#50fa7b" fillOpacity="0.8" />
         </svg>
       </div>
     );
@@ -206,7 +206,7 @@ function FloatingItemVisual({ item }) {
 
   return (
     <div
-      className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border backdrop-blur-[2px] font-mono text-[9px] sm:text-[10px] md:text-[11px] tracking-wider ${item.accent}`}
+      className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border font-mono text-[9px] sm:text-[10px] md:text-[11px] tracking-wider ${item.accent}`}
     >
       {item.label}
     </div>
@@ -385,7 +385,7 @@ export default function BackgroundOverlay() {
         {FLOATING_ELEMENTS.map((item) => (
           <div
             key={item.id}
-            className={`${getTierClass(item.tier)} absolute ${item.pos} opacity-75 sm:opacity-85`}
+            className={`${getTierClass(item.tier)} absolute ${item.pos} opacity-35 sm:opacity-45`}
             style={{
               rotate: item.rotate,
               animation: `float-quant ${item.duration} ease-in-out infinite`,

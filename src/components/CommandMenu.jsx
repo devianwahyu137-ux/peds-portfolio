@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
   Terminal, 
-  Activity, 
   FileText, 
   ExternalLink, 
   Trophy, 
@@ -110,17 +109,6 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
                       <span>Projects & Bento Matrix</span>
                     </div>
                     <span className="text-[10px] text-neutral-400">Jump to #the-builder</span>
-                  </Command.Item>
-
-                  <Command.Item
-                    onSelect={() => handleAction(() => scrollTo('market-terminal-section'))}
-                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <Activity className="w-4 h-4 text-emerald-400" />
-                      <span>TradingView Market Terminal</span>
-                    </div>
-                    <span className="text-[10px] text-neutral-400">Jump to Live Charts</span>
                   </Command.Item>
 
                   <Command.Item

@@ -549,15 +549,7 @@ export default function Projects() {
       />
 
       {/* --- Visual Decor: Radar Sweep --- */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(16,185,129,0.3)_360deg)] rounded-full blur-3xl animate-[spin_10s_linear_infinite] pointer-events-none z-0" />
-
-      {/* --- Visual Decor: Subtle Scanlines & Noise (behind foreground content) --- */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.1] mix-blend-overlay z-[1]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
-      />
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[conic-gradient(from_0deg,transparent_0_340deg,rgba(16,185,129,0.2)_360deg)] rounded-full blur-3xl animate-[spin_10s_linear_infinite] pointer-events-none z-0" />
 
       <motion.div
         className="w-full max-w-[95vw] lg:max-w-7xl mx-auto px-2 sm:px-6 md:px-8 relative z-10"
