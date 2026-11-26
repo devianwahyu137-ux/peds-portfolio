@@ -64,6 +64,20 @@
   }
 }
 
+/* Unlayered high-contrast text & hover rules so external/UA heading styles never override dark-mode titles */
+.text-white {
+  color: #FFFFFF;
+}
+.group:hover .group-hover\:text-emerald-300 {
+  color: #6ee7b7;
+}
+.group:hover .group-hover\:text-emerald-400 {
+  color: #34d399;
+}
+.group:hover .group-hover\:text-red-300 {
+  color: #fca5a5;
+}
+
 @layer utilities {
   .glass-card {
     @apply bg-neutral-950/92 border border-border rounded-2xl transition-all duration-300;
