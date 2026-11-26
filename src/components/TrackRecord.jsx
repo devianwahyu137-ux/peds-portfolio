@@ -1,4 +1,4 @@
-import { Briefcase, TrendingUp, GraduationCap, ShieldCheck, ArrowUpRight, Activity } from 'lucide-react';
+import { Briefcase, TrendingUp, GraduationCap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function TrackRecord() {
@@ -24,7 +24,7 @@ export default function TrackRecord() {
     {
       icon: GraduationCap,
       title: "Management Science @ FEB UGM",
-      subtitle: "6th Semester Quantitative Track",
+      subtitle: "Quantitative Finance & Econometrics Track",
       stats: "Top Tier Academic Rigor",
       description: "Synthesizing econometric modeling, business model feasibility, and algorithmic decision systems to bridge academic financial theory with real-market execution.",
       badge: "ACADEMIC RIGOR",
@@ -84,33 +84,24 @@ export default function TrackRecord() {
                   </span>
                 </div>
 
-                <h3 
-                  className="text-sm sm:text-base md:text-lg font-bold text-white mb-0.5 sm:mb-1 group-hover:text-emerald-300 transition-colors"
-                  style={{ color: '#FFFFFF' }}
-                >
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-white mb-0.5 sm:mb-1 group-hover:text-emerald-300 transition-colors">
                   {cred.title}
                 </h3>
-                <h4 
-                  className="text-[10px] sm:text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 sm:mb-3 md:mb-4"
-                  style={{ color: '#94A3B8' }}
-                >
+                <h4 className="text-[10px] sm:text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 sm:mb-3 md:mb-4">
                   {cred.subtitle}
                 </h4>
 
-                <p 
-                  className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed font-body mb-3 sm:mb-4 md:mb-6"
-                  style={{ color: '#CBD5E1' }}
-                >
+                <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed font-body mb-3 sm:mb-4 md:mb-6">
                   {cred.description}
                 </p>
               </div>
 
               {/* Bottom Micro Stat Footer */}
               <div className="pt-2.5 sm:pt-3 md:pt-4 border-t border-white/5 flex items-center justify-between font-mono text-[10px] sm:text-xs">
-                <span className="text-emerald-400 font-medium" style={{ color: '#34D399' }}>
+                <span className="text-emerald-400 font-medium">
                   {cred.stats}
                 </span>
-                <span className="text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all" style={{ color: '#94A3B8' }}>
+                <span className="text-neutral-500 group-hover:text-emerald-400 group-hover:translate-x-1 transition-all">
                   →
                 </span>
               </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, User, Mail, MessageSquare, PenTool, CheckCircle2 } from 'lucide-react';
+import { Send, User, Mail, MessageSquare, PenTool, CheckCircle2, AlertCircle } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -11,6 +11,7 @@ export default function ContactForm() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -23,6 +24,7 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setIsSuccess(false);
+    setErrorMessage('');
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -32,7 +34,7 @@ export default function ContactForm() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "36b1d4a7-2bf1-4b20-8494-c0ad74e9caac",
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY || "36b1d4a7-2bf1-4b20-8494-c0ad74e9caac",
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
@@ -45,10 +47,10 @@ export default function ContactForm() {
         setIsSuccess(true);
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        alert("Something went wrong. Please try again.");
+        setErrorMessage("Transmission failed. Please verify your input and try again.");
       }
-    } catch (error) {
-      alert("Submission error. Please verify network connectivity.");
+    } catch {
+      setErrorMessage("Network error while sending message. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
@@ -90,9 +92,19 @@ export default function ContactForm() {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <span className="text-white font-medium tracking-wide">DIRECT CHANNEL: DEVIAN WAHYU NUGROHO</span>
             </div>
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 w-fit">
-              <span className="text-neutral-400">STATUS:</span>
-              <span className="text-emerald-400 font-semibold">AVAILABLE FOR INQUIRIES</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href="https://www.linkedin.com/in/devianwahyu77"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-2.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-400 hover:bg-sky-500 hover:text-black transition-all font-semibold"
+              >
+                LinkedIn DM ↗
+              </a>
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 w-fit">
+                <span className="text-neutral-400">STATUS:</span>
+                <span className="text-emerald-400 font-semibold">AVAILABLE</span>
+              </div>
             </div>
           </div>
 
@@ -105,13 +117,29 @@ export default function ContactForm() {
             >
               <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
               <div>
-                <p className="font-bold">PESAN BERHASIL TERKIRIM</p>
-                <p className="text-[11px] text-emerald-300/80">Terima kasih. Pesan Anda telah diterima dan akan segera direspons.</p>
+                <p className="font-bold">MESSAGE SENT SUCCESSFULLY</p>
+                <p className="text-[11px] text-emerald-300/80">Thank you. Your inquiry has been received and will be responded to shortly.</p>
+              </div>
+            </motion.div>
+          )}
+
+          {/* Error Banner */}
+          {errorMessage && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="mb-6 p-4 rounded-xl border border-red-500/50 bg-red-500/15 text-red-300 font-mono text-xs flex items-center gap-3"
+            >
+              <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+              <div>
+                <p className="font-bold">DISPATCH ERROR</p>
+                <p className="text-[11px] text-red-300/80">{errorMessage}</p>
               </div>
             </motion.div>
           )}
 
           <form onSubmit={handleSubmit} className="relative z-10 flex flex-col gap-4 sm:gap-6">
+            <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Name Field */}
               <div className="flex flex-col gap-1.5 sm:gap-2">
@@ -130,7 +158,7 @@ export default function ContactForm() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    placeholder="Nama Anda atau Institusi"
+                    placeholder="Your name or institution"
                     className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                   />
                 </div>
@@ -153,7 +181,7 @@ export default function ContactForm() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    placeholder="emailanda@domain.com"
+                    placeholder="you@domain.com"
                     className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                   />
                 </div>
@@ -176,7 +204,7 @@ export default function ContactForm() {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  placeholder="Topik diskusi atau kolaborasi"
+                  placeholder="Discussion topic or collaboration inquiry"
                   className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all font-body text-white"
                 />
               </div>
@@ -198,7 +226,7 @@ export default function ContactForm() {
                   onChange={handleChange}
                   required
                   rows="3"
-                  placeholder="Tuliskan pesan Anda di sini..."
+                  placeholder="Write your message here..."
                   className="w-full bg-black/70 border border-white/10 rounded-xl py-2.5 pl-10 pr-3 sm:py-3 sm:pl-11 sm:pr-4 text-xs sm:text-sm placeholder-neutral-400 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/30 focus:shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all resize-none font-body text-white"
                 />
               </div>
@@ -223,7 +251,7 @@ export default function ContactForm() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                     </svg>
-                    <span>Mengirim Pesan...</span>
+                    <span>Sending Message...</span>
                   </>
                 ) : (
                   <>

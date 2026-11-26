@@ -16,8 +16,8 @@ export default function HeroSection() {
     <section className="relative min-h-[70vh] flex flex-col justify-center mt-8 overflow-visible">
       <div className="relative z-10 w-full flex flex-col lg:flex-row items-center gap-6 lg:gap-0 overflow-visible">
         
-        {/* Left Side - Lanyard with Magic UI Animated Beam */}
-        <div className="relative w-full lg:w-[38%] flex justify-center lg:justify-start overflow-visible lg:-mt-40 h-[360px] sm:h-[420px] lg:h-auto items-start shrink-0 mb-6 sm:mb-8 lg:mb-0">
+        {/* Left Side - Lanyard with Animated Beam */}
+        <div className="relative w-full lg:w-[40%] flex justify-center lg:justify-start overflow-visible lg:-mt-16 h-[360px] sm:h-[420px] lg:h-auto items-start shrink-0 mb-6 sm:mb-8 lg:mb-0">
           <HeroAnimatedBeam />
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -30,7 +30,7 @@ export default function HeroSection() {
         </div>
 
         {/* Right Side - Text (right-aligned, fills space) */}
-        <div className="w-full lg:w-[64%] lg:pl-4 mt-2 sm:mt-4 lg:mt-0">
+        <div className="w-full lg:w-[60%] lg:pl-4 mt-2 sm:mt-4 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -83,8 +83,8 @@ export default function HeroSection() {
                 </a>
 
                 <a 
-                  href="/CV%20Devian%20Wahyu%20Nugroho.pdf" 
-                  download="CV_Devian_Wahyu_Nugroho.pdf" 
+                  href="/CV_Devian_Wahyu_Nugroho.pdf" 
+                  download="CV_Devian_Wahyu_Nugroho.pdf"  
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="group relative inline-flex items-center justify-center gap-1.5 py-2.5 px-2 font-mono text-[10px] tracking-wider uppercase bg-neutral-900/50 border border-white/20 rounded-lg hover:bg-white/10 hover:border-white/50 text-white transition-all truncate"
@@ -122,8 +122,8 @@ export default function HeroSection() {
               </div>
               
               <a 
-                href="/CV%20Devian%20Wahyu%20Nugroho.pdf" 
-                download="CV_Devian_Wahyu_Nugroho.pdf" 
+                href="/CV_Devian_Wahyu_Nugroho.pdf" 
+                download="CV_Devian_Wahyu_Nugroho.pdf"  
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full group relative flex items-center justify-center gap-2 py-2 px-3 sm:px-5 sm:py-3 md:px-7 md:py-3.5 font-mono text-[11px] sm:text-xs md:text-sm tracking-widest uppercase bg-neutral-900/50 border border-white/20 rounded-lg hover:bg-white/10 hover:border-white/50 text-white transition-all duration-300"

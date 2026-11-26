@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { cn } from '../lib/utils';
 
@@ -19,12 +19,9 @@ export function BentoCard({
   className,
   children,
   badge,
-  title,
   subtitle,
   icon: Icon,
   spotlightColor = 'rgba(16, 185, 129, 0.18)',
-  borderColor = 'rgba(16, 185, 129, 0.3)',
-  glowColor = '#10b981',
   onClick,
 }) {
   const cardRef = useRef(null);
@@ -93,7 +90,7 @@ export function BentoCard({
               </span>
             )}
             {subtitle && (
-              <span className="font-mono text-[10px] sm:text-[11px] text-neutral-400 truncate hidden xs:inline-block" style={{ color: '#94A3B8' }}>
+              <span className="font-mono text-[10px] sm:text-[11px] text-neutral-400 truncate hidden xs:inline-block">
                 {subtitle}
               </span>
             )}

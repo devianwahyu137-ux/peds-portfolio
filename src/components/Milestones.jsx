@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Trophy, 
@@ -152,6 +152,9 @@ const timelineData = [
 
 export default function Milestones() {
   const containerRef = useRef(null);
+  const [activeFilter, setActiveFilter] = useState('All');
+  const [showAll, setShowAll] = useState(false);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start 85%', 'end 50%'],
@@ -159,17 +162,50 @@ export default function Milestones() {
 
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
+  const filterCategories = ['All', 'Fintech & AI', 'Trading', 'Strategy'];
+
+  const matchesFilter = (item) => {
+    if (activeFilter === 'All') return true;
+    const text = `${item.badge} ${item.title} ${item.tags.join(' ')}`.toLowerCase();
+    if (activeFilter === 'Fintech & AI') return text.includes('fintech') || text.includes('ai') || text.includes('compfest');
+    if (activeFilter === 'Trading') return text.includes('trading') || text.includes('forex') || text.includes('prop') || text.includes('strategist');
+    if (activeFilter === 'Strategy') return text.includes('business') || text.includes('bmc') || text.includes('venture') || text.includes('case');
+    return true;
+  };
+
+  const filteredEpochs = timelineData
+    .map((epoch) => ({
+      ...epoch,
+      milestones: epoch.milestones.filter(matchesFilter),
+    }))
+    .filter((epoch) => epoch.milestones.length > 0);
+
+  const totalCount = filteredEpochs.reduce((acc, ep) => acc + ep.milestones.length, 0);
+  const limit = showAll || activeFilter !== 'All' ? Infinity : 5;
+  const visibleEpochs = filteredEpochs.reduce(
+    (acc, epoch) => {
+      const remaining = Math.max(0, limit - acc.count);
+      if (remaining === 0) return acc;
+      const items = epoch.milestones.slice(0, remaining);
+      return {
+        count: acc.count + items.length,
+        epochs: [...acc.epochs, { ...epoch, milestones: items }],
+      };
+    },
+    { count: 0, epochs: [] }
+  ).epochs;
+
   return (
     <section id="milestones" ref={containerRef} className="relative w-full py-12 scroll-mt-24 overflow-visible">
       
       {/* ── Sticky Section Header ── */}
-      <div className="sticky top-14 sm:top-16 md:top-20 z-20 py-2.5 sm:py-3 md:py-4 mb-4 sm:mb-6 md:mb-8 bg-neutral-950/85 backdrop-blur-md border-b border-emerald-500/10 transition-all">
+      <div className="sticky top-16 md:top-20 z-20 py-2.5 sm:py-3 md:py-4 mb-4 sm:mb-6 md:mb-8 bg-neutral-950/85 backdrop-blur-md border-b border-emerald-500/10 transition-all">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <p className="text-emerald-400 font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em]">
-                Aceternity Timeline Architecture
+                Verified Track & Competition Honors
               </p>
             </div>
             <h2 className="text-xl sm:text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
@@ -177,7 +213,25 @@ export default function Milestones() {
             </h2>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <div className="flex items-center gap-1 p-1 rounded-full bg-neutral-900/90 border border-white/10">
+              {filterCategories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    setActiveFilter(cat);
+                    setShowAll(false);
+                  }}
+                  className={`px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] transition-all cursor-pointer ${
+                    activeFilter === cat
+                      ? 'bg-emerald-500 text-black font-bold'
+                      : 'text-neutral-400 hover:text-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
             <a
               href="https://www.linkedin.com/in/devianwahyu77"
               target="_blank"
@@ -205,14 +259,17 @@ export default function Milestones() {
 
           {/* Timeline Items */}
           <div className="space-y-12 sm:space-y-16">
-            {timelineData.map((epoch) => (
+            {visibleEpochs.map((epoch) => {
+              const visibleItems = epoch.milestones;
+
+              return (
               <div key={epoch.year} className="relative flex flex-col md:flex-row items-start">
                 {/* Year Stamp Indicator (Desktop side header) */}
                 <div className="hidden md:flex w-28 shrink-0 flex-col text-right pr-8 pt-1">
-                  <span className="font-display font-bold text-2xl text-white tracking-tight leading-none" style={{ color: '#FFFFFF' }}>
+                  <span className="font-display font-bold text-2xl text-white tracking-tight leading-none">
                     {epoch.year}
                   </span>
-                  <span className="font-mono text-xs tracking-wider text-emerald-400 font-semibold mt-1.5" style={{ color: '#34D399' }}>
+                  <span className="font-mono text-xs tracking-wider text-emerald-400 font-semibold mt-1.5">
                     {epoch.quarter}
                   </span>
                 </div>
@@ -227,13 +284,13 @@ export default function Milestones() {
 
                 {/* Mobile Year Stamp Header */}
                 <div className="md:hidden flex items-center gap-2 mb-3 pl-9 pt-0.5">
-                  <span className="font-display font-bold text-lg text-white tracking-tight" style={{ color: '#FFFFFF' }}>{epoch.year}</span>
-                  <span className="font-mono text-xs text-emerald-400 font-semibold tracking-wider" style={{ color: '#34D399' }}>({epoch.quarter})</span>
+                  <span className="font-display font-bold text-lg text-white tracking-tight">{epoch.year}</span>
+                  <span className="font-mono text-xs text-emerald-400 font-semibold tracking-wider">({epoch.quarter})</span>
                 </div>
 
                 {/* Milestones inside this Epoch */}
                 <div className="flex-1 w-full space-y-3 sm:space-y-4 md:space-y-6 pl-7 sm:pl-10 md:pl-8">
-                  {epoch.milestones.map((item, idx) => {
+                  {visibleItems.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <motion.div
@@ -254,14 +311,14 @@ export default function Milestones() {
                               <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-[8px] sm:text-[9px] md:text-[10px] tracking-widest font-semibold uppercase">
                                 {item.badge}
                               </span>
-                              <span className="font-mono text-[10px] sm:text-xs text-neutral-400 hidden sm:inline" style={{ color: '#94A3B8' }}>
+                              <span className="font-mono text-[10px] sm:text-xs text-neutral-400 hidden sm:inline">
                                 {item.issuer}
                               </span>
                             </div>
 
-                            <div className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 font-mono text-[8px] sm:text-[9px] md:text-[10px] text-white" style={{ color: '#FFFFFF' }}>
+                            <div className="flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 font-mono text-[8px] sm:text-[9px] md:text-[10px] text-white">
                               <ShieldCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-emerald-400" />
-                              <span style={{ color: '#FFFFFF' }}>{item.status}</span>
+                              <span>{item.status}</span>
                             </div>
                           </div>
 
@@ -271,17 +328,17 @@ export default function Milestones() {
                               <Icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
                             </div>
                             <div className="min-w-0">
-                              <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug" style={{ color: '#FFFFFF' }}>
+                              <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white group-hover:text-emerald-300 transition-colors leading-snug">
                                 {item.title}
                               </h3>
-                              <p className="font-mono text-[9px] sm:text-xs text-neutral-400 sm:hidden mt-0.5 truncate" style={{ color: '#94A3B8' }}>
+                              <p className="font-mono text-[9px] sm:text-xs text-neutral-400 sm:hidden mt-0.5 truncate">
                                 {item.issuer}
                               </p>
                             </div>
                           </div>
 
                           {/* Description */}
-                          <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed my-1.5 sm:my-2 md:my-3 font-body" style={{ color: '#CBD5E1' }}>
+                          <p className="text-[11px] sm:text-xs md:text-sm text-neutral-300 leading-relaxed my-1.5 sm:my-2 md:my-3 font-body">
                             {item.description}
                           </p>
 
@@ -291,7 +348,6 @@ export default function Milestones() {
                               <span
                                 key={tag}
                                 className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-400 group-hover:border-emerald-500/20 group-hover:text-emerald-300 transition-colors"
-                                style={{ color: '#94A3B8' }}
                               >
                                 {tag}
                               </span>
@@ -303,8 +359,20 @@ export default function Milestones() {
                   })}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
+
+          {activeFilter === 'All' && totalCount > 5 && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => setShowAll((prev) => !prev)}
+                className="px-5 py-2.5 rounded-full bg-neutral-900/90 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-black font-mono text-xs font-semibold transition-all cursor-pointer shadow-[0_0_20px_rgba(16,185,129,0.12)]"
+              >
+                {showAll ? 'Show Less Milestones ↑' : `Show All Milestones (${totalCount}) ↓`}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

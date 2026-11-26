@@ -3,12 +3,12 @@ import ParticleNetwork from './ParticleNetwork';
 
 export default function BackgroundOverlay() {
   const spotlightRef = useRef(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  );
 
   useEffect(() => {
-    // Detect mobile / touch devices
     const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
-    setIsTouchDevice(touchQuery.matches);
 
     // If mobile/touch screen, bypass all pointermove events & continuous lerp computations
     if (touchQuery.matches) {
@@ -60,25 +60,27 @@ export default function BackgroundOverlay() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-base select-none">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-base select-none">
       <style>
         {`
-          @media (min-width: 768px) {
-            @keyframes orb-wander-1 {
-              0%, 100% { transform: translate3d(0, 0, 0); }
-              50% { transform: translate3d(60px, -60px, 0); }
-            }
-            @keyframes orb-wander-2 {
-              0%, 100% { transform: translate3d(0, 0, 0); }
-              50% { transform: translate3d(-60px, 50px, 0); }
-            }
+          @keyframes orb-wander-1 {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(55px, -55px, 0); }
+          }
+          @keyframes orb-wander-2 {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(-55px, 45px, 0); }
+          }
+          @keyframes candlestick-drift {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(-40px, -20px, 0); }
           }
         `}
       </style>
 
       {/* 1. Base Static Institutional Grid */}
       <div 
-        className="absolute inset-0 opacity-[0.035]"
+        className="absolute inset-0 opacity-[0.045]"
         style={{
           backgroundImage: `
             linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
@@ -88,20 +90,21 @@ export default function BackgroundOverlay() {
         }}
       />
 
-      {/* 2. Pointer-Reactive Spotlight (Desktop) or Static Lightweight Emerald Ambient (Mobile) */}
+      {/* 2. Pointer-Reactive Spotlight (Desktop) or Animated Emerald Ambient (Mobile/iPad) */}
       {isTouchDevice ? (
         <div
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full pointer-events-none"
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] rounded-full pointer-events-none will-change-transform"
           style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.03) 45%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0.04) 45%, transparent 70%)',
+            animation: 'orb-wander-1 16s ease-in-out infinite',
           }}
         />
       ) : (
         <div
           ref={spotlightRef}
-          className="absolute -top-[350px] -left-[350px] w-[700px] h-[700px] rounded-full pointer-events-none will-change-transform opacity-70"
+          className="absolute -top-[350px] -left-[350px] w-[700px] h-[700px] rounded-full pointer-events-none will-change-transform opacity-80"
           style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.14) 0%, rgba(16, 185, 129, 0.04) 40%, transparent 68%)',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0.05) 40%, transparent 68%)',
           }}
         />
       )}
@@ -116,8 +119,12 @@ export default function BackgroundOverlay() {
         <rect width="100%" height="100%" fill="url(#gridDots)" />
       </svg>
 
-      {/* 3. Ghost Candlestick Matrix */}
-      <svg className="absolute inset-0 w-full h-full opacity-5" xmlns="http://www.w3.org/2000/svg">
+      {/* 3. Subtle Drifting Ghost Candlestick Matrix */}
+      <svg
+        className="absolute -inset-12 w-[calc(100%+6rem)] h-[calc(100%+6rem)] opacity-[0.06] will-change-transform"
+        style={{ animation: 'candlestick-drift 28s ease-in-out infinite' }}
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <pattern id="candlesticks" width="120" height="200" patternUnits="userSpaceOnUse">
           <rect x="20" y="80" width="8" height="40" fill="none" stroke="#50FA7B" strokeWidth="1" />
           <line x1="24" y1="60" x2="24" y2="80" stroke="#50FA7B" strokeWidth="1" />
@@ -148,11 +155,11 @@ export default function BackgroundOverlay() {
         }}
       />
 
-      {/* 5. Particle Network constellation system */}
-      <ParticleNetwork />
+      {/* 5. Subtle Vignette (underneath interactive particle layer) */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#0D0D0D_100%)] pointer-events-none z-[1]" />
 
-      {/* 6. Subtle Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,#0D0D0D_100%)] pointer-events-none" />
+      {/* 6. Interactive Particle Constellation & Quant Waves (above vignette, below content z-10) */}
+      <ParticleNetwork />
     </div>
   );
 }

@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
-import { Activity, ShieldCheck, Zap, TrendingUp } from 'lucide-react';
 
 const TICKER_ITEMS = [
   { label: 'ETH-USD Sentinel', value: 'ACTIVE [Regime: Low-Vol]', type: 'pulse' },
-  { label: 'Sharpe Ratio', value: '2.14 | Profit Factor: 2.14', type: 'stat' },
+  { label: 'Profit Factor', value: '2.14 | Win Rate: 68.4%', type: 'stat' },
   { label: 'SBN Sovereign Yield', value: '6.82% Baseline', type: 'yield' },
   { label: 'Institutional Research', value: '20 Papers Published', type: 'paper' },
   { label: 'BTC Core Momentum', value: '+3.42% 24H [Regime: Expansion]', type: 'trend' },

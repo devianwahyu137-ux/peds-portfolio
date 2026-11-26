@@ -56,24 +56,11 @@
     color: inherit;
   }
 
-  /* Universal high-contrast text fallbacks for dark mode */
-  .text-white {
-    color: #FFFFFF !important;
-  }
-  .text-neutral-200 {
-    color: #E2E8F0 !important;
-  }
-  .text-neutral-300 {
-    color: #CBD5E1 !important;
-  }
-  .text-neutral-400 {
-    color: #94A3B8 !important;
-  }
-  .text-text-primary {
-    color: #FFFFFF !important;
-  }
-  .text-text-secondary {
-    color: #CBD5E1 !important;
+  @media (hover: hover) and (pointer: fine) {
+    body.custom-cursor-active,
+    body.custom-cursor-active * {
+      cursor: none !important;
+    }
   }
 }
 

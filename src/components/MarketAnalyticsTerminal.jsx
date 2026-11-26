@@ -1,10 +1,25 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { createChart, CandlestickSeries, AreaSeries, HistogramSeries, LineSeries } from 'lightweight-charts';
-import { Activity, TrendingUp, TrendingDown, BarChart2, Eye, RefreshCw, Layers, ShieldCheck, Zap } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Activity, TrendingUp, TrendingDown, BarChart2, ShieldCheck } from 'lucide-react';
 
-// Mock historical data generator for realistic institutional assets
-function generateHistoricalData(basePrice, volatility, count = 90) {
+// Deterministic PRNG (Mulberry32) so each asset chart stays consistent across tab switches
+function createSeededRandom(seedStr) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < seedStr.length; i++) {
+    h ^= seedStr.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return function () {
+    h += 0x6d2b79f5;
+    let t = Math.imul(h ^ (h >>> 15), 1 | h);
+    t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Simulated historical data generator for institutional assets
+function generateHistoricalData(assetKey, basePrice, volatility, count = 90) {
+  const rand = createSeededRandom(assetKey);
   const data = [];
   const volumeData = [];
   let currentPrice = basePrice;
@@ -14,12 +29,12 @@ function generateHistoricalData(basePrice, volatility, count = 90) {
     const timeDate = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
     const dateStr = timeDate.toISOString().split('T')[0];
 
-    const changePercent = (Math.random() - 0.48) * volatility;
+    const changePercent = (rand() - 0.48) * volatility;
     const open = currentPrice;
     const close = +(open * (1 + changePercent)).toFixed(2);
-    const high = +(Math.max(open, close) + Math.random() * (open * volatility * 0.7)).toFixed(2);
-    const low = +(Math.min(open, close) - Math.random() * (open * volatility * 0.7)).toFixed(2);
-    const volume = Math.floor(Math.random() * 8000 + 2000);
+    const high = +(Math.max(open, close) + rand() * (open * volatility * 0.7)).toFixed(2);
+    const low = +(Math.min(open, close) - rand() * (open * volatility * 0.7)).toFixed(2);
+    const volume = Math.floor(rand() * 8000 + 2000);
 
     data.push({
       time: dateStr,
@@ -109,6 +124,8 @@ export default function MarketAnalyticsTerminal() {
   const [isLiveStreaming, setIsLiveStreaming] = useState(true);
   const [isChartVisible, setIsChartVisible] = useState(false);
   const [currentHoverPrice, setCurrentHoverPrice] = useState(null);
+  const [livePrice, setLivePrice] = useState(null);
+  const liveCandleRef = useRef(null);
 
   // Suspend simulator when chart is off-screen to preserve CPU cycles
   useEffect(() => {
@@ -132,7 +149,7 @@ export default function MarketAnalyticsTerminal() {
   // Cached asset datasets
   const dataset = useMemo(() => {
     const config = ASSET_CONFIGS[selectedAsset];
-    const { candleData, volumeData } = generateHistoricalData(config.basePrice, config.volatility, 100);
+    const { candleData, volumeData } = generateHistoricalData(selectedAsset, config.basePrice, config.volatility, 100);
     const ema20 = calculateEMA(candleData, 20);
     const ema50 = calculateEMA(candleData, 50);
     const last = candleData[candleData.length - 1];
@@ -148,6 +165,11 @@ export default function MarketAnalyticsTerminal() {
       change,
     };
   }, [selectedAsset]);
+
+  // Reset cumulative live candle ref when asset changes
+  useEffect(() => {
+    liveCandleRef.current = { ...dataset.lastCandle };
+  }, [dataset]);
 
   // Initializing TradingView Lightweight Chart
   useEffect(() => {
@@ -208,16 +230,20 @@ export default function MarketAnalyticsTerminal() {
     chartInstanceRef.current = chart;
 
     // Volume Series
-    const volumeSeries = chart.addSeries(HistogramSeries, {
-      priceFormat: { type: 'volume' },
-      priceScaleId: '', // overlay
-      scaleMargins: {
-        top: 0.8,
-        bottom: 0,
-      },
-    });
-    volumeSeries.setData(dataset.volumeData);
-    volumeSeriesRef.current = volumeSeries;
+    if (showVolume) {
+      const volumeSeries = chart.addSeries(HistogramSeries, {
+        priceFormat: { type: 'volume' },
+        priceScaleId: '', // overlay
+        scaleMargins: {
+          top: 0.8,
+          bottom: 0,
+        },
+      });
+      volumeSeries.setData(dataset.volumeData);
+      volumeSeriesRef.current = volumeSeries;
+    } else {
+      volumeSeriesRef.current = null;
+    }
 
     // Main Series
     if (chartType === 'candlestick') {
@@ -294,25 +320,27 @@ export default function MarketAnalyticsTerminal() {
       chart.remove();
       chartInstanceRef.current = null;
     };
-  }, [selectedAsset, chartType, showEMA, dataset]);
+  }, [selectedAsset, chartType, showEMA, showVolume, dataset]);
 
-  // Live Micro-Tick Simulation (simulates institutional live socket ticks only when in viewport)
+  // Live Micro-Tick Simulation (cumulative ticks when in viewport)
   useEffect(() => {
     if (!isLiveStreaming || !isChartVisible) return;
 
     const interval = setInterval(() => {
-      if (!chartInstanceRef.current) return;
+      if (!chartInstanceRef.current || !liveCandleRef.current) return;
       const mainSeries = candleSeriesRef.current || areaSeriesRef.current;
       if (!mainSeries) return;
 
-      const last = { ...dataset.lastCandle };
-      const microShift = (Math.random() - 0.49) * (last.close * 0.001);
+      const last = liveCandleRef.current;
+      const microShift = (Math.random() - 0.49) * (last.close * 0.0012);
       last.close = +(last.close + microShift).toFixed(2);
       last.high = +(Math.max(last.high, last.close)).toFixed(2);
       last.low = +(Math.min(last.low, last.close)).toFixed(2);
 
+      setLivePrice(last.close);
+
       if (chartType === 'candlestick' && candleSeriesRef.current) {
-        candleSeriesRef.current.update(last);
+        candleSeriesRef.current.update({ ...last });
       } else if (chartType === 'area' && areaSeriesRef.current) {
         areaSeriesRef.current.update({ time: last.time, value: last.close });
       }
@@ -321,7 +349,7 @@ export default function MarketAnalyticsTerminal() {
     return () => clearInterval(interval);
   }, [isLiveStreaming, isChartVisible, chartType, dataset]);
 
-  const activePrice = currentHoverPrice || dataset.lastCandle.close;
+  const activePrice = currentHoverPrice ?? livePrice ?? dataset.lastCandle.close;
   const isPositive = dataset.change >= 0;
   const config = ASSET_CONFIGS[selectedAsset];
 
@@ -338,7 +366,11 @@ export default function MarketAnalyticsTerminal() {
             {Object.keys(ASSET_CONFIGS).map((pair) => (
               <button
                 key={pair}
-                onClick={() => setSelectedAsset(pair)}
+                onClick={() => {
+                  setSelectedAsset(pair);
+                  setLivePrice(null);
+                  setCurrentHoverPrice(null);
+                }}
                 className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[11px] sm:text-xs font-mono font-medium transition-all ${
                   selectedAsset === pair
                     ? 'bg-emerald-500 text-black shadow-[0_0_15px_rgba(16,185,129,0.4)] font-bold'
@@ -413,6 +445,18 @@ export default function MarketAnalyticsTerminal() {
               EMA 20/50
             </button>
 
+            {/* Volume Overlay Toggle */}
+            <button
+              onClick={() => setShowVolume((prev) => !prev)}
+              className={`px-2 py-1 rounded-lg text-[11px] font-mono border transition-all ${
+                showVolume
+                  ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300'
+                  : 'border-white/10 text-neutral-500 hover:text-neutral-300'
+              }`}
+            >
+              VOL
+            </button>
+
             {/* Live Tick Status Toggle */}
             <button
               onClick={() => setIsLiveStreaming((prev) => !prev)}
@@ -427,13 +471,13 @@ export default function MarketAnalyticsTerminal() {
                   isLiveStreaming ? 'bg-emerald-400 animate-ping' : 'bg-neutral-600'
                 }`}
               />
-              <span className="hidden sm:inline">{isLiveStreaming ? 'LIVE FEED' : 'PAUSED'}</span>
+              <span className="hidden sm:inline">{isLiveStreaming ? 'SIMULATED FEED' : 'PAUSED'}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* ── Subheader Indicator Legend ── */}
+      {/* ── Subheader Indicator Legend & Quant Metrics ── */}
       <div className="px-3 sm:px-5 py-2 bg-neutral-950/40 border-b border-white/5 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-neutral-400">
         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
           <span className="flex items-center gap-1.5">
@@ -444,10 +488,13 @@ export default function MarketAnalyticsTerminal() {
             <span className="w-2.5 h-1 bg-[#10b981] rounded-full" />
             EMA 50 (Emerald)
           </span>
+          <span className="hidden sm:inline text-neutral-500">|</span>
+          <span className="text-emerald-400/90">Sharpe: {config.sharpe}</span>
+          <span className="text-sky-400/90">Corr: {config.correlation}</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[10px] text-neutral-400 uppercase tracking-widest hidden sm:inline">
-            TradingView Lightweight Charts™ v5 Engine
+            Simulated Quant Feed • TradingView Engine
           </span>
         </div>
       </div>
@@ -460,14 +507,14 @@ export default function MarketAnalyticsTerminal() {
       {/* ── Footer Stats Grid ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-white/10 bg-black/60 divide-x divide-white/5 font-mono text-xs">
         <div className="p-3 px-5 flex flex-col">
-          <span className="text-[10px] text-neutral-400 uppercase">24H High</span>
+          <span className="text-[10px] text-neutral-400 uppercase">20D High</span>
           <span className="text-white font-semibold">
             {config.unit === '$' && '$'}
             {Math.max(...dataset.candleData.slice(-20).map((d) => d.high)).toLocaleString()}
           </span>
         </div>
         <div className="p-3 px-5 flex flex-col">
-          <span className="text-[10px] text-neutral-400 uppercase">24H Low</span>
+          <span className="text-[10px] text-neutral-400 uppercase">20D Low</span>
           <span className="text-white font-semibold">
             {config.unit === '$' && '$'}
             {Math.min(...dataset.candleData.slice(-20).map((d) => d.low)).toLocaleString()}

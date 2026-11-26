@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function RadicalTransparency() {
   return (
-    <section id="notion-journal" className="relative">
+    <section id="notion-journal" className="relative scroll-mt-24">
       <div className="absolute inset-0 bg-bullish/5 blur-[100px] rounded-full pointer-events-none" />
       
       <div className="relative glass-card p-5 sm:p-8 md:p-12 lg:p-16 border-bullish/20 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-12 rounded-xl md:rounded-2xl overflow-hidden">
@@ -35,6 +35,8 @@ export default function RadicalTransparency() {
           
           <a 
             href="https://vanilla-tin-877.notion.site/Financial-Market-Research-Portofolio-Devian-Wahyu-Nugroho-2f76900a9bdf8080844eebffdaafc170?source=copy_link" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-8 sm:py-3.5 bg-bullish text-black font-bold text-xs sm:text-sm md:text-base rounded-lg hover:bg-[#3de069] transition-all duration-300 hover:shadow-[0_0_30px_rgba(80,250,123,0.3)]"
           >
             Access The Notion Log
@@ -70,8 +72,9 @@ export default function RadicalTransparency() {
               <span style={{ color: '#94A3B8' }}>MAX_DRAWDOWN</span>
               <span className="text-red-400" style={{ color: '#F87171' }}>-4.2%</span>
             </div>
-            <div className="mt-3 pt-3 sm:mt-4 sm:pt-4 border-t border-border/50" style={{ color: '#64748B' }}>
-              {">"} SYSTEM_SYNC: ONLINE
+            <div className="mt-3 pt-3 sm:mt-4 sm:pt-4 border-t border-border/50 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] text-neutral-400">
+              <span>{">"} SYSTEM_SYNC: ONLINE</span>
+              <span className="text-emerald-400/90">N=140+ Audited Setups (2024–2026)</span>
             </div>
           </div>
         </motion.div>

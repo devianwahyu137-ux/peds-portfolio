@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Database, Cpu, Activity, ShieldCheck, Zap, GitCommit, Layers } from 'lucide-react';
+import { Database, Cpu, Activity, ShieldCheck } from 'lucide-react';
 
 export default function HeroAnimatedBeam() {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  );
 
   useEffect(() => {
     const touchQuery = window.matchMedia('(hover: none) and (pointer: coarse)');
-    setIsTouchDevice(touchQuery.matches);
     const handler = (e) => setIsTouchDevice(e.matches);
     touchQuery.addEventListener?.('change', handler);
     return () => touchQuery.removeEventListener?.('change', handler);
@@ -19,7 +20,7 @@ export default function HeroAnimatedBeam() {
       label: 'MACRO_FEED',
       sub: 'US10Y / SBN 6.8%',
       icon: Database,
-      pos: 'top-4 -left-6 lg:top-2 lg:-left-12',
+      pos: 'top-8 left-2 lg:top-10 lg:left-0',
       color: 'emerald',
       delay: 0,
     },
@@ -28,7 +29,7 @@ export default function HeroAnimatedBeam() {
       label: 'QUANT_ENGINE',
       sub: 'MPT / Risk Matrix',
       icon: Cpu,
-      pos: 'top-32 -right-4 lg:top-28 lg:-right-10',
+      pos: 'top-36 right-2 lg:top-32 lg:-right-4',
       color: 'emerald',
       delay: 0.8,
     },
@@ -37,7 +38,7 @@ export default function HeroAnimatedBeam() {
       label: 'ORDER_FLOW',
       sub: 'Low Latency <4ms',
       icon: Activity,
-      pos: 'bottom-24 -left-6 lg:bottom-20 lg:-left-10',
+      pos: 'bottom-28 left-2 lg:bottom-24 lg:left-0',
       color: 'emerald',
       delay: 1.6,
     },
@@ -46,14 +47,14 @@ export default function HeroAnimatedBeam() {
       label: 'SYSTEM_AUDIT',
       sub: 'Audited PnL Log',
       icon: ShieldCheck,
-      pos: 'bottom-6 -right-2 lg:bottom-4 lg:-right-8',
+      pos: 'bottom-12 right-2 lg:bottom-12 lg:-right-2',
       color: 'emerald',
       delay: 2.4,
     },
   ];
 
   return (
-    <div className="absolute inset-0 -m-8 pointer-events-none overflow-visible z-0 select-none">
+    <div className="absolute inset-0 pointer-events-none overflow-visible z-0 select-none">
       {/* ── Background Cyber Radar Circles ── */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[440px] lg:w-[500px] h-[340px] sm:h-[440px] lg:h-[500px] pointer-events-none">
         {/* Outer dotted radar ring */}

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Play, X, ExternalLink, BookOpen, Clock, ShieldCheck, Cpu, ArrowUpRight, MonitorPlay, BarChart3 } from 'lucide-react';
+import { Play, X, ExternalLink, BookOpen, Clock, ShieldCheck, ArrowUpRight, MonitorPlay } from 'lucide-react';
 import BorderBeam from './BorderBeam';
 
 // 3D Card Hover Container (High-performance optimized)
@@ -66,7 +66,7 @@ export default function ContentHub() {
       tag: "PDS-001 | FOUNDATION",
       duration: "14:20",
       views: "Institutional Tape Reading",
-      confidence: "98.2%"
+      series: "Series Ep. 01"
     },
     {
       id: "8HEU5I7qRNM",
@@ -75,7 +75,7 @@ export default function ContentHub() {
       tag: "PDS-002 | TACTICAL",
       duration: "18:45",
       views: "Risk Management Matrix",
-      confidence: "96.5%"
+      series: "Series Ep. 02"
     },
     {
       id: "rm8YgeCLcaI",
@@ -84,7 +84,7 @@ export default function ContentHub() {
       tag: "PDS-003 | INTELLIGENCE",
       duration: "21:10",
       views: "On-Chain & Order Flow",
-      confidence: "99.1%"
+      series: "Series Ep. 03"
     }
   ];
 
@@ -99,7 +99,7 @@ export default function ContentHub() {
       label: "Institutional Deep-Dive (ENG)",
       link: "https://substack.com/@pedsanalysis/note/c-245342784?r=399xyt&utm_source=notes-share-action&utm_medium=web",
       isFeatured: true,
-      confidence: "98.4%",
+      focus: "Macro Clearing",
       macroDepth: "Tier-1 Sovereign",
       beamColorFrom: "#10b981",
       beamColorTo: "#38bdf8"
@@ -114,7 +114,7 @@ export default function ContentHub() {
       label: "Institutional Deep-Dive (ENG)",
       link: "https://substack.com/@pedsanalysis/note/c-251401558?r=399xyt&utm_source=notes-share-action&utm_medium=web",
       isFeatured: true,
-      confidence: "95.8%",
+      focus: "Liquidity Structure",
       macroDepth: "On-Chain & Macro",
       beamColorFrom: "#a855f7",
       beamColorTo: "#10b981"
@@ -129,7 +129,7 @@ export default function ContentHub() {
       label: "Market Insights (IDN)",
       link: "https://medium.com/@devianwahyu137/mengapa-rupiah-menyentuh-rp17-000-d4942c191db9",
       isFeatured: false,
-      confidence: "94.2%",
+      focus: "FX & Sovereign Yields",
       macroDepth: "Domestic Fiscal & FX",
       beamColorFrom: "#10b981",
       beamColorTo: "#50fa7b"
@@ -146,7 +146,7 @@ export default function ContentHub() {
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <p className="text-red-400 font-mono text-xs uppercase tracking-[0.25em]">
-                Video Intelligence • 3D Card Architecture
+                Video Intelligence • Market Breakdowns
               </p>
             </div>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
@@ -167,11 +167,19 @@ export default function ContentHub() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-          {videos.map((video, idx) => (
+          {videos.map((video) => (
             <TiltCard key={video.id} className="h-full">
               <div
+                role="button"
+                tabIndex={0}
                 onClick={() => setActiveVideo(video.id)}
-                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-row md:flex-col justify-between items-stretch"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setActiveVideo(video.id);
+                  }
+                }}
+                className="group relative h-full rounded-xl md:rounded-2xl overflow-hidden bg-neutral-950/92 border border-white/10 shadow-lg transition-all duration-500 hover:border-red-500/40 hover:shadow-[0_0_35px_rgba(239,68,68,0.15)] cursor-pointer flex flex-row md:flex-col justify-between items-stretch focus:outline-none focus:ring-2 focus:ring-red-500/50"
               >
                 {/* Media Thumbnail Container: Compact landscape on mobile, 16:9 on desktop */}
                 <div className="relative w-36 xs:w-40 sm:w-48 md:w-full aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-neutral-900 shrink-0">
@@ -204,10 +212,7 @@ export default function ContentHub() {
                 {/* Content Details */}
                 <div className="p-3 sm:p-4 md:p-5 flex flex-col justify-between flex-1 min-w-0">
                   <div>
-                    <h3 
-                      className="font-display font-bold text-xs sm:text-sm md:text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-1.5 md:mb-3"
-                      style={{ color: '#FFFFFF' }}
-                    >
+                    <h3 className="font-display font-bold text-xs sm:text-sm md:text-base text-white group-hover:text-red-300 transition-colors line-clamp-2 leading-snug mb-1.5 md:mb-3">
                       {video.title}
                     </h3>
                   </div>
@@ -216,7 +221,7 @@ export default function ContentHub() {
                   <div className="pt-2 md:pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[9px] md:text-[10px] text-neutral-300">
                     <span className="flex items-center gap-1 text-emerald-400 truncate">
                       <ShieldCheck className="w-3 h-3 md:w-3.5 md:h-3.5 shrink-0" />
-                      <span>{video.confidence}</span>
+                      <span>{video.series}</span>
                     </span>
                     <span className="text-neutral-400 uppercase truncate ml-2 text-right">
                       {video.views}
@@ -229,14 +234,14 @@ export default function ContentHub() {
         </div>
       </div>
 
-      {/* ══ Area 2: Research Reports (3D Tilt + Magic UI Border Beam) ══ */}
+      {/* ══ Area 2: Research Reports ══ */}
       <div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8 md:mb-10">
           <div>
             <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <p className="text-emerald-400 font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em]">
-                Institutional Research • Magic UI Border Beam
+                Institutional Research • Macro & Policy Memos
               </p>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-bold text-white tracking-tight">
@@ -304,7 +309,7 @@ export default function ContentHub() {
                       MACRO: <strong className="text-white font-medium">{report.macroDepth}</strong>
                     </span>
                     <span className="text-emerald-400 font-semibold shrink-0 ml-2">
-                      CONFIDENCE: {report.confidence}
+                      FOCUS: {report.focus}
                     </span>
                   </div>
 
@@ -346,6 +351,7 @@ export default function ContentHub() {
                 <span className="font-mono text-xs text-neutral-300">Market Brief Dispatch</span>
                 <button
                   onClick={() => setActiveVideo(null)}
+                  aria-label="Close video player"
                   className="p-1 rounded-md text-neutral-400 hover:text-white transition-colors"
                 >
                   <X className="w-4 h-4" />

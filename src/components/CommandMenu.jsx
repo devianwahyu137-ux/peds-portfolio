@@ -7,8 +7,9 @@ import {
   Activity, 
   FileText, 
   ExternalLink, 
-  Compass, 
-  Layers, 
+  Trophy, 
+  MonitorPlay, 
+  Globe, 
   Mail, 
   X,
   ArrowRight
@@ -41,7 +42,7 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: 'auto', block: 'start' });
     }
   };
 
@@ -82,6 +83,7 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
                 />
                 <button
                   onClick={() => setIsOpen(false)}
+                  aria-label="Close Command Palette"
                   className="p-1 rounded-md text-neutral-400 hover:text-white transition-colors"
                 >
                   <X className="w-4 h-4" />
@@ -142,6 +144,39 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
                     </div>
                     <span className="text-[10px] text-neutral-400">Jump to #contact</span>
                   </Command.Item>
+
+                  <Command.Item
+                    onSelect={() => handleAction(() => scrollTo('milestones'))}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Trophy className="w-4 h-4 text-emerald-400" />
+                      <span>Market Validation & Milestones</span>
+                    </div>
+                    <span className="text-[10px] text-neutral-400">Jump to #milestones</span>
+                  </Command.Item>
+
+                  <Command.Item
+                    onSelect={() => handleAction(() => scrollTo('market-briefs'))}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <MonitorPlay className="w-4 h-4 text-emerald-400" />
+                      <span>Market Briefs & Research Reports</span>
+                    </div>
+                    <span className="text-[10px] text-neutral-400">Jump to #market-briefs</span>
+                  </Command.Item>
+
+                  <Command.Item
+                    onSelect={() => handleAction(() => scrollTo('social-hub'))}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Globe className="w-4 h-4 text-emerald-400" />
+                      <span>Institutional Network & Socials</span>
+                    </div>
+                    <span className="text-[10px] text-neutral-400">Jump to #social-hub</span>
+                  </Command.Item>
                 </Command.Group>
 
                 {/* Group: Institutional Resources & Downloads */}
@@ -150,7 +185,7 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
                   className="px-2 pt-3 pb-1.5 text-[10px] uppercase tracking-wider text-emerald-500/80 font-semibold"
                 >
                   <Command.Item
-                    onSelect={() => handleAction(() => window.open('/CV%20Devian%20Wahyu%20Nugroho.pdf', '_blank'))}
+                    onSelect={() => handleAction(() => window.open('/CV_Devian_Wahyu_Nugroho.pdf', '_blank'))}
                     className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
                   >
                     <div className="flex items-center gap-3">
@@ -167,6 +202,28 @@ export default function CommandMenu({ isOpen, setIsOpen }) {
                     <div className="flex items-center gap-3">
                       <ExternalLink className="w-4 h-4 text-emerald-400" />
                       <span>Inspect Audited Notion Research Log</span>
+                    </div>
+                    <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                  </Command.Item>
+
+                  <Command.Item
+                    onSelect={() => handleAction(() => window.open('https://tesislab-rho.vercel.app/', '_blank'))}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <ExternalLink className="w-4 h-4 text-emerald-400" />
+                      <span>Open TesisLab Financial Audit Engine</span>
+                    </div>
+                    <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
+                  </Command.Item>
+
+                  <Command.Item
+                    onSelect={() => handleAction(() => window.open('https://meridian-market-intelligence-ivory.vercel.app/', '_blank'))}
+                    className="flex items-center justify-between px-3 py-2.5 rounded-xl text-neutral-200 cursor-pointer hover:bg-emerald-500/15 hover:text-emerald-300 aria-selected:bg-emerald-500/15 aria-selected:text-emerald-300 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <ExternalLink className="w-4 h-4 text-emerald-400" />
+                      <span>Open Meridian Market Intelligence</span>
                     </div>
                     <ArrowRight className="w-3.5 h-3.5 text-neutral-400" />
                   </Command.Item>

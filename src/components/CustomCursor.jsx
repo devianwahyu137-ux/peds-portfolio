@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function CustomCursor() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isViewMode, setIsViewMode] = useState(false);
   const outerRef = useRef(null);
   const innerRef = useRef(null);
   const pos = useRef({ x: -100, y: -100 });
@@ -18,8 +19,12 @@ export default function CustomCursor() {
     checkMobile();
     window.addEventListener('resize', checkMobile, { passive: true });
 
-    if (isMobile) return () => window.removeEventListener('resize', checkMobile);
+    if (isMobile) {
+      document.body.classList.remove('custom-cursor-active');
+      return () => window.removeEventListener('resize', checkMobile);
+    }
 
+    document.body.classList.add('custom-cursor-active');
     let isAnimating = false;
 
     const onMove = (e) => {
@@ -43,24 +48,22 @@ export default function CustomCursor() {
         raf.current = requestAnimationFrame(animate);
       }
 
-      // Check for custom cursor state only when target changes
       const hoverEl = e.target && e.target.closest ? e.target.closest('[data-cursor]') : null;
       const targetState = hoverEl ? hoverEl.getAttribute('data-cursor') : 'default';
 
       if (targetState !== cursorState.current) {
         cursorState.current = targetState;
+        setIsViewMode(targetState === 'view');
         if (outerRef.current && innerRef.current) {
           if (targetState === 'view') {
             outerRef.current.style.width = '56px';
             outerRef.current.style.height = '56px';
             outerRef.current.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
-            outerRef.current.innerHTML = '<span style="font-size: 9px; font-weight: 700; letter-spacing: 0.1em; color: #10b981;">VIEW</span>';
             innerRef.current.style.opacity = '0';
           } else {
             outerRef.current.style.width = '32px';
             outerRef.current.style.height = '32px';
             outerRef.current.style.backgroundColor = 'transparent';
-            outerRef.current.innerHTML = '';
             innerRef.current.style.opacity = '1';
           }
         }
@@ -70,6 +73,7 @@ export default function CustomCursor() {
     const onLeave = () => {
       visible.current = false;
       cursorState.current = 'default';
+      setIsViewMode(false);
       if (outerRef.current) outerRef.current.style.opacity = '0';
       if (innerRef.current) innerRef.current.style.opacity = '0';
     };
@@ -96,6 +100,7 @@ export default function CustomCursor() {
     document.body.addEventListener('mouseleave', onLeave);
 
     return () => {
+      document.body.classList.remove('custom-cursor-active');
       window.removeEventListener('resize', checkMobile);
       window.removeEventListener('mousemove', onMove);
       document.body.removeEventListener('mouseleave', onLeave);
@@ -107,10 +112,9 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ring — trails cursor with smooth lerp */}
       <div
         ref={outerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[100] flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[300] flex items-center justify-center"
         style={{
           width: 32,
           height: 32,
@@ -121,11 +125,17 @@ export default function CustomCursor() {
           transition: 'opacity 0.2s, width 0.15s, height 0.15s, background-color 0.15s',
           willChange: 'transform',
         }}
-      />
+      >
+        {isViewMode && (
+          <span className="text-[9px] font-bold tracking-[0.1em] text-emerald-400">
+            VIEW
+          </span>
+        )}
+      </div>
       {/* Inner dot — follows cursor exactly */}
       <div
         ref={innerRef}
-        className="fixed top-0 left-0 pointer-events-none z-[100]"
+        className="fixed top-0 left-0 pointer-events-none z-[300]"
         style={{
           width: 4,
           height: 4,

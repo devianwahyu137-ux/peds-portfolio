@@ -5,8 +5,7 @@ import {
   MonitorPlay, 
   ArrowUpRight, 
   BookOpen, 
-  Code2, 
-  Sparkles
+  Code2
 } from 'lucide-react';
 
 function LinkedInIcon({ className }) {
@@ -213,10 +212,7 @@ export default function SocialHub() {
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div className="min-w-0">
-                    <h3 
-                      className="font-display font-bold text-xs sm:text-base md:text-xl text-white tracking-tight truncate"
-                      style={{ color: '#FFFFFF' }}
-                    >
+                    <h3 className="font-display font-bold text-xs sm:text-base md:text-xl text-white tracking-tight truncate">
                       {p.name}
                     </h3>
                     <p className={`font-mono text-[10px] sm:text-xs ${p.textAccent} font-medium mt-0.5 truncate`}>
@@ -226,10 +222,7 @@ export default function SocialHub() {
                 </div>
 
                 {/* Description (Visible on sm+ or always visible on full-width highlight) */}
-                <p 
-                  className={`${p.isFullWidth ? 'block' : 'hidden sm:block'} text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mt-2`}
-                  style={{ color: '#CBD5E1' }}
-                >
+                <p className={`${p.isFullWidth ? 'block' : 'hidden sm:block'} text-xs sm:text-sm text-neutral-300 leading-relaxed font-body mt-2`}>
                   {p.desc}
                 </p>
               </div>

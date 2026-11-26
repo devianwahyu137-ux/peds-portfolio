@@ -9,7 +9,6 @@ export default function BorderBeam({
   colorFrom = '#10b981',
   colorTo = '#38bdf8',
   borderWidth = 1.5,
-  size = 140,
 }) {
   const containerRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
